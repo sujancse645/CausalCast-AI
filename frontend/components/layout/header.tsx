@@ -5,6 +5,7 @@ import { useSystemStatus } from "@/hooks/use-system-status";
 
 const titles: Record<string, string> = {
   "/dashboard": "Executive Dashboard",
+  "/data-intelligence": "Data Intelligence",
   "/forecasts": "Revenue Forecasts",
   "/causal-intelligence": "Causal Intelligence",
   "/scenario-lab": "Scenario Lab",

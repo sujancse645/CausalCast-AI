@@ -22,6 +22,12 @@ export function SystemReadiness() {
       system?.database.status ??
         (state === "checking" ? "Checking" : "Unavailable"),
     ],
+    [
+      "Data Ingestion",
+      system?.modules.data_intelligence === "ingestion_ready"
+        ? "Operational"
+        : "Planned",
+    ],
     ["Forecasting Engine", "Planned"],
     ["Causal Engine", "Planned"],
     ["Scenario Engine", "Planned"],

@@ -2,6 +2,16 @@
 
 All notable project changes are documented here.
 
+## 0.2.0 — 2026-07-15
+
+### Phase 2A — Secure Dataset Ingestion
+
+- Added streamed, size-bounded CSV ingestion with UUID filenames, SHA-256 deduplication, encoding/delimiter validation, strict structural parsing, and cleanup on failure.
+- Added the governed Dataset model, Alembic migration, technical metadata persistence, bounded preview metadata, pagination, details, statistics, and reversible archive flow.
+- Added the Data Intelligence upload workspace, dataset library, details/preview panel, accessible validation states, and real dashboard dataset summary.
+- Added isolated storage/database tests, synthetic demonstration data, persistent Docker storage configuration, migration CI verification, environment settings, and governance documentation.
+- CSV is the only supported format; XLSX, schema inference, quality analysis, and transformations remain out of scope.
+
 ## 0.1.0 — 2026-07-15
 
 ### Phase 1 — Foundation

@@ -2,6 +2,7 @@ import { Bot, Check, Clock3, TrendingUp } from "lucide-react";
 import { channels, kpis, phases } from "@/lib/demo-data";
 import { ForecastChart } from "./forecast-chart";
 import { SystemReadiness } from "./system-readiness";
+import { DatasetSummary } from "./dataset-summary";
 export function Dashboard() {
   return (
     <div className="space-y-6">
@@ -23,6 +24,7 @@ export function Dashboard() {
           </article>
         ))}
       </section>
+      <DatasetSummary />
       <div className="grid gap-6 xl:grid-cols-[1.7fr_1fr]">
         <ForecastChart />
         <SystemReadiness />

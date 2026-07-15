@@ -11,9 +11,11 @@ jobs:
         with: { python-version: "3.11", cache: pip }
       - run: pip install -r backend/requirements-dev.txt
       - working-directory: backend
-        run: ruff format --check .
+        run: alembic upgrade head
       - working-directory: backend
-        run: ruff check .
+        run: ruff format --no-cache --check .
+      - working-directory: backend
+        run: ruff check --no-cache .
       - working-directory: backend
         run: mypy app
       - working-directory: backend

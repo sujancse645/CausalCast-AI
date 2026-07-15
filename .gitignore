@@ -19,6 +19,13 @@ data/raw/*
 data/processed/*
 data/synthetic/*
 !data/**/.gitkeep
+!data/synthetic/sample_marketing_data.csv
+data/raw/uploads/*
+data/raw/quarantine/*
+data/raw/archived/*
+!data/raw/uploads/.gitkeep
+!data/raw/quarantine/.gitkeep
+!data/raw/archived/.gitkeep
 reports/
 coverage/
 .coverage

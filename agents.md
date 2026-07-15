@@ -12,3 +12,8 @@
 10. Document every unresolved issue explicitly.
 11. Update `CHANGELOG.md` after each completed phase.
 12. Before finishing a phase, run backend tests, frontend tests, lint, type checks, and production build.
+13. Treat every uploaded file as untrusted; ingestion must be streaming, bounded, and format-validated.
+14. Dataset identifiers exposed outside the backend must be collision-resistant public UUIDs.
+15. Never expose internal storage paths, temporary names, or server filesystem details through APIs.
+16. Raw datasets are immutable and must never be committed; transformations create traceable derived versions.
+17. Future schema inference and analysis must preserve lineage and must not modify raw files.

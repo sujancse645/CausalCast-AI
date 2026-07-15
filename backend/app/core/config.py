@@ -1,4 +1,5 @@
 from functools import lru_cache
+from pathlib import Path
 from typing import Literal
 
 from pydantic import field_validator, model_validator
@@ -16,14 +17,33 @@ class Settings(BaseSettings):
     database_url: str = "sqlite:///./causalcast.db"
     cors_origins: list[str] = ["http://localhost:3000"]
     log_level: str = "INFO"
+    dataset_storage_root: Path = Path("../data/raw")
+    dataset_upload_dir: str = "uploads"
+    dataset_quarantine_dir: str = "quarantine"
+    dataset_archive_dir: str = "archived"
+    max_upload_size_mb: int = 25
+    allowed_dataset_extensions: list[str] = ["csv"]
+    dataset_preview_rows: int = 20
+    dataset_max_columns: int = 500
+    dataset_max_rows_for_preview_scan: int = 10000
+    dataset_ingestion_version: int = 1
+    dataset_delete_mode: Literal["archive"] = "archive"
+    dataset_max_cell_length: int = 500
 
     model_config = SettingsConfigDict(env_file=".env", extra="ignore", case_sensitive=False)
 
-    @field_validator("cors_origins", mode="before")
+    @field_validator("cors_origins", "allowed_dataset_extensions", mode="before")
     @classmethod
     def parse_origins(cls, value: object) -> object:
         if isinstance(value, str) and not value.lstrip().startswith("["):
             return [item.strip() for item in value.split(",") if item.strip()]
+        return value
+
+    @field_validator("max_upload_size_mb", "dataset_preview_rows", "dataset_max_columns")
+    @classmethod
+    def positive_limits(cls, value: int) -> int:
+        if value < 1:
+            raise ValueError("Dataset limits must be positive")
         return value
 
     @model_validator(mode="after")

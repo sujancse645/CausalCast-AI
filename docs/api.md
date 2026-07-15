@@ -28,3 +28,17 @@ Returns HTTP 200 while the database is reachable and HTTP 503 with `status: degr
 ```
 
 Unknown routes return FastAPI's typed JSON 404 response. Interactive OpenAPI documentation is at `/docs`; ReDoc is at `/redoc`.
+
+## Dataset ingestion endpoints
+
+`POST /api/v1/datasets/upload` accepts one multipart field named `file`. Successful CSV ingestion returns HTTP 201 with the public UUID, normalized original filename, size, SHA-256, row/column counts, ordered headers, delimiter, encoding, status, timestamps, warnings, and at most the configured preview rows. Internal filenames and storage paths are never returned.
+
+```powershell
+curl.exe -F "file=@data/synthetic/sample_marketing_data.csv;type=text/csv" http://localhost:8000/api/v1/datasets/upload
+```
+
+`GET /api/v1/datasets?page=1&page_size=20&status=ready&search=marketing&sort=newest` returns `items` plus pagination metadata. Page size is limited to 100.
+
+`GET /api/v1/datasets/stats` returns the real active count, latest active filename/time, and ingestion status. `GET /api/v1/datasets/{dataset_id}` returns technical metadata. `GET /api/v1/datasets/{dataset_id}/preview?limit=10` returns a bounded ordered preview; archived datasets return 404 for preview. `DELETE /api/v1/datasets/{dataset_id}` moves the raw file to archive storage and returns the archived status and deletion time.
+
+Common errors are typed JSON: 400 empty/invalid header, 409 duplicate checksum with `existing_dataset_id`, 413 streamed size limit, 415 extension/MIME mismatch, 422 malformed CSV structure, 404 unknown/archived resource, and a safe generic 500 for persistence/storage failure.
