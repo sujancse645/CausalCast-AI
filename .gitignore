@@ -20,6 +20,7 @@ data/processed/*
 data/synthetic/*
 !data/**/.gitkeep
 !data/synthetic/sample_marketing_data.csv
+!data/synthetic/causalcast_marketing_730_days.csv
 data/raw/uploads/*
 data/raw/quarantine/*
 data/raw/archived/*

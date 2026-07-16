@@ -23,12 +23,15 @@ export function SystemReadiness() {
         (state === "checking" ? "Checking" : "Unavailable"),
     ],
     [
-      "Schema Mapping",
-      system?.modules.data_intelligence === "schema_mapping_ready"
+      "Governed Preparation",
+      system?.modules.data_intelligence === "preparation_ready"
         ? "Operational"
         : "Planned",
     ],
-    ["Forecasting Engine", "Planned"],
+    [
+      "Forecasting Engine",
+      system?.modules.forecasting === "next" ? "Next" : "Planned",
+    ],
     ["Causal Engine", "Planned"],
     ["Scenario Engine", "Planned"],
     ["RAG Copilot", "Planned"],

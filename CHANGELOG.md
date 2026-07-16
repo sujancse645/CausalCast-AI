@@ -1,6 +1,20 @@
 # Changelog
 
+## 2026-07-16 — Phase 2D: Governed Time-Series Preparation
+
+- Added prepared-dataset, feature-lineage, and audit-event persistence with reversible migration `20260716_0005`.
+- Added immutable-source quality gates, semantic aggregation, alignment, leakage-safe historical features, chronological splits, backtest definitions, atomic CSV artifacts, typed APIs, workspaces, tests, and documentation.
+
 All notable project changes are documented here.
+
+## 0.4.0 — 2026-07-16
+
+### Phase 2C — Data Quality Intelligence
+
+- Added a bounded coordinated scanner and deterministic completeness, duplicate, validity, robust-outlier, cardinality, temporal, metric-relationship, and leakage-risk checks.
+- Added reproducible scoring, blocker-aware readiness, versioned reports/findings, history, filters, rule discovery, and aggregate statistics.
+- Added the quality workspace, bounded evidence review, temporal/leakage panels, history, and dataset/dashboard integration.
+- Raw files remain immutable; findings recommend actions but never clean or rewrite data.
 
 ## 0.3.0 — 2026-07-15
 

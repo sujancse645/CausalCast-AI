@@ -19,6 +19,6 @@ export interface SystemInfoResponse {
     | "simulation"
     | "optimization"
     | "rag_copilot",
-    "planned" | "schema_mapping_ready"
+    "planned" | "next" | "preparation_ready"
   >;
 }

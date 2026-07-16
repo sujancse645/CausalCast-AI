@@ -37,6 +37,47 @@ class Settings(BaseSettings):
     schema_inference_version: str = "1.0"
     schema_inference_max_cell_length: int = 200
     schema_inference_max_unique_tracking: int = 10000
+    data_quality_engine_version: str = "1.0"
+    data_quality_max_scan_rows: int = 250000
+    data_quality_sample_rows: int = 10000
+    data_quality_evidence_rows: int = 10
+    data_quality_max_findings_per_rule: int = 100
+    data_quality_missing_warning_threshold: float = 0.05
+    data_quality_missing_error_threshold: float = 0.25
+    data_quality_missing_blocker_threshold: float = 0.60
+    data_quality_duplicate_warning_threshold: float = 0.01
+    data_quality_duplicate_error_threshold: float = 0.10
+    data_quality_outlier_warning_threshold: float = 0.02
+    data_quality_outlier_error_threshold: float = 0.10
+    data_quality_high_cardinality_threshold: float = 0.80
+    data_quality_near_constant_threshold: float = 0.98
+    data_quality_date_parse_threshold: float = 0.95
+    data_quality_temporal_gap_warning_multiplier: float = 2.0
+    data_quality_relationship_tolerance: float = 0.15
+    data_quality_score_blocker_cap: int = 49
+    data_quality_scan_chunk_size: int = 10000
+    preparation_engine_version: str = "1.0"
+    preparation_storage_root: Path = Path("../data/processed")
+    preparation_default_format: Literal["csv"] = "csv"
+    preparation_max_rows: int = 500000
+    preparation_chunk_size: int = 25000
+    preparation_preview_rows: int = 50
+    preparation_min_periods: int = 10
+    preparation_default_frequency: str = "daily"
+    preparation_default_forecast_horizon: int = 30
+    preparation_default_train_ratio: float = 0.70
+    preparation_default_validation_ratio: float = 0.15
+    preparation_default_test_ratio: float = 0.15
+    preparation_min_train_rows: int = 6
+    preparation_min_validation_rows: int = 2
+    preparation_min_test_rows: int = 2
+    preparation_max_lag: int = 90
+    preparation_max_rolling_window: int = 90
+    preparation_max_groups: int = 1000
+    preparation_allow_quality_override: bool = False
+    preparation_default_missing_period_policy: str = "preserve"
+    preparation_default_duplicate_policy: str = "aggregate"
+    preparation_random_seed: int = 42
 
     model_config = SettingsConfigDict(env_file=".env", extra="ignore", case_sensitive=False)
 
@@ -63,6 +104,25 @@ class Settings(BaseSettings):
     def probability_limits(cls, value: float) -> float:
         if not 0 <= value <= 1:
             raise ValueError("Schema confidence settings must be between zero and one")
+        return value
+
+    @field_validator(
+        "data_quality_missing_warning_threshold",
+        "data_quality_missing_error_threshold",
+        "data_quality_missing_blocker_threshold",
+        "data_quality_duplicate_warning_threshold",
+        "data_quality_duplicate_error_threshold",
+        "data_quality_outlier_warning_threshold",
+        "data_quality_outlier_error_threshold",
+        "data_quality_high_cardinality_threshold",
+        "data_quality_near_constant_threshold",
+        "data_quality_date_parse_threshold",
+        "data_quality_relationship_tolerance",
+    )
+    @classmethod
+    def quality_probability_limits(cls, value: float) -> float:
+        if not 0 <= value <= 1:
+            raise ValueError("Data-quality ratio settings must be between zero and one")
         return value
 
     @model_validator(mode="after")

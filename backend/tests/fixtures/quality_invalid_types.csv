@@ -1,0 +1,4 @@
+date,impressions,revenue
+2026-01-01,100,100
+bad-date,-4,oops
+01/03/2026,10,200

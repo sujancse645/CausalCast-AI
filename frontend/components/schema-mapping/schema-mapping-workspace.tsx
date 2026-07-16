@@ -124,6 +124,22 @@ export function SchemaMappingWorkspace({ datasetId }: { datasetId: string }) {
       <Link href="/data-intelligence" className="text-sm text-blue-400">
         ← Return to dataset library
       </Link>
+      {schema && (
+        <Link
+          href={`/data-intelligence/${datasetId}/quality`}
+          className="ml-4 text-sm text-violet-300"
+        >
+          Analyze quality
+        </Link>
+      )}
+      {schema?.status === "confirmed" && (
+        <Link
+          href={`/data-intelligence/${datasetId}/prepare`}
+          className="ml-4 text-sm text-emerald-300"
+        >
+          Prepare dataset
+        </Link>
+      )}
       <header className="flex flex-wrap items-end justify-between gap-4">
         <div>
           <p className="text-xs tracking-[.2em] text-cyan-400 uppercase">

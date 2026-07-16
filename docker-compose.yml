@@ -7,6 +7,7 @@ services:
       DATABASE_URL: sqlite:////data/causalcast.db
       CORS_ORIGINS: http://localhost:3000
       DATASET_STORAGE_ROOT: /data/raw
+      PREPARATION_STORAGE_ROOT: /data/processed
     volumes:
       - backend-data:/data
     ports:

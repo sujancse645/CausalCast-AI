@@ -70,6 +70,30 @@ class SchemaVersionConflictError(DatasetError):
     pass
 
 
+class QualityReportNotFoundError(DatasetError):
+    pass
+
+
+class DatasetNotReadyForQualityAnalysisError(DatasetError):
+    pass
+
+
+class QualityAnalysisError(DatasetError):
+    pass
+
+
+class MissingConfirmedSchemaError(DatasetError):
+    pass
+
+
+class QualityVersionConflictError(DatasetError):
+    pass
+
+
+class UnsupportedQualityOperationError(DatasetError):
+    pass
+
+
 def register_exception_handlers(app: FastAPI) -> None:
     @app.exception_handler(Exception)
     async def unhandled_exception(request: Request, exc: Exception) -> JSONResponse:

@@ -8,7 +8,12 @@ from app.models import (  # noqa: F401
     ApplicationMetadata,
     Dataset,
     DatasetColumnProfile,
+    DatasetQualityFinding,
+    DatasetQualityReport,
     DatasetSchemaProfile,
+    PreparationEvent,
+    PreparedDataset,
+    PreparedFeature,
     SchemaMappingAudit,
 )
 from app.models.base import Base

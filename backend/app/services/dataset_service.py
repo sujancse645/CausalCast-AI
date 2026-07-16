@@ -16,6 +16,8 @@ from app.core.exceptions import (
     UnsupportedDatasetTypeError,
 )
 from app.models.dataset import Dataset, DatasetStatus
+from app.models.preparation import PreparationStatus, PreparedDataset
+from app.models.quality import DatasetQualityReport, QualityReportStatus
 from app.models.schema_profile import DatasetSchemaProfile, SchemaStatus
 from app.schemas.dataset import (
     DatasetArchiveResponse,
@@ -134,10 +136,53 @@ def list_datasets(
         )
     ).all()
     schema_statuses = {dataset_id: status.value for dataset_id, status in schema_rows}
+    quality_rows = db.execute(
+        select(
+            DatasetQualityReport.dataset_id,
+            DatasetQualityReport.readiness_status,
+            DatasetQualityReport.overall_score,
+            DatasetQualityReport.blocker_count,
+        ).where(
+            DatasetQualityReport.dataset_id.in_(dataset_ids),
+            DatasetQualityReport.status == QualityReportStatus.completed,
+        )
+    ).all()
+    quality_statuses = {
+        dataset_id: (status.value, score, blockers) for dataset_id, status, score, blockers in quality_rows
+    }
+    preparation_rows = db.execute(
+        select(
+            PreparedDataset.source_dataset_id,
+            PreparedDataset.status,
+            PreparedDataset.preparation_version,
+            PreparedDataset.readiness_status,
+        ).where(
+            PreparedDataset.source_dataset_id.in_(dataset_ids),
+            PreparedDataset.status.in_([PreparationStatus.completed, PreparationStatus.failed]),
+        )
+    ).all()
+    preparation_statuses = {
+        dataset_id: (status.value, version, readiness.value)
+        for dataset_id, status, version, readiness in preparation_rows
+    }
     return DatasetListResponse(
         items=[
             DatasetSummary.model_validate(item).model_copy(
-                update={"schema_status": schema_statuses.get(item.id, "not_analyzed")}
+                update={
+                    "schema_status": schema_statuses.get(item.id, "not_analyzed"),
+                    "quality_status": quality_statuses.get(item.id, ("not_analyzed", None, 0))[0],
+                    "quality_score": quality_statuses.get(item.id, ("not_analyzed", None, 0))[1],
+                    "quality_blockers": quality_statuses.get(item.id, ("not_analyzed", None, 0))[2],
+                    "preparation_status": preparation_statuses.get(
+                        item.id, ("not_prepared", None, "configuration_required")
+                    )[0],
+                    "preparation_version": preparation_statuses.get(
+                        item.id, ("not_prepared", None, "configuration_required")
+                    )[1],
+                    "preparation_readiness": preparation_statuses.get(
+                        item.id, ("not_prepared", None, "configuration_required")
+                    )[2],
+                }
             )
             for item in items
         ],

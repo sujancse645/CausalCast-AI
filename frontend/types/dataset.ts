@@ -17,6 +17,12 @@ export interface DatasetSummary {
   created_at: string;
   preview_available: boolean;
   schema_status?: string;
+  quality_status?: string;
+  quality_score?: number | null;
+  quality_blockers?: number;
+  preparation_status?: string;
+  preparation_version?: number | null;
+  preparation_readiness?: string;
 }
 export interface DatasetDetail extends DatasetSummary {
   checksum_sha256: string;

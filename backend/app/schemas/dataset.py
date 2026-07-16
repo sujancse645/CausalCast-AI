@@ -25,6 +25,12 @@ class DatasetSummary(BaseModel):
     created_at: datetime
     preview_available: bool
     schema_status: str = "not_analyzed"
+    quality_status: str = "not_analyzed"
+    quality_score: float | None = None
+    quality_blockers: int = 0
+    preparation_status: str = "not_prepared"
+    preparation_version: int | None = None
+    preparation_readiness: str = "configuration_required"
 
 
 class DatasetDetail(DatasetSummary):

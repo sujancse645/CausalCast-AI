@@ -1,5 +1,16 @@
 # API Reference
 
+## Governed preparations
+
+- `POST /api/v1/datasets/{dataset_id}/preparations` validates readiness and creates a versioned artifact.
+- `GET /api/v1/datasets/{dataset_id}/preparations` returns history.
+- `GET /api/v1/preparations/{id}` returns metadata without storage paths.
+- `GET /api/v1/preparations/{id}/preview`, `/features`, and `/splits` return bounded derived contracts.
+- `GET /api/v1/preparations/{id}/download?format=csv` safely streams the UUID-selected artifact.
+- `GET /api/v1/preparations/stats` returns preparation aggregates.
+
+Unconfirmed schemas, stale or blocked quality reports, invalid targets/dates/splits, and excessive lags or groups are rejected without modifying raw data.
+
 Base URL for local development: `http://localhost:8000`. All timestamps use ISO 8601 UTC serialization.
 
 ## `GET /`
@@ -54,3 +65,14 @@ Common errors are typed JSON: 400 empty/invalid header, 409 duplicate checksum w
 - `POST /api/v1/datasets/{dataset_id}/schema/confirm` validates and confirms the active mapping.
 
 Missing resources return `404`, invalid dataset operations `400`, version conflicts `409`, and invalid mappings or confirmation `422`. Responses omit stored filenames and paths.
+
+## Data-quality endpoints
+
+- `POST /api/v1/datasets/{dataset_id}/quality/analyze` creates a versioned report (`201`).
+- `GET /api/v1/datasets/{dataset_id}/quality` returns the active report.
+- `GET /api/v1/datasets/{dataset_id}/quality/history` returns retained versions.
+- `GET /api/v1/datasets/{dataset_id}/quality/findings` filters by category, severity, blocking, and column with pagination.
+- `GET /api/v1/quality/rules` returns stable rule definitions.
+- `GET /api/v1/datasets/quality/stats` returns dashboard aggregates without N+1 requests.
+
+Analysis requires a ready dataset, available immutable raw file, and active schema. Missing schema returns `422`, archived/invalid state `409`, and missing reports `404`. Responses omit stored filenames and paths.

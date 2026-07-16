@@ -1,4 +1,19 @@
-# Phase 1 and Phase 2A Architecture
+# Phase 1–2D Architecture
+
+## Governed preparation pipeline
+
+```mermaid
+flowchart LR
+  Raw[Immutable raw dataset] --> Schema[Confirmed schema]
+  Schema --> Gate[Latest quality gate]
+  Gate --> Aggregate[Semantic aggregation and alignment]
+  Aggregate --> Features[Historical-only features]
+  Features --> Leakage[Availability and leakage validation]
+  Leakage --> Split[Chronological splits and folds]
+  Split --> Artifact[Versioned prepared artifact and manifests]
+```
+
+Preparation verifies the raw SHA-256 checksum, writes artifacts atomically, and records source, schema, quality, transformation, feature, and split lineage. Failed runs clean temporary files and preserve the previous completed version. No transformation mutates raw data or evaluates user expressions.
 
 Phase 1 separates presentation, transport, application service, and persistence concerns. The browser fetches only health and system-readiness resources; demo dashboard values are local and explicitly labeled.
 
@@ -67,3 +82,21 @@ flowchart LR
 ```
 
 Responses expose only truncated samples and bounded statistics. Inference does not log values, expose storage keys, mutate files, execute content, or call external AI. Authentication is deferred; audit actors are `system` and `local_user`.
+
+## Phase 2C quality architecture
+
+One coordinated bounded scan updates column statistics, hashes row fingerprints, parses the primary timeline, and evaluates mapped metric relationships. A centralized registry emits structured findings; deterministic scoring converts persisted severity/category into dimension scores and a blocker-aware readiness decision. Only successful reports supersede history.
+
+```mermaid
+flowchart LR
+  R[Immutable raw dataset] --> S[Reviewed schema]
+  S --> C[Coordinated bounded scanner]
+  C --> Q[Deterministic quality rules]
+  Q --> F[Structured findings]
+  F --> D[Dimension scores]
+  D --> E[Readiness decision]
+  E --> V[Versioned quality report]
+  V --> U[Human review workspace]
+```
+
+Evidence contains counts, ratios, thresholds, aggregate ranges, and capped row indices—not complete records. No mutation, automatic cleaning, formula execution, external AI call, or forecasting claim occurs.

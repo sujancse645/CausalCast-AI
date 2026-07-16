@@ -1,5 +1,11 @@
 # CausalCast AI
 
+## Phase 2D — Governed Time-Series Preparation
+
+Phase 2D converts immutable CSV uploads into versioned prepared CSV artifacts after confirmed-schema and data-quality gates. The deterministic pipeline aligns hourly, daily, weekly, monthly, or quarterly periods; applies semantic aggregation; records duplicate and generated periods; creates shifted target lags and rolling features; adds calendar and trend features; excludes unsafe same-period target-derived metrics; and assigns chronological train, validation, test, and expanding-window fold boundaries.
+
+Artifacts and JSON manifests are private under `data/processed/prepared/<uuid>/`. Every manifest records source checksum, schema and quality versions, configuration, feature lineage, split boundaries, and artifact checksum. CSV is the supported Phase 2D output; Parquet, business-day calendars, advanced categorical transforms, and model training are deferred. Apply migrations with `cd backend; ..\.venv\Scripts\python.exe -m alembic upgrade head`.
+
 **Probabilistic Revenue Forecasting and Marketing Decision Intelligence Platform**
 
 *Predict. Explain. Simulate. Optimize. Decide.*
@@ -128,7 +134,7 @@ npm.cmd run build
 
 ## Roadmap
 
-Phase 1, Phase 2A, and Phase 2B are complete. Phase 2C will add governed data-quality intelligence without modifying raw data. See [the development roadmap](docs/development-roadmap.md).
+Phase 1, Phase 2A, Phase 2B, and Phase 2C are complete. Phase 2D will add governed time-series preparation and immutable derived features. See [the development roadmap](docs/development-roadmap.md).
 
 ## Phase 2A ingestion behavior
 
@@ -174,6 +180,22 @@ Invoke-RestMethod -Uri "http://localhost:8000/api/v1/datasets/$datasetId/schema"
 ```
 
 Confirmation requires a date/timestamp and a target candidate; unresolved columns must be mapped or ignored. Phase 2B does not assess full data quality, clean data, or establish forecasting readiness.
+
+## Phase 2C — Data Quality Intelligence
+
+Phase 2C performs a local, deterministic, bounded scan of immutable CSV uploads using the active reviewed schema. It reports completeness, uniqueness, validity, consistency, temporal integrity, robust IQR outliers, cardinality, metric relationships, and carefully labelled leakage risks. Reports are versioned derived metadata; no values are imputed, deleted, corrected, or exported.
+
+Dimension scores start at 100. Blockers deduct 50, errors 20, warnings 7, and informational findings 1 from the relevant dimension. Overall weights are completeness 15%, uniqueness 10%, validity 20%, consistency 15%, temporal 15%, integrity 10%, and leakage safety 15%. Any blocker caps the result at `DATA_QUALITY_SCORE_BLOCKER_CAP`. `quality_ready` means ready for governed preparation, never forecast-ready.
+
+```powershell
+Set-Location backend
+..\.venv\Scripts\python.exe -m alembic upgrade head
+$datasetId = "<dataset-uuid>"
+Invoke-RestMethod -Method Post -Uri "http://localhost:8000/api/v1/datasets/$datasetId/quality/analyze" -ContentType "application/json" -Body '{"force_reanalyze":true}'
+Invoke-RestMethod "http://localhost:8000/api/v1/datasets/$datasetId/quality/findings?page=1&page_size=20"
+```
+
+All `DATA_QUALITY_*` thresholds are environment-configurable. Scans disclose coverage and retain only bounded evidence. Business-key duplicates, outliers, and name-based leakage signals require human review.
 
 ## License
 

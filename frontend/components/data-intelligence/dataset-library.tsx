@@ -70,6 +70,7 @@ export function DatasetLibrary({
                   "Size",
                   "Status",
                   "Schema",
+                  "Quality",
                   "Uploaded",
                   "Actions",
                 ].map((x) => (
@@ -97,6 +98,18 @@ export function DatasetLibrary({
                       " ",
                     )}
                   </td>
+                  <td className="px-4 text-slate-300 capitalize">
+                    {(item.quality_status ?? "not_analyzed").replaceAll(
+                      "_",
+                      " ",
+                    )}
+                    {item.quality_score != null
+                      ? ` · ${Math.round(item.quality_score)}/100`
+                      : ""}
+                    {(item.quality_blockers ?? 0) > 0
+                      ? ` · ${item.quality_blockers} blocker(s)`
+                      : ""}
+                  </td>
                   <td className="px-4 text-slate-400">
                     {new Date(item.created_at).toLocaleString()}
                   </td>
@@ -113,6 +126,25 @@ export function DatasetLibrary({
                         className="mr-3 text-cyan-300"
                       >
                         Review schema
+                      </Link>
+                    )}
+                    {item.status === "ready" &&
+                      item.schema_status !== "not_analyzed" && (
+                        <Link
+                          href={`/data-intelligence/${item.id}/quality`}
+                          className="mr-3 text-violet-300"
+                        >
+                          {item.quality_status === "not_analyzed"
+                            ? "Analyze quality"
+                            : "View quality report"}
+                        </Link>
+                      )}
+                    {item.status !== "archived" && (
+                      <Link
+                        href={`/data-intelligence/${item.id}/prepare`}
+                        className="mr-3 text-emerald-300"
+                      >
+                        Prepare dataset
                       </Link>
                     )}
                     {item.status !== "archived" && (

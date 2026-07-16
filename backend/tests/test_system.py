@@ -11,8 +11,11 @@ def test_system_info(client: TestClient) -> None:
     body = response.json()
     assert body["backend"]["status"] == "operational"
     assert body["database"]["status"] == "connected"
-    assert body["modules"]["data_intelligence"] == "schema_mapping_ready"
-    assert set(value for key, value in body["modules"].items() if key != "data_intelligence") == {"planned"}
+    assert body["modules"]["data_intelligence"] == "preparation_ready"
+    assert body["modules"]["forecasting"] == "next"
+    assert set(value for key, value in body["modules"].items() if key not in {"data_intelligence", "forecasting"}) == {
+        "planned"
+    }
 
 
 def test_production_rejects_debug() -> None:

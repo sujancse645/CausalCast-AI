@@ -21,3 +21,10 @@
 19. Low-confidence or ambiguous mappings require human review; they are never silently confirmed.
 20. Manual overrides must be audited and schema-versioned; future forecasting may use only confirmed mappings.
 21. LLM output must never replace deterministic schema validation.
+22. Quality analysis never mutates raw data; every score and finding must be reproducible from bounded evidence.
+23. Label heuristics explicitly, especially leakage risks, and never overstate them as proven defects.
+24. Quality-ready does not mean forecast-ready; future cleaning creates versioned derived datasets with preserved lineage.
+25. Every preparation creates a versioned derived artifact with source checksum, configuration, and feature lineage.
+26. Time-series splits are chronological; test data never influences transformations or model selection.
+27. Lag and rolling features use historical observations only; target-derived same-period features are excluded by default.
+28. Final model training may consume only governed prepared datasets, never raw uploads directly.

@@ -1,0 +1,4 @@
+date,revenue,actual_revenue,next_period_revenue,spend,roas
+2026-01-01,100,100,110,50,2
+2026-01-02,200,200,210,100,2
+2026-01-03,300,300,310,150,2

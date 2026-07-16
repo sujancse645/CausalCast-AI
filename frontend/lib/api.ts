@@ -17,6 +17,23 @@ import type {
   SchemaStats,
   SemanticRoleDefinition,
 } from "@/types/schema-mapping";
+import type {
+  QualityFindingListResponse,
+  QualityHistoryItem,
+  QualityReportDetail,
+  QualityRuleDefinition,
+  QualityStats,
+} from "@/types/quality";
+import type {
+  PreparedFeature,
+  PreparationConfig,
+  PreparationPreview,
+  PreparationResponse,
+  PreparationStats,
+  PreparationSummary,
+  SplitDefinition,
+  BacktestFold,
+} from "@/types/preparation";
 
 export class ApiError extends Error {
   constructor(
@@ -144,3 +161,84 @@ export const confirmDatasetSchema = (id: string) =>
   );
 export const getSchemaStats = () =>
   request<SchemaStats>("/api/v1/datasets/schema/stats");
+export const analyzeDatasetQuality = (id: string, notes?: string) =>
+  request<QualityReportDetail>(
+    `/api/v1/datasets/${encodeURIComponent(id)}/quality/analyze`,
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ force_reanalyze: true, notes }),
+    },
+    60000,
+  );
+export const getDatasetQuality = (id: string) =>
+  request<QualityReportDetail>(
+    `/api/v1/datasets/${encodeURIComponent(id)}/quality`,
+  );
+export const getQualityHistory = (id: string) =>
+  request<{ items: QualityHistoryItem[] }>(
+    `/api/v1/datasets/${encodeURIComponent(id)}/quality/history`,
+  );
+export const getQualityFindings = (
+  id: string,
+  params: {
+    severity?: string;
+    category?: string;
+    blocking?: boolean;
+    column?: string;
+    page?: number;
+  } = {},
+) => {
+  const query = new URLSearchParams({
+    page: String(params.page ?? 1),
+    page_size: "20",
+  });
+  if (params.severity) query.set("severity", params.severity);
+  if (params.category) query.set("category", params.category);
+  if (params.blocking !== undefined)
+    query.set("blocking", String(params.blocking));
+  if (params.column) query.set("column", params.column);
+  return request<QualityFindingListResponse>(
+    `/api/v1/datasets/${encodeURIComponent(id)}/quality/findings?${query}`,
+  );
+};
+export const getQualityRules = () =>
+  request<{ items: QualityRuleDefinition[] }>("/api/v1/quality/rules");
+export const getQualityStats = () =>
+  request<QualityStats>("/api/v1/datasets/quality/stats");
+export const createPreparation = (id: string, config: PreparationConfig) =>
+  request<PreparationResponse>(
+    `/api/v1/datasets/${encodeURIComponent(id)}/preparations`,
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ config }),
+    },
+    60000,
+  );
+export const listPreparations = (id: string) =>
+  request<{ items: PreparationSummary[] }>(
+    `/api/v1/datasets/${encodeURIComponent(id)}/preparations`,
+  );
+export const getPreparation = (id: string) =>
+  request<PreparationResponse>(
+    `/api/v1/preparations/${encodeURIComponent(id)}`,
+  );
+export const getPreparationPreview = (id: string) =>
+  request<PreparationPreview>(
+    `/api/v1/preparations/${encodeURIComponent(id)}/preview`,
+  );
+export const getPreparationFeatures = (id: string) =>
+  request<{ prepared_dataset_id: string; items: PreparedFeature[] }>(
+    `/api/v1/preparations/${encodeURIComponent(id)}/features`,
+  );
+export const getPreparationSplits = (id: string) =>
+  request<{
+    prepared_dataset_id: string;
+    splits: SplitDefinition[];
+    backtest_folds: BacktestFold[];
+  }>(`/api/v1/preparations/${encodeURIComponent(id)}/splits`);
+export const getPreparationStats = () =>
+  request<PreparationStats>("/api/v1/preparations/stats");
+export const getPreparationDownloadUrl = (id: string) =>
+  `${API_BASE_URL}/api/v1/preparations/${encodeURIComponent(id)}/download?format=csv`;

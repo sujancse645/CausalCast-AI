@@ -1,0 +1,5 @@
+date,channel,campaign,impressions,clicks,spend,conversions,revenue
+2026-01-01,Search,A,1000,100,50,10,200
+2026-01-02,Social,B,1200,120,60,12,240
+2026-01-03,Email,C,800,80,20,8,160
+2026-01-04,Search,D,900,90,45,9,180
