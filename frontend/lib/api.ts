@@ -34,6 +34,16 @@ import type {
   SplitDefinition,
   BacktestFold,
 } from "@/types/preparation";
+import type {
+  ForecastComparison,
+  ForecastExperiment,
+  ForecastExperimentConfig,
+  ForecastExperimentSummary,
+  ForecastModelDefinition,
+  ForecastModelRun,
+  ForecastPredictionList,
+  ForecastStats,
+} from "@/types/forecasting";
 
 export class ApiError extends Error {
   constructor(
@@ -242,3 +252,68 @@ export const getPreparationStats = () =>
   request<PreparationStats>("/api/v1/preparations/stats");
 export const getPreparationDownloadUrl = (id: string) =>
   `${API_BASE_URL}/api/v1/preparations/${encodeURIComponent(id)}/download?format=csv`;
+export const createForecastExperiment = (
+  preparedId: string,
+  config: ForecastExperimentConfig,
+) =>
+  request<ForecastExperiment>(
+    `/api/v1/preparations/${encodeURIComponent(preparedId)}/forecast-experiments`,
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ config }),
+    },
+    300000,
+  );
+export const listForecastExperiments = (preparedId: string) =>
+  request<{ items: ForecastExperimentSummary[] }>(
+    `/api/v1/preparations/${encodeURIComponent(preparedId)}/forecast-experiments`,
+  );
+export const getForecastExperiment = (id: string) =>
+  request<ForecastExperiment>(
+    `/api/v1/forecast-experiments/${encodeURIComponent(id)}`,
+  );
+export const getForecastModelRuns = (id: string) =>
+  request<ForecastModelRun[]>(
+    `/api/v1/forecast-experiments/${encodeURIComponent(id)}/models`,
+  );
+export const getForecastMetrics = (id: string) =>
+  request<ForecastModelRun[]>(
+    `/api/v1/forecast-experiments/${encodeURIComponent(id)}/metrics`,
+  );
+export const getForecastComparison = (id: string) =>
+  request<ForecastComparison>(
+    `/api/v1/forecast-experiments/${encodeURIComponent(id)}/comparison`,
+  );
+export const getForecastPredictions = (
+  id: string,
+  params: {
+    modelRunId?: string;
+    split?: string;
+    fold?: number;
+    group?: string;
+    page?: number;
+    pageSize?: number;
+  } = {},
+) => {
+  const query = new URLSearchParams({
+    split: params.split ?? "test",
+    page: String(params.page ?? 1),
+    page_size: String(params.pageSize ?? 500),
+  });
+  if (params.modelRunId) query.set("model_run_id", params.modelRunId);
+  if (params.fold !== undefined) query.set("fold", String(params.fold));
+  if (params.group) query.set("group", params.group);
+  return request<ForecastPredictionList>(
+    `/api/v1/forecast-experiments/${encodeURIComponent(id)}/predictions?${query}`,
+  );
+};
+export const getForecastModelRegistry = () =>
+  request<ForecastModelDefinition[]>("/api/v1/forecasting/models");
+export const getForecastStats = () =>
+  request<ForecastStats>("/api/v1/forecasting/stats");
+export const getForecastArtifactDownloadUrl = (
+  runId: string,
+  artifactType: string,
+) =>
+  `${API_BASE_URL}/api/v1/forecast-model-runs/${encodeURIComponent(runId)}/download?artifact_type=${encodeURIComponent(artifactType)}`;

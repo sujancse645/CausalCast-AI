@@ -1,4 +1,19 @@
-# Phase 1–2D Architecture
+# Phase 1–3A Architecture
+
+## Phase 3A forecasting lifecycle
+
+```mermaid
+flowchart LR
+  P[Prepared Dataset] --> V[Experiment Validation]
+  V --> R[Baseline Model Registry]
+  R --> B[Expanding-Window Backtesting]
+  B --> K[Validation Ranking]
+  K --> S[Selected Model]
+  S --> T[Final Test Evaluation]
+  T --> A[Model Registry and Artifacts]
+```
+
+Forecasting verifies source and prepared checksums, reads Phase 2D split/fold manifests, and refits every model for every fold. Stable ranking uses backtest metric, validation metric, fold variance, then identifier; test results are excluded. Only the selected model is refit on train plus validation and evaluated once on test. Prediction rows remain in private CSV artifacts rather than the database. APIs expose bounded rows and checksums but never storage keys. Joblib is used only for application-generated artifacts and no API loads arbitrary user files.
 
 ## Governed preparation pipeline
 

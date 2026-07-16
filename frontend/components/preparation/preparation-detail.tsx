@@ -75,6 +75,14 @@ export function PreparationDetail({
         <a className="text-cyan-300" href={getPreparationDownloadUrl(item.id)}>
           Download CSV
         </a>
+        {item.readiness_status === "model_ready" && (
+          <Link
+            className="rounded-lg bg-blue-600 px-3 py-2 text-center text-white"
+            href={`/data-intelligence/${datasetId}/preparations/${item.id}/forecast`}
+          >
+            Run baseline forecast
+          </Link>
+        )}
       </section>
       <section className="panel overflow-x-auto p-5">
         <h2 className="font-semibold">Chronological splits</h2>

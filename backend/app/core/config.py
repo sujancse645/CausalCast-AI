@@ -78,6 +78,26 @@ class Settings(BaseSettings):
     preparation_default_missing_period_policy: str = "preserve"
     preparation_default_duplicate_policy: str = "aggregate"
     preparation_random_seed: int = 42
+    forecast_engine_version: str = "1.0"
+    forecast_artifact_root: Path = Path("../artifacts")
+    forecast_random_seed: int = 42
+    forecast_default_horizon: int = 30
+    forecast_default_selection_metric: Literal["wape", "mae", "rmse", "smape"] = "wape"
+    forecast_backtest_folds: int = 5
+    forecast_min_train_periods: int = 90
+    forecast_min_validation_periods: int = 14
+    forecast_min_test_periods: int = 14
+    forecast_max_models_per_experiment: int = 10
+    forecast_max_groups: int = 1000
+    forecast_max_training_seconds: int = 300
+    forecast_moving_average_windows: list[int] = [7, 14, 28]
+    forecast_seasonal_period_daily: int = 7
+    forecast_seasonal_period_weekly: int = 52
+    forecast_seasonal_period_monthly: int = 12
+    forecast_enable_ets: bool = True
+    forecast_enable_linear_baselines: bool = True
+    forecast_save_residuals: bool = True
+    forecast_metric_epsilon: float = 0.00000001
 
     model_config = SettingsConfigDict(env_file=".env", extra="ignore", case_sensitive=False)
 
@@ -86,6 +106,13 @@ class Settings(BaseSettings):
     def parse_origins(cls, value: object) -> object:
         if isinstance(value, str) and not value.lstrip().startswith("["):
             return [item.strip() for item in value.split(",") if item.strip()]
+        return value
+
+    @field_validator("forecast_moving_average_windows", mode="before")
+    @classmethod
+    def parse_integer_list(cls, value: object) -> object:
+        if isinstance(value, str) and not value.lstrip().startswith("["):
+            return [int(item.strip()) for item in value.split(",") if item.strip()]
         return value
 
     @field_validator("max_upload_size_mb", "dataset_preview_rows", "dataset_max_columns")

@@ -19,7 +19,7 @@ import { useState } from "react";
 const items = [
   ["Dashboard", "/dashboard", Gauge],
   ["Data Intelligence", "/data-intelligence", Database],
-  ["Revenue Forecasts", "/forecasts", BarChart3],
+  ["Baseline Forecasting", "/forecasting", BarChart3],
   ["Causal Intelligence", "/causal-intelligence", Network],
   ["Scenario Lab", "/scenario-lab", Activity],
   ["Budget Optimizer", "/budget-optimizer", SlidersHorizontal],
@@ -104,7 +104,7 @@ function Brand() {
 function PhaseBadge() {
   return (
     <div className="absolute right-5 bottom-6 left-5 rounded-xl border border-violet-500/25 bg-violet-500/10 p-3 text-xs text-violet-200">
-      Phase 2A · Ingestion
+      Phase 3A · Baseline forecasting
     </div>
   );
 }

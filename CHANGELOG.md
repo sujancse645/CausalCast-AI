@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-07-16 — Phase 3A: Baseline Forecasting and Rolling Backtesting
+
+- Added versioned forecast experiments, model runs, evaluations, private prediction/model artifacts, checksums, configurations, environment manifests, and model cards.
+- Added grouped naïve, seasonal-naïve, moving-average, drift, exponential-smoothing, Holt, Holt-Winters, linear, and ridge baselines with expanding-window retraining.
+- Added deterministic forecast metrics, validation/backtest-only ranking, controlled final test evaluation, typed APIs, real forecasting workspaces, registry statistics, and regression tests.
+
 ## 2026-07-16 — Phase 2D: Governed Time-Series Preparation
 
 - Added prepared-dataset, feature-lineage, and audit-event persistence with reversible migration `20260716_0005`.

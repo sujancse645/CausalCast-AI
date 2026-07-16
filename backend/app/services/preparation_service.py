@@ -626,8 +626,9 @@ def create_preparation(
         prepared.duration_ms = int((time.perf_counter() - started) * 1000)
         prepared.completed_at = datetime.now(UTC)
         prepared.status = PreparationStatus.completed
+        review_warnings = [warning for warning in warnings if warning["code"] != "TARGET_DERIVED_EXCLUDED"]
         prepared.readiness_status = (
-            PreparationReadiness.review_required if warnings else PreparationReadiness.model_ready
+            PreparationReadiness.review_required if review_warnings else PreparationReadiness.model_ready
         )
         db.execute(
             update(PreparedDataset)

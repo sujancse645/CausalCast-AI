@@ -28,3 +28,8 @@
 26. Time-series splits are chronological; test data never influences transformations or model selection.
 27. Lag and rolling features use historical observations only; target-derived same-period features are excluded by default.
 28. Final model training may consume only governed prepared datasets, never raw uploads directly.
+29. Forecast models train only on checksum-verified, model-ready prepared artifacts.
+30. Test data cannot influence preprocessing, tuning, ranking, or model selection.
+31. Every model is compared with naïve baselines; failed and skipped models remain visible.
+32. Forecast metrics must come from executed predictions and synthetic-data metrics must be labelled.
+33. Model artifacts require checksums; final test evaluation is controlled and cannot be fabricated.

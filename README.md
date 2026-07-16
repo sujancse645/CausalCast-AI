@@ -1,5 +1,13 @@
 # CausalCast AI
 
+## Phase 3A — Baseline Forecasting and Rolling Backtesting
+
+Phase 3A trains only from completed, model-ready Phase 2D artifacts after verifying prepared and source checksums. It runs grouped last-value and seasonal naïve, moving-average, drift, simple exponential smoothing, Holt, additive Holt-Winters, linear regression, and ridge regression baselines. Every expanding-window fold is refitted independently. Ranking uses backtest performance, validation performance, fold stability, and a stable model identifier; the untouched test split is evaluated exactly once after selection.
+
+Metrics are MAE, RMSE, WAPE, sMAPE, MASE, bias (prediction minus actual), and median absolute error. Undefined percentage/scaled metrics are stored as null with warnings. Private artifacts live below `FORECAST_ARTIFACT_ROOT` and include predictions, trusted application-generated joblib models, configurations, metrics, environment versions, checksums, and model cards. Never load pickle/joblib files from untrusted paths.
+
+The bundled 730-day marketing example is deterministic synthetic demonstration data. Its executed metrics are not business claims. Phase 3A does not provide uncertainty intervals, calibration, gradient boosting, deep learning, causal inference, optimization, or external AI.
+
 ## Phase 2D — Governed Time-Series Preparation
 
 Phase 2D converts immutable CSV uploads into versioned prepared CSV artifacts after confirmed-schema and data-quality gates. The deterministic pipeline aligns hourly, daily, weekly, monthly, or quarterly periods; applies semantic aggregation; records duplicate and generated periods; creates shifted target lags and rolling features; adds calendar and trend features; excludes unsafe same-period target-derived metrics; and assigns chronological train, validation, test, and expanding-window fold boundaries.

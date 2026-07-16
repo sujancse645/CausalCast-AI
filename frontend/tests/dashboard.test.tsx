@@ -31,7 +31,9 @@ describe("dashboard", () => {
   });
   it("renders sidebar navigation items", () => {
     render(<Sidebar />);
-    expect(screen.getAllByText("Revenue Forecasts").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("Baseline Forecasting").length).toBeGreaterThan(
+      0,
+    );
     expect(screen.getAllByText("Model Trust Center").length).toBeGreaterThan(0);
   });
   it("provides an accessible mobile sidebar control", () => {

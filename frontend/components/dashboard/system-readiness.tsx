@@ -30,7 +30,9 @@ export function SystemReadiness() {
     ],
     [
       "Forecasting Engine",
-      system?.modules.forecasting === "next" ? "Next" : "Planned",
+      system?.modules.forecasting === "baseline_forecasting_ready"
+        ? "Operational"
+        : "Planned",
     ],
     ["Causal Engine", "Planned"],
     ["Scenario Engine", "Planned"],

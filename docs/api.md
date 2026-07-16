@@ -1,5 +1,19 @@
 # API Reference
 
+## Baseline forecasting
+
+- `POST /api/v1/preparations/{id}/forecast-experiments` validates lineage and executes configured baselines.
+- `GET /api/v1/preparations/{id}/forecast-experiments` returns version history.
+- `GET /api/v1/forecast-experiments/{id}` returns experiment lineage and status.
+- `GET /api/v1/forecast-experiments/{id}/models`, `/metrics`, and `/comparison` return persisted executed results.
+- `GET /api/v1/forecast-experiments/{id}/predictions` returns bounded validation, backtest, or test predictions with model, fold, group, and pagination filters.
+- `GET /api/v1/forecast-model-runs/{id}` returns model-run details.
+- `GET /api/v1/forecast-model-runs/{id}/download?artifact_type=...` downloads an allowlisted checksum-verified artifact.
+- `GET /api/v1/forecasting/models` returns the stable baseline registry.
+- `GET /api/v1/forecasting/stats` returns real aggregate experiment statistics.
+
+Execution is synchronous and bounded in Phase 3A. Invalid readiness/history/configuration returns `409` or `422`; missing resources return `404`; checksum conflicts return `409`. Responses never contain private paths.
+
 ## Governed preparations
 
 - `POST /api/v1/datasets/{dataset_id}/preparations` validates readiness and creates a versioned artifact.

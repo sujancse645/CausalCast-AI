@@ -12,6 +12,11 @@ dependencies = [
   "python-multipart>=0.0.20,<1",
   "sqlalchemy>=2.0,<3",
   "uvicorn[standard]>=0.35,<1",
+  "joblib>=1.4,<2",
+  "numpy>=1.26,<3",
+  "pandas>=2.2,<3",
+  "scikit-learn>=1.5,<2",
+  "statsmodels>=0.14,<1",
 ]
 
 [project.optional-dependencies]
@@ -32,6 +37,10 @@ python_version = "3.11"
 strict = true
 plugins = ["pydantic.mypy"]
 exclude = ["alembic"]
+
+[[tool.mypy.overrides]]
+module = ["joblib", "pandas", "sklearn", "sklearn.*", "statsmodels", "statsmodels.*"]
+ignore_missing_imports = true
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

@@ -3,11 +3,13 @@ import { channels, kpis, phases } from "@/lib/demo-data";
 import { ForecastChart } from "./forecast-chart";
 import { SystemReadiness } from "./system-readiness";
 import { DatasetSummary } from "./dataset-summary";
+import { ForecastingSummary } from "./forecasting-summary";
 export function Dashboard() {
   return (
     <div className="space-y-6">
       <div className="rounded-xl border border-cyan-500/20 bg-cyan-500/5 px-4 py-3 text-sm text-cyan-100">
-        Demo interface data — forecasting engine will be connected in Phase 3.
+        Demo KPI cards remain illustrative. Forecasting registry statistics
+        below are live API results.
       </div>
       <section className="grid-auto">
         {kpis.map((k, i) => (
@@ -25,6 +27,7 @@ export function Dashboard() {
         ))}
       </section>
       <DatasetSummary />
+      <ForecastingSummary />
       <div className="grid gap-6 xl:grid-cols-[1.7fr_1fr]">
         <ForecastChart />
         <SystemReadiness />

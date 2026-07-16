@@ -8,6 +8,10 @@ TEST_ROOT = Path(tempfile.mkdtemp(prefix="causalcast-tests-"))
 os.environ["DATABASE_URL"] = f"sqlite:///{(TEST_ROOT / 'test.db').as_posix()}"
 os.environ["DATASET_STORAGE_ROOT"] = str(TEST_ROOT / "storage")
 os.environ["PREPARATION_STORAGE_ROOT"] = str(TEST_ROOT / "processed")
+os.environ["FORECAST_ARTIFACT_ROOT"] = str(TEST_ROOT / "artifacts")
+os.environ["FORECAST_MIN_TRAIN_PERIODS"] = "4"
+os.environ["FORECAST_MIN_VALIDATION_PERIODS"] = "1"
+os.environ["FORECAST_MIN_TEST_PERIODS"] = "1"
 os.environ["PREPARATION_MIN_PERIODS"] = "6"
 os.environ["PREPARATION_MIN_TRAIN_ROWS"] = "4"
 os.environ["PREPARATION_MIN_VALIDATION_ROWS"] = "1"
@@ -39,12 +43,22 @@ def clean_database() -> None:
     yield
     from app.core.database import SessionLocal
     from app.models.dataset import Dataset
+    from app.models.forecasting import (
+        ForecastEvaluation,
+        ForecastExperiment,
+        ForecastModelRun,
+        ForecastPredictionArtifact,
+    )
     from app.models.preparation import PreparationEvent, PreparedDataset, PreparedFeature
     from app.models.quality import DatasetQualityFinding, DatasetQualityReport
     from app.models.schema_profile import DatasetColumnProfile, DatasetSchemaProfile, SchemaMappingAudit
 
     with SessionLocal() as db:
         for model in (
+            ForecastPredictionArtifact,
+            ForecastEvaluation,
+            ForecastModelRun,
+            ForecastExperiment,
             PreparationEvent,
             PreparedFeature,
             PreparedDataset,
@@ -62,3 +76,4 @@ def clean_database() -> None:
         if path.is_file():
             path.unlink()
     shutil.rmtree(TEST_ROOT / "processed", ignore_errors=True)
+    shutil.rmtree(TEST_ROOT / "artifacts", ignore_errors=True)
