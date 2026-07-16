@@ -1,4 +1,6 @@
+import importlib.util
 from dataclasses import dataclass
+from importlib.metadata import PackageNotFoundError, version
 from typing import Any
 
 import numpy as np
@@ -20,6 +22,12 @@ class ModelDefinition:
     supports_groups: bool
     supports_trend: bool
     supports_seasonality: bool
+    dependency: str | None = None
+    tuning_support: bool = False
+    early_stopping_support: bool = False
+    explanation_support: bool = False
+    categorical_support: bool = False
+    default_parameters: dict[str, object] | None = None
 
 
 DEFINITIONS = {
@@ -74,7 +82,63 @@ DEFINITIONS = {
         True,
         False,
     ),
+    "lightgbm_regressor": ModelDefinition(
+        "lightgbm_regressor",
+        "LightGBM Regressor",
+        "gradient_boosting",
+        "Histogram gradient boosting with deterministic chronological tuning.",
+        True,
+        True,
+        False,
+        "lightgbm",
+        True,
+        True,
+        True,
+        True,
+        {"objective": "regression", "verbosity": -1},
+    ),
+    "xgboost_regressor": ModelDefinition(
+        "xgboost_regressor",
+        "XGBoost Regressor",
+        "gradient_boosting",
+        "Regularized gradient-boosted trees with deterministic chronological tuning.",
+        True,
+        True,
+        False,
+        "xgboost",
+        True,
+        True,
+        True,
+        True,
+        {"objective": "reg:squarederror"},
+    ),
+    "catboost_regressor": ModelDefinition(
+        "catboost_regressor",
+        "CatBoost Regressor",
+        "gradient_boosting",
+        "Gradient boosting with robust categorical handling and chronological tuning.",
+        True,
+        True,
+        False,
+        "catboost",
+        True,
+        True,
+        True,
+        True,
+        {"loss_function": "RMSE", "verbose": False},
+    ),
 }
+
+
+def dependency_info(model_id: str) -> tuple[bool, str | None]:
+    dependency = DEFINITIONS[model_id].dependency
+    if dependency is None:
+        return True, None
+    available = importlib.util.find_spec(dependency) is not None
+    try:
+        return available, version(dependency) if available else None
+    except PackageNotFoundError:
+        return False, None
 
 
 def _series_forecast(

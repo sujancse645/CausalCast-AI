@@ -48,6 +48,7 @@ def clean_database() -> None:
         ForecastExperiment,
         ForecastModelRun,
         ForecastPredictionArtifact,
+        ForecastTuningTrial,
     )
     from app.models.preparation import PreparationEvent, PreparedDataset, PreparedFeature
     from app.models.quality import DatasetQualityFinding, DatasetQualityReport
@@ -56,6 +57,7 @@ def clean_database() -> None:
     with SessionLocal() as db:
         for model in (
             ForecastPredictionArtifact,
+            ForecastTuningTrial,
             ForecastEvaluation,
             ForecastModelRun,
             ForecastExperiment,

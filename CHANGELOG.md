@@ -58,3 +58,8 @@ All notable project changes are documented here.
 - Frontend: Prettier, ESLint, TypeScript, Vitest (8 tests), and production build passed.
 - Runtime: API, documentation, and all frontend routes returned HTTP 200; offline dashboard remained available.
 - Docker: `docker compose config` passed. Image build/runtime validation was unavailable because the Docker Desktop Linux engine was not running.
+# 2026-07-16 — Phase 3B: Gradient-Boosting Forecasting
+
+- Added optional LightGBM, XGBoost, and CatBoost models to the Phase 3A experiment lifecycle.
+- Added deterministic Optuna tuning, governed feature filtering, early stopping, trial persistence, native importance, bounded SHAP summaries, and private checksummed artifacts.
+- Extended forecasting APIs and UI with dependency availability, global/per-group strategy, tuning metadata, and explanation disclaimers.

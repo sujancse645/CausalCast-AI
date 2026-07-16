@@ -17,6 +17,11 @@ dependencies = [
   "pandas>=2.2,<3",
   "scikit-learn>=1.5,<2",
   "statsmodels>=0.14,<1",
+  "catboost>=1.2.8,<2",
+  "lightgbm>=4.6,<5",
+  "optuna>=4.5,<5",
+  "shap>=0.48,<1",
+  "xgboost>=3.0,<4",
 ]
 
 [project.optional-dependencies]
@@ -39,7 +44,7 @@ plugins = ["pydantic.mypy"]
 exclude = ["alembic"]
 
 [[tool.mypy.overrides]]
-module = ["joblib", "pandas", "sklearn", "sklearn.*", "statsmodels", "statsmodels.*"]
+module = ["catboost", "joblib", "lightgbm", "optuna", "pandas", "shap", "sklearn", "sklearn.*", "statsmodels", "statsmodels.*", "xgboost"]
 ignore_missing_imports = true
 
 [tool.pytest.ini_options]

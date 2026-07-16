@@ -23,6 +23,12 @@ class ForecastStorageService:
         "backtest_predictions",
         "test_predictions",
         "residuals",
+        "preprocessing",
+        "feature_names",
+        "hyperparameters",
+        "tuning_trials",
+        "feature_importance",
+        "shap_summary",
     }
 
     def __init__(self, settings: Settings) -> None:
@@ -64,9 +70,14 @@ class ForecastStorageService:
         return self.write_text(experiment_id, model_run_id, name, frame.to_csv(index=False), ".csv")
 
     def write_model(self, experiment_id: str, model_run_id: str, model: Any) -> tuple[str, str]:
+        return self.write_joblib(experiment_id, model_run_id, "model", model)
+
+    def write_joblib(self, experiment_id: str, model_run_id: str, name: str, model: Any) -> tuple[str, str]:
+        if name not in self.ALLOWED:
+            raise ValueError("Unsupported artifact type")
         directory = self._directory(experiment_id, model_run_id)
-        temporary = directory / ".model.pkl.tmp"
-        final = directory / "model.pkl"
+        temporary = directory / f".{name}.pkl.tmp"
+        final = directory / f"{name}.pkl"
         joblib.dump(model, temporary)
         os.replace(temporary, final)
         return str(final.relative_to(self.root)).replace("\\", "/"), self.checksum(final)

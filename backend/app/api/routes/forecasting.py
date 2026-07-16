@@ -12,6 +12,7 @@ from app.core.config import Settings, get_settings
 from app.core.database import get_db
 from app.models.forecasting import ForecastPredictionArtifact
 from app.schemas.forecasting import (
+    FeatureImportanceResponse,
     ForecastComparisonResponse,
     ForecastExperimentCreateRequest,
     ForecastExperimentHistoryResponse,
@@ -21,6 +22,9 @@ from app.schemas.forecasting import (
     ForecastModelRunSummary,
     ForecastPredictionListResponse,
     ForecastStatsResponse,
+    GradientBoostingStatsResponse,
+    ShapExplanationResponse,
+    TuningSummaryResponse,
 )
 from app.services.forecast_storage_service import ForecastStorageService
 from app.services.forecasting_service import (
@@ -33,13 +37,17 @@ from app.services.forecasting_service import (
     PreparedDatasetNotReadyForForecastingError,
     comparison,
     execute_experiment,
+    feature_importance,
+    gbm_stats,
     get_experiment,
     history,
     model_registry,
     model_run,
     model_runs,
     predictions,
+    shap_summary,
     stats,
+    tuning_summary,
 )
 
 router = APIRouter(tags=["forecasting"])
@@ -135,7 +143,7 @@ def download(
     artifact_type: Annotated[
         str,
         Query(
-            pattern="^(model|configuration|metrics|model_card|environment|validation_predictions|backtest_predictions|test_predictions|residuals)$"
+            pattern="^(model|preprocessing|feature_names|hyperparameters|tuning_trials|feature_importance|shap_summary|configuration|metrics|model_card|environment|validation_predictions|backtest_predictions|test_predictions|residuals)$"
         ),
     ],
 ) -> FileResponse:
@@ -171,3 +179,25 @@ def registry(settings: Config) -> list[ForecastModelDefinition]:
 @router.get("/forecasting/stats", response_model=ForecastStatsResponse)
 def forecast_stats(db: Db) -> ForecastStatsResponse:
     return stats(db)
+
+
+@router.get("/forecast-model-runs/{run_id}/tuning", response_model=TuningSummaryResponse)
+def run_tuning(run_id: UUID, db: Db) -> TuningSummaryResponse:
+    return _safe(lambda: tuning_summary(db, str(run_id)))
+
+
+@router.get("/forecast-model-runs/{run_id}/feature-importance", response_model=FeatureImportanceResponse)
+def run_importance(run_id: UUID, db: Db, settings: Config) -> FeatureImportanceResponse:
+    return _safe(lambda: feature_importance(db, str(run_id), settings))
+
+
+@router.get("/forecast-model-runs/{run_id}/shap", response_model=ShapExplanationResponse)
+def run_shap(
+    run_id: UUID, db: Db, settings: Config, limit: Annotated[int, Query(ge=1, le=500)] = 50
+) -> ShapExplanationResponse:
+    return _safe(lambda: shap_summary(db, str(run_id), settings, limit))
+
+
+@router.get("/forecasting/gradient-boosting/stats", response_model=GradientBoostingStatsResponse)
+def gradient_stats(db: Db) -> GradientBoostingStatsResponse:
+    return gbm_stats(db)

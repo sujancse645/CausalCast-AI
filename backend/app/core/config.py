@@ -98,6 +98,31 @@ class Settings(BaseSettings):
     forecast_enable_linear_baselines: bool = True
     forecast_save_residuals: bool = True
     forecast_metric_epsilon: float = 0.00000001
+    gbm_engine_version: str = "1.0"
+    gbm_random_seed: int = 42
+    gbm_tuning_trials: int = 25
+    gbm_tuning_timeout_seconds: int = 300
+    gbm_primary_metric: Literal["wape", "mae", "rmse", "smape"] = "wape"
+    gbm_early_stopping_rounds: int = 50
+    gbm_max_depth_min: int = 3
+    gbm_max_depth_max: int = 10
+    gbm_learning_rate_min: float = 0.01
+    gbm_learning_rate_max: float = 0.20
+    gbm_estimators_min: int = 100
+    gbm_estimators_max: int = 1500
+    gbm_min_child_weight_min: int = 1
+    gbm_min_child_weight_max: int = 20
+    gbm_subsample_min: float = 0.60
+    gbm_colsample_min: float = 0.60
+    gbm_reg_alpha_max: float = 10
+    gbm_reg_lambda_max: float = 20
+    gbm_enable_lightgbm: bool = True
+    gbm_enable_xgboost: bool = True
+    gbm_enable_catboost: bool = True
+    gbm_enable_shap: bool = True
+    gbm_shap_sample_rows: int = 500
+    gbm_n_jobs: int = 4
+    gbm_max_memory_mb: int = 4096
 
     model_config = SettingsConfigDict(env_file=".env", extra="ignore", case_sensitive=False)
 

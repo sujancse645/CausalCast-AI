@@ -20,6 +20,14 @@ export interface ForecastModelDefinition {
   supports_trend: boolean;
   supports_seasonality: boolean;
   enabled: boolean;
+  supported_feature_types?: string[];
+  categorical_support?: boolean;
+  tuning_support?: boolean;
+  early_stopping_support?: boolean;
+  explanation_support?: boolean;
+  dependency_available?: boolean;
+  dependency_version?: string | null;
+  default_parameters?: Record<string, unknown>;
 }
 export interface ForecastExperimentConfig {
   target_column?: string | null;
@@ -33,6 +41,12 @@ export interface ForecastExperimentConfig {
   include_exogenous_features: boolean;
   linear_feature_allowlist?: string[] | null;
   notes?: string | null;
+  strategy?: "global" | "per_group";
+  tuning_trials?: number | null;
+  tuning_timeout_seconds?: number | null;
+  early_stopping_rounds?: number | null;
+  generate_shap?: boolean;
+  tuning_folds?: number | null;
 }
 export interface ForecastExperimentSummary {
   id: string;
@@ -115,6 +129,17 @@ export interface ForecastModelRun {
   per_group_metrics?: Array<Record<string, unknown>>;
   residual_summary?: ForecastResidualSummary | null;
   completed_at?: string | null;
+  tuning_method?: string | null;
+  tuning_trial_count?: number;
+  failed_trial_count?: number;
+  tuning_duration_ms?: number;
+  best_iteration?: number | null;
+  best_score?: number | null;
+  feature_count?: number;
+  explanation_available?: boolean;
+  global_model?: boolean;
+  strategy?: "global" | "per_group" | null;
+  dependency_version?: string | null;
 }
 export interface ForecastComparison {
   experiment_id: string;

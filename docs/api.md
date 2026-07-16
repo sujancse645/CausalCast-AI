@@ -90,3 +90,14 @@ Missing resources return `404`, invalid dataset operations `400`, version confli
 - `GET /api/v1/datasets/quality/stats` returns dashboard aggregates without N+1 requests.
 
 Analysis requires a ready dataset, available immutable raw file, and active schema. Missing schema returns `422`, archived/invalid state `409`, and missing reports `404`. Responses omit stored filenames and paths.
+
+## Gradient-boosting forecasting endpoints
+
+- `POST /api/v1/preparations/{prepared_dataset_id}/forecast-experiments` accepts baseline and GBM configuration.
+- `GET /api/v1/forecasting/models` reports model capability and optional dependency availability.
+- `GET /api/v1/forecast-model-runs/{model_run_id}/tuning` returns bounded persisted trials.
+- `GET /api/v1/forecast-model-runs/{model_run_id}/feature-importance` returns native and SHAP global importance.
+- `GET /api/v1/forecast-model-runs/{model_run_id}/shap?limit=50` returns bounded contribution summaries.
+- `GET /api/v1/forecasting/gradient-boosting/stats` returns executed GBM aggregates.
+
+All artifacts remain private and downloads are allowlisted. Explanations describe feature contribution and do not establish causality.

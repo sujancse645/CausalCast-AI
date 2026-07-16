@@ -13,6 +13,9 @@ ModelId = Literal[
     "holt_winters",
     "linear_regression",
     "ridge_regression",
+    "lightgbm_regressor",
+    "xgboost_regressor",
+    "catboost_regressor",
 ]
 
 
@@ -38,6 +41,12 @@ class ForecastExperimentConfig(BaseModel):
     include_exogenous_features: bool = True
     linear_feature_allowlist: list[str] | None = None
     notes: str | None = Field(default=None, max_length=1000)
+    strategy: Literal["global", "per_group"] = "global"
+    tuning_trials: int | None = Field(default=None, ge=1, le=100)
+    tuning_timeout_seconds: int | None = Field(default=None, ge=10, le=3600)
+    early_stopping_rounds: int | None = Field(default=None, ge=1, le=500)
+    generate_shap: bool = True
+    tuning_folds: int | None = Field(default=None, ge=1, le=5)
 
     @model_validator(mode="after")
     def unique_valid_values(self) -> "ForecastExperimentConfig":
@@ -137,6 +146,14 @@ class ForecastModelDefinition(BaseModel):
     supports_trend: bool
     supports_seasonality: bool
     enabled: bool = True
+    supported_feature_types: list[str] = Field(default_factory=list)
+    categorical_support: bool = False
+    tuning_support: bool = False
+    early_stopping_support: bool = False
+    explanation_support: bool = False
+    dependency_available: bool = True
+    dependency_version: str | None = None
+    default_parameters: dict[str, object] = Field(default_factory=dict)
 
 
 class ForecastModelRunSummary(BaseModel):
@@ -153,6 +170,13 @@ class ForecastModelRunSummary(BaseModel):
     training_duration_ms: int
     backtest_duration_ms: int
     failure_message: str | None
+    tuning_trial_count: int = 0
+    failed_trial_count: int = 0
+    tuning_duration_ms: int = 0
+    best_iteration: int | None = None
+    feature_count: int = 0
+    strategy: str = "global"
+    explanation_available: bool = False
 
 
 class ForecastModelRunResponse(ForecastModelRunSummary):
@@ -231,3 +255,60 @@ class ForecastStatsResponse(BaseModel):
     average_test_wape: float | None
     datasets_awaiting_forecasting: int
     latest_experiment_status: str | None
+
+
+class TuningTrialSummary(BaseModel):
+    trial_number: int
+    status: str
+    parameters: dict[str, object]
+    backtest_metric: float | None
+    validation_metric: float | None
+    duration_ms: int
+    failure_message: str | None
+
+
+class TuningSummaryResponse(BaseModel):
+    model_run_id: str
+    method: str | None
+    completed_trials: int
+    failed_trials: int
+    best_score: float | None
+    best_parameters: dict[str, object]
+    duration_ms: int
+    items: list[TuningTrialSummary]
+
+
+class FeatureImportanceItem(BaseModel):
+    feature: str
+    native_importance: float | None
+    shap_importance: float | None
+    feature_type: str
+    leakage_status: str
+
+
+class FeatureImportanceResponse(BaseModel):
+    model_run_id: str
+    items: list[FeatureImportanceItem]
+    disclaimer: str = "Feature contribution does not prove causation."
+
+
+class ShapFeatureSummary(BaseModel):
+    feature: str
+    mean_absolute_shap: float
+    mean_shap: float
+    direction: str
+
+
+class ShapExplanationResponse(BaseModel):
+    model_run_id: str
+    sample_rows: int
+    items: list[ShapFeatureSummary]
+    disclaimer: str = "SHAP describes model contribution, not causal effect."
+
+
+class GradientBoostingStatsResponse(BaseModel):
+    completed_experiments: int
+    model_wins: dict[str, int]
+    average_tuning_duration_ms: float | None
+    average_improvement_over_baseline: float | None
+    failed_model_count: int

@@ -44,6 +44,12 @@ import type {
   ForecastPredictionList,
   ForecastStats,
 } from "@/types/forecasting";
+import type {
+  FeatureImportance,
+  GradientBoostingStats,
+  ShapExplanation,
+  TuningSummary,
+} from "@/types/gradient-boosting";
 
 export class ApiError extends Error {
   constructor(
@@ -312,6 +318,20 @@ export const getForecastModelRegistry = () =>
   request<ForecastModelDefinition[]>("/api/v1/forecasting/models");
 export const getForecastStats = () =>
   request<ForecastStats>("/api/v1/forecasting/stats");
+export const getForecastModelTuning = (runId: string) =>
+  request<TuningSummary>(
+    `/api/v1/forecast-model-runs/${encodeURIComponent(runId)}/tuning`,
+  );
+export const getForecastFeatureImportance = (runId: string) =>
+  request<FeatureImportance>(
+    `/api/v1/forecast-model-runs/${encodeURIComponent(runId)}/feature-importance`,
+  );
+export const getForecastShap = (runId: string, limit = 50) =>
+  request<ShapExplanation>(
+    `/api/v1/forecast-model-runs/${encodeURIComponent(runId)}/shap?limit=${limit}`,
+  );
+export const getGradientBoostingStats = () =>
+  request<GradientBoostingStats>("/api/v1/forecasting/gradient-boosting/stats");
 export const getForecastArtifactDownloadUrl = (
   runId: string,
   artifactType: string,

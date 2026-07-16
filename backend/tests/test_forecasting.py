@@ -1,10 +1,13 @@
 import math
+from types import SimpleNamespace
 
 import numpy as np
 import pandas as pd
 
+from app.core.config import Settings
 from app.services.forecast_metrics import metric_set
 from app.services.forecast_model_registry import forecast
+from app.services.gradient_boosting_service import fit_predict, safe_gbm_features
 
 
 def frame(values: list[float], start: str = "2024-01-01") -> pd.DataFrame:
@@ -17,6 +20,7 @@ def test_forecast_registry_endpoint(client) -> None:
     response = client.get("/api/v1/forecasting/models")
     assert response.status_code == 200
     assert {item["id"] for item in response.json()} >= {"naive_last", "seasonal_naive", "ridge_regression"}
+    assert {item["id"] for item in response.json()} >= {"lightgbm_regressor", "xgboost_regressor", "catboost_regressor"}
 
 
 def test_forecasting_stats_are_real_and_empty(client) -> None:
@@ -64,3 +68,60 @@ def test_metrics_are_deterministic_and_safe() -> None:
     assert metrics["bias"] == 0
     zero = metric_set([0, 0], [1, 1], [5, 5], 1, 1e-8)
     assert zero["wape"] is None and zero["mase"] is None
+
+
+def test_gbm_safe_features_exclude_target_derived_and_holdout_lags() -> None:
+    features = [
+        SimpleNamespace(
+            feature_name="revenue",
+            included=True,
+            leakage_risk="excluded_target",
+            availability_type="target_derived",
+            feature_type="target",
+        ),
+        SimpleNamespace(
+            feature_name="roas",
+            included=False,
+            leakage_risk="target_derived",
+            availability_type="target_derived",
+            feature_type="derived_metric",
+        ),
+        SimpleNamespace(
+            feature_name="revenue_lag_1",
+            included=True,
+            leakage_risk="none",
+            availability_type="historical_only",
+            feature_type="lag",
+        ),
+        SimpleNamespace(
+            feature_name="calendar_week",
+            included=True,
+            leakage_risk="none",
+            availability_type="known_in_advance",
+            feature_type="calendar",
+        ),
+    ]
+    allowed, excluded = safe_gbm_features(features, "revenue", ["group"])
+    assert allowed == ["calendar_week", "group"]
+    assert {"revenue", "roas", "revenue_lag_1"} <= set(excluded)
+
+
+def test_all_gradient_boosting_models_fit_and_preserve_groups() -> None:
+    train = frame([10 + i * 0.5 for i in range(40)])
+    future = frame([30 + i * 0.5 for i in range(5)], "2024-02-10")
+    params = {
+        "n_estimators": 20,
+        "max_depth": 3,
+        "learning_rate": 0.1,
+        "subsample": 0.8,
+        "colsample_bytree": 0.8,
+        "reg_alpha": 0.0,
+        "reg_lambda": 1.0,
+    }
+    for model in ("lightgbm_regressor", "xgboost_regressor", "catboost_regressor"):
+        predicted, artifact, _ = fit_predict(
+            model, train, future, "target", ["trend", "group"], ["group"], params, Settings(), 5
+        )
+        assert len(predicted) == 5
+        assert predicted["group"].tolist() == ["A"] * 5
+        assert artifact["features"] == ["trend", "group"]

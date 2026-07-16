@@ -1,5 +1,9 @@
 # CausalCast AI
 
+## Phase 3B — Gradient-Boosting Forecasting
+
+Phase 3B extends the existing forecasting lifecycle with optional LightGBM, XGBoost, and CatBoost regressors. Seeded bounded Optuna studies use chronological Phase 2D folds only, compare on the same metrics as Phase 3A baselines, lock selection before one final test evaluation, and persist trials, preprocessing, feature names, model artifacts, predictions, importance, bounded SHAP summaries, and checksums. SHAP and importance are feature-contribution diagnostics, not causal evidence.
+
 ## Phase 3A — Baseline Forecasting and Rolling Backtesting
 
 Phase 3A trains only from completed, model-ready Phase 2D artifacts after verifying prepared and source checksums. It runs grouped last-value and seasonal naïve, moving-average, drift, simple exponential smoothing, Holt, additive Holt-Winters, linear regression, and ridge regression baselines. Every expanding-window fold is refitted independently. Ranking uses backtest performance, validation performance, fold stability, and a stable model identifier; the untouched test split is evaluated exactly once after selection.

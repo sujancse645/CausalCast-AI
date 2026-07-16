@@ -28,6 +28,9 @@
 26. Time-series splits are chronological; test data never influences transformations or model selection.
 27. Lag and rolling features use historical observations only; target-derived same-period features are excluded by default.
 28. Final model training may consume only governed prepared datasets, never raw uploads directly.
+29. Gradient-boosting tuning uses chronological folds only; final test rows never influence tuning or ranking.
+30. Feature importance and SHAP describe model contribution, never causal effect.
+31. Failed models and tuning trials remain visible, and all advanced models are compared with executed naïve baselines.
 29. Forecast models train only on checksum-verified, model-ready prepared artifacts.
 30. Test data cannot influence preprocessing, tuning, ranking, or model selection.
 31. Every model is compared with naïve baselines; failed and skipped models remain visible.

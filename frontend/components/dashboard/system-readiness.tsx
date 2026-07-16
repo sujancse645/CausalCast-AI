@@ -30,7 +30,9 @@ export function SystemReadiness() {
     ],
     [
       "Forecasting Engine",
-      system?.modules.forecasting === "baseline_forecasting_ready"
+      ["baseline_forecasting_ready", "gradient_boosting_ready"].includes(
+        system?.modules.forecasting ?? "",
+      )
         ? "Operational"
         : "Planned",
     ],

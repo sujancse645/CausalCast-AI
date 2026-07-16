@@ -104,7 +104,7 @@ function Brand() {
 function PhaseBadge() {
   return (
     <div className="absolute right-5 bottom-6 left-5 rounded-xl border border-violet-500/25 bg-violet-500/10 p-3 text-xs text-violet-200">
-      Phase 3A · Baseline forecasting
+      Phase 3B · Gradient boosting
     </div>
   );
 }

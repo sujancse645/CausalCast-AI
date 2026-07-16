@@ -35,6 +35,7 @@ import type {
   ForecastPrediction,
 } from "@/types/forecasting";
 import type { PreparationResponse, SplitDefinition } from "@/types/preparation";
+import { AdvancedModelSelector } from "./gradient-boosting";
 
 export function ForecastStatusBadge({ status }: { status: string }) {
   return (
@@ -140,6 +141,8 @@ export function ForecastExperimentConfigPanel({
 }) {
   const [horizon, setHorizon] = useState(30),
     [season, setSeason] = useState(7),
+    [strategy, setStrategy] = useState<"global" | "per_group">("global"),
+    [trials, setTrials] = useState(25),
     [selected, setSelected] = useState<string[]>(
       models.filter((x) => x.enabled).map((x) => x.id),
     );
@@ -175,10 +178,46 @@ export function ForecastExperimentConfigPanel({
         </label>
       </div>
       <BaselineModelSelector
+        models={models.filter((model) => model.family !== "gradient_boosting")}
+        selected={selected}
+        setSelected={setSelected}
+      />
+      <AdvancedModelSelector
         models={models}
         selected={selected}
         setSelected={setSelected}
       />
+      <div className="grid gap-4 sm:grid-cols-3">
+        <label>
+          Strategy
+          <select
+            aria-label="Model strategy"
+            className="mt-1 w-full rounded-lg bg-slate-950 p-2"
+            value={strategy}
+            onChange={(event) =>
+              setStrategy(event.target.value as "global" | "per_group")
+            }
+          >
+            <option value="global">Global</option>
+            <option value="per_group">Per group</option>
+          </select>
+        </label>
+        <label>
+          Tuning trials
+          <input
+            aria-label="Tuning trials"
+            className="mt-1 w-full rounded-lg bg-slate-950 p-2"
+            type="number"
+            min={1}
+            max={100}
+            value={trials}
+            onChange={(event) => setTrials(Number(event.target.value))}
+          />
+        </label>
+        <p className="text-sm text-amber-200">
+          Advanced model tuning may take longer than baseline forecasting.
+        </p>
+      </div>
       {invalid && (
         <p role="alert" className="text-sm text-amber-300">
           Use a positive horizon, seasonal period of at least two, and one
@@ -198,10 +237,15 @@ export function ForecastExperimentConfigPanel({
             backtest_folds: 5,
             evaluate_per_group: true,
             include_exogenous_features: true,
+            strategy,
+            tuning_trials: trials,
+            tuning_timeout_seconds: 300,
+            early_stopping_rounds: 50,
+            generate_shap: true,
           })
         }
       >
-        {busy ? "Experiment running…" : "Run baseline experiment"}
+        {busy ? "Experiment running…" : "Run baseline and advanced experiment"}
       </button>
     </section>
   );
@@ -293,7 +337,7 @@ export function ForecastWorkspace({
       </Link>
       <header>
         <p className="text-xs tracking-[.2em] text-cyan-400 uppercase">
-          Phase 3A · Baseline forecasting
+          Phase 3B · Gradient-boosting forecasting
         </p>
         <h1 className="mt-2 text-3xl font-semibold">
           Forecast experiment workspace
@@ -303,7 +347,7 @@ export function ForecastWorkspace({
       <ForecastSourceSummary item={prepared} splits={splits} />
       {error && <ForecastErrorState message={error} />}{" "}
       {busy ? (
-        <ForecastExecutionStatus stage="Validating source, fitting baselines, retraining folds, ranking models, and evaluating the selected model…" />
+        <ForecastExecutionStatus stage="Validating source, tuning chronologically, retraining folds, ranking against baselines, and evaluating the locked model…" />
       ) : (
         <ForecastExperimentConfigPanel
           models={models}
@@ -347,6 +391,8 @@ export function ModelLeaderboard({ runs }: { runs: ForecastModelRun[] }) {
             <th>Validation MAE</th>
             <th>Stability</th>
             <th>Duration</th>
+            <th>Trials</th>
+            <th>Best iteration</th>
           </tr>
         </thead>
         <tbody>
@@ -367,6 +413,8 @@ export function ModelLeaderboard({ runs }: { runs: ForecastModelRun[] }) {
                 {metric(x.backtest_metrics?.fold_wape_standard_deviation)}
               </td>
               <td>{x.training_duration_ms + x.backtest_duration_ms} ms</td>
+              <td>{x.tuning_trial_count ?? "—"}</td>
+              <td>{x.best_iteration ?? "—"}</td>
             </tr>
           ))}
         </tbody>

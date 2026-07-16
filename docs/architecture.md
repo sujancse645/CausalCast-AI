@@ -115,3 +115,17 @@ flowchart LR
 ```
 
 Evidence contains counts, ratios, thresholds, aggregate ranges, and capped row indices—not complete records. No mutation, automatic cleaning, formula execution, external AI call, or forecasting claim occurs.
+# Phase 3B gradient-boosting lifecycle
+
+```mermaid
+flowchart LR
+  P[Governed prepared dataset] --> F[Leakage-safe feature catalog]
+  F --> T[Seeded chronological tuning]
+  T --> B[Full expanding-window backtest]
+  B --> C[Comparison with Phase 3A baselines]
+  C --> L[Locked selected model]
+  L --> X[One final test evaluation]
+  X --> A[Checksummed artifacts and bounded SHAP]
+```
+
+Preprocessing is fitted independently inside each fold. Test rows are unavailable to tuning and ranking. Optional model failures and failed trials are persisted without hiding successful baselines.
