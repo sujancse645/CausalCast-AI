@@ -16,6 +16,7 @@ export interface DatasetSummary {
   status: DatasetStatus;
   created_at: string;
   preview_available: boolean;
+  schema_status?: string;
 }
 export interface DatasetDetail extends DatasetSummary {
   checksum_sha256: string;

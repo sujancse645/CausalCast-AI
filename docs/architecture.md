@@ -49,3 +49,21 @@ flowchart LR
 The storage service resolves a configured root, accepts only generated filenames, checks containment, streams 1 MB chunks, and cleans temporary or committed files after validation/database failure. Parsing uses Python's CSV module without DataFrames or full-file memory loading. Preview rows are bounded derived metadata; the immutable raw file remains authoritative. Database rows store relative keys only, while response schemas omit all internal keys and stored names.
 
 Trust boundaries are explicit: browser validation is convenience only; the backend is authoritative. CSV content is never executed or rendered as HTML. Archiving moves the raw object before marking its row archived, with restoration on metadata transaction failure. Malware scanning, authentication, authorization, and cloud object storage remain future controls.
+
+## Phase 2B schema architecture
+
+Physical profiling, semantic inference, and confirmed mappings are separate layers. A bounded scanner computes primitive types and limited statistics in one pass. Deterministic rules combine normalized-name, type, distribution, and relationship evidence. Proposals and audit events are derived, versioned records; reruns supersede but never erase history.
+
+```mermaid
+flowchart LR
+  D[Immutable dataset] --> S[Bounded scanner]
+  S --> P[Physical profiler]
+  P --> C[Candidate generator]
+  C --> E[Confidence and evidence scorer]
+  E --> X[Conflict detector]
+  X --> R[Versioned schema proposal]
+  R --> U[User review and override]
+  U --> M[Confirmed mapping]
+```
+
+Responses expose only truncated samples and bounded statistics. Inference does not log values, expose storage keys, mutate files, execute content, or call external AI. Authentication is deferred; audit actors are `system` and `local_user`.

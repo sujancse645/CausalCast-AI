@@ -128,7 +128,7 @@ npm.cmd run build
 
 ## Roadmap
 
-Phase 1 and Phase 2A are complete. Phase 2B will add schema inference and explicit intelligent column mapping without modifying raw data. See [the development roadmap](docs/development-roadmap.md).
+Phase 1, Phase 2A, and Phase 2B are complete. Phase 2C will add governed data-quality intelligence without modifying raw data. See [the development roadmap](docs/development-roadmap.md).
 
 ## Phase 2A ingestion behavior
 
@@ -158,6 +158,22 @@ curl.exe -F "file=@data/synthetic/sample_marketing_data.csv;type=text/csv" http:
 ## Security
 
 No authentication is claimed yet. Uploads are untrusted, streamed, size-limited, extension/MIME/CSV-structure validated, stored with generated names, and never executed. This is format validation—not antivirus or content-disarm scanning. Errors do not expose storage paths or production tracebacks. Do not use this phase with sensitive production data until authentication, authorization, malware scanning, and retention controls are added.
+
+## Phase 2B — Intelligent schema mapping
+
+Phase 2B profiles a bounded CSV sample locally and proposes an explainable semantic role for each column. Physical types and semantic meanings remain separate. Every proposal includes deterministic confidence, structured evidence, alternatives, and ambiguity warnings. Proposals are derived metadata: raw uploads are never changed, no data is sent to external AI, and a person must confirm mappings before future phases use them.
+
+Confidence combines normalized-name evidence, physical-type compatibility, bounded distribution signals, and ROAS/CTR/CPC/CPA/conversion-rate relationships where available. Configure it with the documented `SCHEMA_INFERENCE_*` environment variables. Automatic confirmation is deliberately disabled.
+
+```powershell
+Set-Location backend
+.\.venv\Scripts\python.exe -m alembic upgrade head
+$datasetId = "<dataset-uuid>"
+Invoke-RestMethod -Method Post -Uri "http://localhost:8000/api/v1/datasets/$datasetId/schema/infer" -ContentType "application/json" -Body '{"force_reinfer":true,"reason":"manual review"}'
+Invoke-RestMethod -Uri "http://localhost:8000/api/v1/datasets/$datasetId/schema"
+```
+
+Confirmation requires a date/timestamp and a target candidate; unresolved columns must be mapped or ignored. Phase 2B does not assess full data quality, clean data, or establish forecasting readiness.
 
 ## License
 

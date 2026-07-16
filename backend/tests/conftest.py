@@ -27,3 +27,20 @@ def pytest_sessionfinish() -> None:
 def client() -> TestClient:
     with TestClient(app) as test_client:
         yield test_client
+
+
+@pytest.fixture(autouse=True)
+def clean_database() -> None:
+    yield
+    from app.core.database import SessionLocal
+    from app.models.dataset import Dataset
+    from app.models.schema_profile import DatasetColumnProfile, DatasetSchemaProfile, SchemaMappingAudit
+
+    with SessionLocal() as db:
+        for model in (SchemaMappingAudit, DatasetColumnProfile, DatasetSchemaProfile, Dataset):
+            db.query(model).delete()
+        db.commit()
+    storage = TEST_ROOT / "storage"
+    for path in storage.rglob("*") if storage.exists() else []:
+        if path.is_file():
+            path.unlink()

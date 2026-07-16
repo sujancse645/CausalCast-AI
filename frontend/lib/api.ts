@@ -9,6 +9,14 @@ import type {
   DatasetStats,
   DatasetUploadResponse,
 } from "@/types/dataset";
+import type {
+  ColumnMappingUpdateRequest,
+  DatasetSchemaDetail,
+  SchemaConfirmationResponse,
+  SchemaHistoryItem,
+  SchemaStats,
+  SemanticRoleDefinition,
+} from "@/types/schema-mapping";
 
 export class ApiError extends Error {
   constructor(
@@ -89,3 +97,50 @@ export const archiveDataset = (id: string) =>
   );
 export const getDatasetStats = () =>
   request<DatasetStats>("/api/v1/datasets/stats");
+export const getSemanticRoles = () =>
+  request<{ items: SemanticRoleDefinition[] }>("/api/v1/schema/roles");
+export const inferDatasetSchema = (id: string, reason?: string) =>
+  request<DatasetSchemaDetail>(
+    `/api/v1/datasets/${encodeURIComponent(id)}/schema/infer`,
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ force_reinfer: true, reason }),
+    },
+    30000,
+  );
+export const getDatasetSchema = (id: string) =>
+  request<DatasetSchemaDetail>(
+    `/api/v1/datasets/${encodeURIComponent(id)}/schema`,
+  );
+export const getSchemaHistory = (id: string) =>
+  request<{ items: SchemaHistoryItem[] }>(
+    `/api/v1/datasets/${encodeURIComponent(id)}/schema/history`,
+  );
+export const updateColumnMapping = (
+  datasetId: string,
+  columnId: string,
+  body: ColumnMappingUpdateRequest,
+) =>
+  request<{
+    column: import("@/types/schema-mapping").ColumnProfile;
+    summary: import("@/types/schema-mapping").DatasetSchemaSummary;
+  }>(
+    `/api/v1/datasets/${encodeURIComponent(datasetId)}/schema/columns/${encodeURIComponent(columnId)}`,
+    {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+    },
+  );
+export const confirmDatasetSchema = (id: string) =>
+  request<SchemaConfirmationResponse>(
+    `/api/v1/datasets/${encodeURIComponent(id)}/schema/confirm`,
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ acknowledge_warnings: true }),
+    },
+  );
+export const getSchemaStats = () =>
+  request<SchemaStats>("/api/v1/datasets/schema/stats");

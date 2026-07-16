@@ -23,8 +23,8 @@ export function SystemReadiness() {
         (state === "checking" ? "Checking" : "Unavailable"),
     ],
     [
-      "Data Ingestion",
-      system?.modules.data_intelligence === "ingestion_ready"
+      "Schema Mapping",
+      system?.modules.data_intelligence === "schema_mapping_ready"
         ? "Operational"
         : "Planned",
     ],

@@ -13,6 +13,8 @@ jobs:
       - working-directory: backend
         run: alembic upgrade head
       - working-directory: backend
+        run: alembic downgrade -1 && alembic upgrade head
+      - working-directory: backend
         run: ruff format --no-cache --check .
       - working-directory: backend
         run: ruff check --no-cache .

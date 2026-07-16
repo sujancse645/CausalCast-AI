@@ -17,3 +17,7 @@
 15. Never expose internal storage paths, temporary names, or server filesystem details through APIs.
 16. Raw datasets are immutable and must never be committed; transformations create traceable derived versions.
 17. Future schema inference and analysis must preserve lineage and must not modify raw files.
+18. Semantic inference must be explainable and confidence scores deterministic and reproducible.
+19. Low-confidence or ambiguous mappings require human review; they are never silently confirmed.
+20. Manual overrides must be audited and schema-versioned; future forecasting may use only confirmed mappings.
+21. LLM output must never replace deterministic schema validation.

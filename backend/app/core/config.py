@@ -29,6 +29,14 @@ class Settings(BaseSettings):
     dataset_ingestion_version: int = 1
     dataset_delete_mode: Literal["archive"] = "archive"
     dataset_max_cell_length: int = 500
+    schema_inference_sample_rows: int = 5000
+    schema_inference_preview_values: int = 10
+    schema_inference_min_confidence: float = 0.60
+    schema_inference_auto_confirm_threshold: float = 0.92
+    schema_inference_ambiguity_margin: float = 0.10
+    schema_inference_version: str = "1.0"
+    schema_inference_max_cell_length: int = 200
+    schema_inference_max_unique_tracking: int = 10000
 
     model_config = SettingsConfigDict(env_file=".env", extra="ignore", case_sensitive=False)
 
@@ -44,6 +52,17 @@ class Settings(BaseSettings):
     def positive_limits(cls, value: int) -> int:
         if value < 1:
             raise ValueError("Dataset limits must be positive")
+        return value
+
+    @field_validator(
+        "schema_inference_min_confidence",
+        "schema_inference_auto_confirm_threshold",
+        "schema_inference_ambiguity_margin",
+    )
+    @classmethod
+    def probability_limits(cls, value: float) -> float:
+        if not 0 <= value <= 1:
+            raise ValueError("Schema confidence settings must be between zero and one")
         return value
 
     @model_validator(mode="after")

@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import type { DatasetListResponse } from "@/types/dataset";
 import { DatasetStatusBadge } from "./dataset-status-badge";
 export function DatasetLibrary({
@@ -68,6 +69,7 @@ export function DatasetLibrary({
                   "Columns",
                   "Size",
                   "Status",
+                  "Schema",
                   "Uploaded",
                   "Actions",
                 ].map((x) => (
@@ -89,6 +91,12 @@ export function DatasetLibrary({
                   <td className="px-4">
                     <DatasetStatusBadge status={item.status} />
                   </td>
+                  <td className="px-4 text-slate-300 capitalize">
+                    {(item.schema_status ?? "not_analyzed").replaceAll(
+                      "_",
+                      " ",
+                    )}
+                  </td>
                   <td className="px-4 text-slate-400">
                     {new Date(item.created_at).toLocaleString()}
                   </td>
@@ -99,6 +107,14 @@ export function DatasetLibrary({
                     >
                       View details
                     </button>
+                    {item.status === "ready" && (
+                      <Link
+                        href={`/data-intelligence/${item.id}/schema`}
+                        className="mr-3 text-cyan-300"
+                      >
+                        Review schema
+                      </Link>
+                    )}
                     {item.status !== "archived" && (
                       <button
                         onClick={() => onArchive(item.id)}

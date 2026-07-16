@@ -11,7 +11,7 @@ def test_system_info(client: TestClient) -> None:
     body = response.json()
     assert body["backend"]["status"] == "operational"
     assert body["database"]["status"] == "connected"
-    assert body["modules"]["data_intelligence"] == "ingestion_ready"
+    assert body["modules"]["data_intelligence"] == "schema_mapping_ready"
     assert set(value for key, value in body["modules"].items() if key != "data_intelligence") == {"planned"}
 
 

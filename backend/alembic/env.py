@@ -4,7 +4,13 @@ from sqlalchemy import engine_from_config, pool
 
 from alembic import context
 from app.core.config import get_settings
-from app.models import ApplicationMetadata, Dataset  # noqa: F401
+from app.models import (  # noqa: F401
+    ApplicationMetadata,
+    Dataset,
+    DatasetColumnProfile,
+    DatasetSchemaProfile,
+    SchemaMappingAudit,
+)
 from app.models.base import Base
 
 config = context.config

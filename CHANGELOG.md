@@ -2,6 +2,15 @@
 
 All notable project changes are documented here.
 
+## 0.3.0 — 2026-07-15
+
+### Phase 2B — Intelligent Schema Mapping
+
+- Added bounded, deterministic physical profiling and multi-signal semantic-role inference with confidence, evidence, alternatives, ambiguity, relationship checks, and readiness issues.
+- Added versioned schema, column-profile, and mapping-audit persistence plus role discovery, inference, history, override, confirmation, and aggregate statistics APIs.
+- Added the accessible schema-mapping workspace, evidence review, role overrides, confirmation flow, schema status in the dataset library, and real dashboard schema statistics.
+- Raw datasets remain immutable; inference runs locally without external AI services and proposed mappings require human confirmation.
+
 ## 0.2.0 — 2026-07-15
 
 ### Phase 2A — Secure Dataset Ingestion

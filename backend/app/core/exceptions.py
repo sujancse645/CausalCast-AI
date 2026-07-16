@@ -40,6 +40,36 @@ class DatasetParseError(DatasetError):
     pass
 
 
+class DatasetSchemaNotFoundError(DatasetError):
+    pass
+
+
+class DatasetNotReadyForSchemaError(DatasetError):
+    pass
+
+
+class SchemaInferenceError(DatasetError):
+    pass
+
+
+class ColumnProfileNotFoundError(DatasetError):
+    pass
+
+
+class InvalidSemanticRoleError(DatasetError):
+    pass
+
+
+class SchemaConfirmationError(DatasetError):
+    def __init__(self, issues: list[str]) -> None:
+        self.issues = issues
+        super().__init__("Schema mapping has unresolved blocking issues")
+
+
+class SchemaVersionConflictError(DatasetError):
+    pass
+
+
 def register_exception_handlers(app: FastAPI) -> None:
     @app.exception_handler(Exception)
     async def unhandled_exception(request: Request, exc: Exception) -> JSONResponse:

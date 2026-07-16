@@ -24,6 +24,7 @@ class DatasetSummary(BaseModel):
     status: DatasetStatusValue
     created_at: datetime
     preview_available: bool
+    schema_status: str = "not_analyzed"
 
 
 class DatasetDetail(DatasetSummary):

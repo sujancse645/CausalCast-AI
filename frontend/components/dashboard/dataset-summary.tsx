@@ -1,11 +1,13 @@
 "use client";
 import { Database } from "lucide-react";
 import { useEffect, useState } from "react";
-import { getDatasetStats } from "@/lib/api";
+import { getDatasetStats, getSchemaStats } from "@/lib/api";
 import type { DatasetStats } from "@/types/dataset";
+import type { SchemaStats } from "@/types/schema-mapping";
 export function DatasetSummary() {
   const [stats, setStats] = useState<DatasetStats | null>(null);
   const [failed, setFailed] = useState(false);
+  const [schemaStats, setSchemaStats] = useState<SchemaStats | null>(null);
   useEffect(() => {
     let active = true;
     void getDatasetStats()
@@ -15,6 +17,11 @@ export function DatasetSummary() {
       .catch(() => {
         if (active) setFailed(true);
       });
+    void getSchemaStats()
+      .then((value) => {
+        if (active) setSchemaStats(value);
+      })
+      .catch(() => undefined);
     return () => {
       active = false;
     };
@@ -52,6 +59,28 @@ export function DatasetSummary() {
                 : "—"}
             </p>
             <p className="muted text-xs">Latest upload</p>
+          </div>
+        </div>
+      )}
+      {schemaStats && (
+        <div className="mt-5 grid gap-3 border-t border-slate-800 pt-4 sm:grid-cols-3">
+          <div>
+            <p className="text-xl font-semibold">
+              {schemaStats.awaiting_review}
+            </p>
+            <p className="muted text-xs">Awaiting schema review</p>
+          </div>
+          <div>
+            <p className="text-xl font-semibold">
+              {schemaStats.confirmed_schemas}
+            </p>
+            <p className="muted text-xs">Confirmed schemas</p>
+          </div>
+          <div>
+            <p className="text-xl font-semibold">
+              {schemaStats.unresolved_columns}
+            </p>
+            <p className="muted text-xs">Unresolved columns</p>
           </div>
         </div>
       )}

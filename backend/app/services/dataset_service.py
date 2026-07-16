@@ -16,6 +16,7 @@ from app.core.exceptions import (
     UnsupportedDatasetTypeError,
 )
 from app.models.dataset import Dataset, DatasetStatus
+from app.models.schema_profile import DatasetSchemaProfile, SchemaStatus
 from app.schemas.dataset import (
     DatasetArchiveResponse,
     DatasetDetail,
@@ -125,8 +126,21 @@ def list_datasets(
     items = db.scalars(
         select(Dataset).where(*filters).order_by(order).offset((page - 1) * page_size).limit(page_size)
     ).all()
+    dataset_ids = [item.id for item in items]
+    schema_rows = db.execute(
+        select(DatasetSchemaProfile.dataset_id, DatasetSchemaProfile.status).where(
+            DatasetSchemaProfile.dataset_id.in_(dataset_ids),
+            DatasetSchemaProfile.status != SchemaStatus.superseded,
+        )
+    ).all()
+    schema_statuses = {dataset_id: status.value for dataset_id, status in schema_rows}
     return DatasetListResponse(
-        items=[DatasetSummary.model_validate(item) for item in items],
+        items=[
+            DatasetSummary.model_validate(item).model_copy(
+                update={"schema_status": schema_statuses.get(item.id, "not_analyzed")}
+            )
+            for item in items
+        ],
         pagination=PaginationMetadata(
             page=page,
             page_size=page_size,

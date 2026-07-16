@@ -2,7 +2,7 @@ from typing import Literal
 
 from pydantic import BaseModel
 
-ModuleStatus = Literal["planned", "ingestion_ready"]
+ModuleStatus = Literal["planned", "schema_mapping_ready"]
 
 
 class ApplicationInfo(BaseModel):
@@ -22,7 +22,7 @@ class DatabaseInfo(BaseModel):
 
 
 class ModulesInfo(BaseModel):
-    data_intelligence: ModuleStatus = "ingestion_ready"
+    data_intelligence: ModuleStatus = "schema_mapping_ready"
     forecasting: ModuleStatus = "planned"
     causal_intelligence: ModuleStatus = "planned"
     simulation: ModuleStatus = "planned"
