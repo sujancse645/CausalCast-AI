@@ -80,6 +80,31 @@ export function TuningSummaryPanel({ summary }: { summary: TuningSummary }) {
       <pre className="mt-3 overflow-auto text-xs">
         {JSON.stringify(summary.best_parameters, null, 2)}
       </pre>
+      <div className="mt-4 overflow-x-auto">
+        <table className="w-full text-left text-xs">
+          <thead>
+            <tr>
+              <th>Trial</th>
+              <th>Status</th>
+              <th>Backtest WAPE</th>
+              <th>Duration</th>
+            </tr>
+          </thead>
+          <tbody>
+            {summary.items.slice(0, 25).map((trial) => (
+              <tr
+                className="border-t border-slate-800"
+                key={trial.trial_number}
+              >
+                <td>{trial.trial_number}</td>
+                <td>{trial.status}</td>
+                <td>{trial.backtest_metric?.toFixed(4) ?? "—"}</td>
+                <td>{trial.duration_ms} ms</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </section>
   );
 }

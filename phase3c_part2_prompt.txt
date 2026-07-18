@@ -1,0 +1,1828 @@
+Phase 3C – Part 2A
+Production Implementation Prompt
+Deep Forecasting – N-HiTS Training Pipeline
+Context
+
+You are working inside the existing CausalCast AI repository.
+
+Everything implemented in:
+
+Phase 1
+Phase 2A
+Phase 2B
+Phase 2C
+Phase 2D
+Phase 3A
+Phase 3B
+Phase 3C Part 1
+
+must remain untouched unless modification is absolutely necessary.
+
+This is an enterprise forecasting platform.
+
+Code quality must match production SaaS standards.
+
+No prototype code.
+
+No placeholders.
+
+No fake metrics.
+
+No TODO implementations.
+
+FIRST ACTION
+
+Before writing any code:
+
+Inspect the repository.
+
+Read
+
+phase3c_part1_prompt.txt
+
+Inspect
+
+git status
+
+git diff
+
+git log
+
+migrations
+
+artifacts
+
+configs
+
+tests
+
+Determine what already exists.
+
+Never duplicate functionality.
+
+OBJECTIVE
+
+Implement a production-grade N-HiTS forecasting module capable of training on multivariate datasets.
+
+This phase only introduces N-HiTS.
+
+Do NOT implement:
+
+TFT
+DeepAR
+TiDE
+Autoformer
+TimesNet
+PatchTST
+Ensembles
+Prediction intervals
+Explainability
+
+Those belong to later phases.
+
+DIRECTORY STRUCTURE
+
+Create (only if missing)
+
+backend/app/deep_learning/
+
+backend/app/deep_learning/models/
+
+backend/app/deep_learning/trainers/
+
+backend/app/deep_learning/utils/
+
+backend/app/deep_learning/config/
+
+backend/app/deep_learning/checkpoints/
+
+backend/app/deep_learning/logging/
+
+backend/app/deep_learning/callbacks/
+
+Never break existing imports.
+
+N-HITS IMPLEMENTATION
+
+Implement
+
+NHiTSForecastModel
+
+using
+
+NeuralForecast
+
+architecture.
+
+Support:
+
+configurable horizon
+configurable input window
+configurable stack count
+configurable block count
+hidden dimension
+dropout
+activation function
+learning rate
+optimizer
+scheduler
+weight decay
+random seed
+
+All parameters must be configurable.
+
+Never hardcode.
+
+MODEL CONFIGURATION
+
+Support YAML.
+
+Example
+
+forecast_horizon
+
+input_size
+
+learning_rate
+
+batch_size
+
+epochs
+
+dropout
+
+hidden_size
+
+scheduler
+
+optimizer
+
+stack_types
+
+num_blocks
+
+random_seed
+
+Configuration validation required.
+
+Reject invalid configs.
+
+DATA PIPELINE
+
+Accept the canonical dataset generated in previous phases.
+
+Support
+
+static covariates
+
+dynamic covariates
+
+calendar features
+
+lag features
+
+rolling features
+
+holiday features
+
+future regressors
+
+categorical encoding
+
+missing value handling
+
+chronological ordering
+
+No data leakage.
+
+TRAINER
+
+Create
+
+NHiTSTrainer
+
+Responsibilities
+
+dataset preparation
+
+batch creation
+
+training
+
+validation
+
+logging
+
+checkpoint saving
+
+resume support
+
+metric computation
+
+artifact generation
+
+training summary
+
+TRAINING
+
+Support
+
+CPU
+
+CUDA
+
+MPS (Apple)
+
+Automatic hardware detection.
+
+Mixed precision only on CUDA.
+
+Gracefully fall back to CPU.
+
+CALLBACKS
+
+Implement
+
+EarlyStopping
+
+LearningRateMonitor
+
+ModelCheckpoint
+
+ProgressLogger
+
+GradientNormMonitor
+
+TrainingHistory
+
+Never terminate training unexpectedly.
+
+CHECKPOINTING
+
+Automatically save
+
+best model
+
+latest model
+
+epoch checkpoints
+
+training metadata
+
+optimizer state
+
+scheduler state
+
+random state
+
+Allow complete recovery.
+
+RESUME TRAINING
+
+Support
+
+resume_training()
+
+Resume from
+
+latest checkpoint
+
+or
+
+specified checkpoint.
+
+Training history must continue.
+
+Epoch numbers must continue.
+
+Optimizer state restored.
+
+METRICS
+
+Compute
+
+MAE
+
+RMSE
+
+MAPE
+
+SMAPE
+
+WAPE
+
+R²
+
+Loss
+
+Validation loss
+
+Training time
+
+Epoch time
+
+Samples/sec
+
+GPU utilization when available.
+
+ARTIFACTS
+
+Generate
+
+artifacts/
+
+models/
+
+logs/
+
+metrics/
+
+training/
+
+plots/
+
+Each experiment receives
+
+UUID
+
+timestamp
+
+configuration snapshot
+
+hardware info
+
+Git commit hash (if repository available).
+
+LOGGING
+
+Produce
+
+training.log
+
+metrics.json
+
+config.yaml
+
+history.csv
+
+summary.json
+
+Never overwrite previous runs.
+
+DATABASE
+
+Create migration if required.
+
+Store
+
+experiment metadata
+
+model metadata
+
+checkpoint paths
+
+training status
+
+hardware used
+
+metrics
+
+artifact locations
+
+Maintain backward compatibility.
+
+BACKEND SERVICES
+
+Implement
+
+DeepTrainingService
+
+CheckpointService
+
+HardwareDetectionService
+
+ExperimentService
+
+Use dependency injection.
+
+API ENDPOINTS
+
+Implement
+
+POST /api/v1/deep/train/nhits
+
+GET /api/v1/deep/train/status
+
+GET /api/v1/deep/experiments
+
+GET /api/v1/deep/experiments/{id}
+
+POST /api/v1/deep/checkpoint/resume
+
+Return typed Pydantic responses.
+
+No untyped JSON.
+
+FRONTEND
+
+Create pages
+
+Training
+
+Experiments
+
+Training Details
+
+Training page shows
+
+live epoch
+
+loss
+
+validation loss
+
+ETA
+
+hardware
+
+learning rate
+
+current checkpoint
+
+Experiments page
+
+sortable table
+
+filter
+
+search
+
+metrics
+
+duration
+
+download artifacts
+
+Training details
+
+loss curve
+
+validation curve
+
+configuration
+
+system information
+
+artifact links
+
+checkpoint status
+
+VISUALIZATION
+
+Automatically generate
+
+loss curve
+
+validation curve
+
+learning-rate curve
+
+epoch duration chart
+
+Save under
+
+artifacts/plots
+
+PNG
+
+and
+
+SVG.
+
+TESTS
+
+Backend
+
+trainer tests
+
+resume tests
+
+checkpoint tests
+
+metric tests
+
+hardware tests
+
+API tests
+
+Frontend
+
+component tests
+
+API integration tests
+
+DOCUMENTATION
+
+Generate
+
+docs/nhits.md
+
+docs/training_pipeline.md
+
+docs/checkpointing.md
+
+Include
+
+architecture
+
+configuration
+
+training workflow
+
+resume workflow
+
+artifact structure
+
+API reference
+
+CODE QUALITY
+
+Use
+
+type hints
+
+docstrings
+
+logging
+
+lint compliance
+
+dependency injection
+
+configuration objects
+
+modular architecture
+
+no duplicated code
+
+production error handling
+
+ACCEPTANCE CRITERIA
+
+Implementation is complete only if:
+
+N-HiTS trains successfully.
+Checkpoints save automatically.
+Resume training works.
+Metrics compute correctly.
+APIs return valid responses.
+Frontend displays training progress.
+Artifacts are generated.
+Tests pass.
+Documentation is complete.
+No placeholder implementations remain.
+DO NOT IMPLEMENT IN THIS PHASE
+Temporal Fusion Transformer (TFT)
+DeepAR
+PatchTST
+TiDE
+Autoformer
+Prediction intervals
+Ensemble forecasting
+Explainability
+SHAP for deep models
+Hyperparameter search
+Distributed training
+
+Those are reserved for Phase 3C Part 2B and beyond.
+
+Phase 3C Part 2B – Temporal Fusion Transformer (TFT) + Advanced Deep Forecasting Infrastructure
+
+This phase assumes:
+
+Phase 1 completed
+Phase 2A–2D completed
+Phase 3A completed
+Phase 3B completed
+Phase 3C Part 1 completed
+Phase 3C Part 2A completed
+
+Preserve all existing functionality.
+
+Never replace working implementations.
+
+Never duplicate modules.
+
+Inspect repository before modifying code.
+
+Repository Inspection
+
+Before writing code:
+
+Read phase3c_part1_prompt.txt
+Inspect git status
+Inspect migrations
+Inspect deep learning module
+Detect completed N-HiTS implementation
+Detect experiment registry
+Detect artifact registry
+Detect APIs
+Detect frontend
+Detect tests
+
+Produce implementation plan before editing.
+
+Objective
+
+Implement a complete production-grade Temporal Fusion Transformer (TFT) forecasting pipeline fully integrated into the platform.
+
+The implementation must support:
+
+multi-series forecasting
+multivariate forecasting
+static covariates
+known future covariates
+observed covariates
+missing values
+categorical embeddings
+attention visualization
+quantile forecasting
+production inference
+
+No prototype implementation.
+
+Create Modules
+
+Create if missing:
+
+backend/app/deep_learning/tft/
+backend/app/deep_learning/tft/models/
+backend/app/deep_learning/tft/trainers/
+backend/app/deep_learning/tft/utils/
+backend/app/deep_learning/tft/config/
+backend/app/deep_learning/tft/layers/
+backend/app/deep_learning/tft/visualization/
+backend/app/deep_learning/tft/checkpoints/
+Model
+
+Implement
+
+TemporalFusionTransformerModel
+
+Support configuration for:
+
+hidden size
+lstm layers
+attention heads
+dropout
+embedding size
+batch size
+optimizer
+scheduler
+gradient clipping
+learning rate
+patience
+encoder length
+decoder length
+prediction horizon
+
+All configurable through YAML.
+
+Data Pipeline
+
+Support:
+
+panel datasets
+grouped forecasting
+time index validation
+future regressors
+static regressors
+continuous variables
+categorical variables
+missing value masking
+normalization
+inverse transforms
+
+Prevent leakage.
+
+Reject invalid chronological order.
+
+Trainer
+
+Create
+
+TFTTrainer
+
+Responsibilities:
+
+dataset preparation
+dataloaders
+batching
+validation
+checkpointing
+metric computation
+resume training
+prediction
+artifact generation
+Quantile Forecasting
+
+Support configurable quantiles:
+
+0.05
+
+0.10
+
+0.25
+
+0.50
+
+0.75
+
+0.90
+
+0.95
+
+Produce prediction intervals.
+
+Persist intervals with forecasts.
+
+Attention Visualization
+
+Generate:
+
+temporal attention
+variable importance
+encoder attention
+decoder attention
+feature selection importance
+
+Save visualizations under
+
+artifacts/attention/
+
+Generate PNG and SVG.
+
+Training Pipeline
+
+Support:
+
+CPU
+CUDA
+Automatic mixed precision
+deterministic execution
+gradient accumulation
+checkpoint every N epochs
+best checkpoint
+latest checkpoint
+Experiment Tracking
+
+Every experiment stores:
+
+UUID
+timestamp
+model type
+dataset
+configuration
+Git commit hash
+runtime
+hardware
+metrics
+artifact locations
+Metrics
+
+Compute automatically:
+
+MAE
+RMSE
+MAPE
+SMAPE
+WAPE
+R²
+Quantile Loss
+Pinball Loss
+
+Store metrics as JSON.
+
+Backend APIs
+
+Implement:
+
+POST /api/v1/deep/train/tft
+
+POST /api/v1/deep/predict/tft
+
+GET /api/v1/deep/tft/status
+
+GET /api/v1/deep/tft/experiments
+
+GET /api/v1/deep/tft/attention/{id}
+
+POST /api/v1/deep/tft/resume
+
+Return typed Pydantic models.
+
+Frontend
+
+Add pages:
+
+Temporal Fusion Transformer
+
+Training
+
+Prediction
+
+Attention Visualization
+
+Experiments
+
+Training page shows:
+
+current epoch
+train loss
+validation loss
+ETA
+GPU utilization
+learning rate
+checkpoint status
+
+Attention page displays:
+
+feature importance
+temporal attention
+variable selection
+downloadable images
+
+Prediction page allows:
+
+upload CSV
+select trained TFT model
+prediction horizon
+quantile selection
+download forecast
+Tests
+
+Implement:
+
+trainer tests
+dataloader tests
+quantile tests
+attention tests
+checkpoint tests
+API tests
+frontend integration tests
+inference tests
+
+Coverage must remain above existing project standards.
+
+Documentation
+
+Generate:
+
+docs/tft.md
+
+docs/attention.md
+
+docs/quantile_forecasting.md
+
+docs/deep_prediction.md
+
+Include architecture diagrams, configuration reference, API reference, training workflow, and troubleshooting.
+
+Acceptance Criteria
+
+Phase 2B is complete only if:
+
+TFT trains successfully.
+Checkpoints resume correctly.
+Quantile forecasting works.
+Attention visualizations are generated.
+APIs function correctly.
+Frontend displays training and attention.
+Artifacts are stored.
+Documentation is complete.
+Existing N-HiTS implementation remains unaffected.
+Do NOT implement in this phase
+Model ensembling
+AutoML
+Bayesian optimization
+Explainability dashboard across all models
+Distributed multi-node training
+Production deployment infrastructure
+
+Those belong in Phase 3C Part 2C.
+Perfect. The next logical phase is **Phase 3C – Part 2C**.
+
+This phase is where your platform starts becoming **enterprise-grade** by introducing **multi-model orchestration, forecasting registry, inference engine, model selection, and production serving**, while **not** yet implementing ensemble forecasting (that comes in Part 2D).
+
+---
+
+# PHASE 3C – PART 2C
+
+## Multi-Model Forecast Orchestration & Production Inference Engine
+
+---
+
+## Context
+
+You are continuing the implementation of the **CausalCast AI** enterprise forecasting platform.
+
+The following phases are already complete and must remain fully functional:
+
+* Phase 1
+* Phase 2A
+* Phase 2B
+* Phase 2C
+* Phase 2D
+* Phase 3A
+* Phase 3B
+* Phase 3C Part 1
+* Phase 3C Part 2A
+* Phase 3C Part 2B
+
+Never replace existing implementations.
+
+Never duplicate code.
+
+Only extend the architecture.
+
+Backward compatibility is mandatory.
+
+---
+
+# Repository Inspection
+
+Before modifying any file:
+
+Inspect:
+
+```
+git status
+
+git diff
+
+git log
+
+backend/
+
+frontend/
+
+deep_learning/
+
+artifacts/
+
+tests/
+
+configs/
+
+database migrations
+```
+
+Verify:
+
+* N-HiTS implementation
+* TFT implementation
+* APIs
+* Experiment registry
+* Training pipeline
+* Artifact storage
+
+Determine missing functionality before coding.
+
+---
+
+# OBJECTIVE
+
+Implement an enterprise-grade **Forecast Orchestration Engine** capable of managing multiple trained forecasting models through a unified inference pipeline.
+
+The system must support:
+
+* model discovery
+* model registry
+* inference engine
+* version management
+* model comparison
+* production prediction
+* forecast persistence
+* forecast history
+* asynchronous inference
+* background prediction jobs
+
+---
+
+# DIRECTORY STRUCTURE
+
+Create if missing:
+
+```
+backend/app/forecast_engine/
+
+backend/app/forecast_engine/models/
+
+backend/app/forecast_engine/services/
+
+backend/app/forecast_engine/inference/
+
+backend/app/forecast_engine/registry/
+
+backend/app/forecast_engine/jobs/
+
+backend/app/forecast_engine/cache/
+
+backend/app/forecast_engine/utils/
+```
+
+---
+
+# MODEL REGISTRY
+
+Implement
+
+```
+ForecastModelRegistry
+```
+
+Responsibilities
+
+* discover trained models
+
+* load models
+
+* unload models
+
+* version tracking
+
+* active model selection
+
+* metadata retrieval
+
+* artifact validation
+
+* compatibility verification
+
+---
+
+Each model stores
+
+* UUID
+
+* model type
+
+* framework
+
+* version
+
+* dataset
+
+* horizon
+
+* metrics
+
+* creation time
+
+* training configuration
+
+* checkpoint
+
+* artifact paths
+
+---
+
+# MODEL DISCOVERY
+
+Automatically detect
+
+```
+N-HiTS
+
+Temporal Fusion Transformer
+
+future deep models
+```
+
+No hardcoded registration.
+
+Plugin-based architecture.
+
+---
+
+# INFERENCE ENGINE
+
+Implement
+
+```
+ForecastInferenceEngine
+```
+
+Capabilities
+
+* batch prediction
+
+* realtime prediction
+
+* dataframe prediction
+
+* csv prediction
+
+* json prediction
+
+* api prediction
+
+* scheduled prediction
+
+* asynchronous prediction
+
+---
+
+Support
+
+```
+predict()
+
+predict_dataframe()
+
+predict_batch()
+
+predict_async()
+
+predict_csv()
+
+predict_json()
+```
+
+---
+
+# MODEL LOADING
+
+Implement lazy loading.
+
+Unload inactive models.
+
+Cache active models.
+
+Limit memory usage.
+
+Support GPU memory cleanup.
+
+---
+
+# FORECAST STORAGE
+
+Create
+
+```
+ForecastRepository
+```
+
+Persist
+
+* predictions
+
+* timestamps
+
+* model used
+
+* inference latency
+
+* confidence metadata
+
+* prediction horizon
+
+* input dataset hash
+
+Support historical lookup.
+
+---
+
+# FORECAST CACHE
+
+Implement
+
+```
+Redis compatible abstraction
+```
+
+Must also support in-memory fallback.
+
+Cache
+
+* repeated predictions
+
+* loaded models
+
+* metadata
+
+* API responses
+
+---
+
+# BACKGROUND JOBS
+
+Implement
+
+```
+ForecastWorker
+```
+
+Support
+
+* queue
+
+* retry
+
+* cancellation
+
+* progress
+
+* status
+
+* logging
+
+Long-running inference must never block API threads.
+
+---
+
+# MODEL COMPARISON
+
+Create service
+
+```
+ForecastComparisonService
+```
+
+Compare
+
+* MAE
+
+* RMSE
+
+* MAPE
+
+* SMAPE
+
+* WAPE
+
+* inference latency
+
+* memory
+
+* model size
+
+* training duration
+
+Generate comparison reports.
+
+---
+
+# API
+
+Implement
+
+```
+GET /api/v1/models
+
+GET /api/v1/models/{id}
+
+POST /api/v1/models/load
+
+POST /api/v1/models/unload
+
+POST /api/v1/predict
+
+POST /api/v1/predict/batch
+
+POST /api/v1/predict/async
+
+GET /api/v1/predictions
+
+GET /api/v1/predictions/{id}
+
+GET /api/v1/models/compare
+```
+
+Return typed Pydantic schemas.
+
+---
+
+# FRONTEND
+
+Create
+
+```
+Model Registry
+
+Inference Dashboard
+
+Prediction History
+
+Model Comparison
+
+Prediction Details
+```
+
+Registry page
+
+Display
+
+* installed models
+
+* version
+
+* metrics
+
+* active status
+
+* GPU usage
+
+Inference Dashboard
+
+Allow
+
+* upload csv
+
+* choose model
+
+* choose horizon
+
+* submit prediction
+
+* monitor progress
+
+Prediction History
+
+Search
+
+Sort
+
+Filter
+
+Download
+
+Comparison Dashboard
+
+Interactive charts
+
+Ranking
+
+Metrics
+
+Latency
+
+Memory
+
+---
+
+# VISUALIZATION
+
+Automatically generate
+
+* prediction trend
+
+* confidence ribbon
+
+* model comparison
+
+* latency chart
+
+* throughput chart
+
+Store under
+
+```
+artifacts/inference/
+```
+
+---
+
+# SECURITY
+
+Validate
+
+* uploaded CSV
+
+* malformed JSON
+
+* schema mismatch
+
+* invalid horizons
+
+* oversized files
+
+Never allow arbitrary file execution.
+
+---
+
+# PERFORMANCE
+
+Target
+
+* lazy loading
+
+* concurrent inference
+
+* background execution
+
+* minimal GPU memory fragmentation
+
+* optimized CPU fallback
+
+---
+
+# TESTS
+
+Implement
+
+* registry tests
+
+* inference tests
+
+* cache tests
+
+* background job tests
+
+* API tests
+
+* frontend integration tests
+
+* prediction persistence tests
+
+* model loading tests
+
+---
+
+# DOCUMENTATION
+
+Generate
+
+```
+docs/model_registry.md
+
+docs/inference_engine.md
+
+docs/prediction_api.md
+
+docs/background_jobs.md
+```
+
+---
+
+# ACCEPTANCE CRITERIA
+
+Complete only if
+
+* Registry discovers all trained models.
+* Models can be loaded/unloaded.
+* Predictions work through one unified engine.
+* Async inference works.
+* Forecast history is persisted.
+* APIs are fully functional.
+* Frontend supports production inference.
+* Tests pass.
+* Documentation is complete.
+
+---
+
+## DO NOT IMPLEMENT
+
+Do **not** implement:
+
+* Ensemble forecasting
+* Automatic model blending
+* Dynamic weighted averaging
+* Champion/challenger routing
+* AutoML retraining
+* Online learning
+
+These belong to **Phase 3C – Part 2D**, which will be the final deep forecasting intelligence layer.
+PHASE 3C – PART 2D
+Enterprise Forecast Intelligence, Ensemble Learning & Champion–Challenger Framework
+Context
+
+You are continuing development of the CausalCast AI enterprise forecasting platform.
+
+The following phases are already completed and must remain fully functional:
+
+Phase 1
+Phase 2A
+Phase 2B
+Phase 2C
+Phase 2D
+Phase 3A
+Phase 3B
+Phase 3C Part 1
+Phase 3C Part 2A
+Phase 3C Part 2B
+Phase 3C Part 2C
+
+Do not replace existing code.
+
+Do not duplicate functionality.
+
+Only extend architecture.
+
+Maintain complete backward compatibility.
+
+Repository Inspection
+
+Before editing:
+
+Inspect
+
+git status
+git diff
+migrations
+experiment registry
+forecast registry
+inference engine
+artifacts
+APIs
+frontend
+tests
+
+Verify every previous phase before implementing new code.
+
+OBJECTIVE
+
+Implement a production-grade Forecast Intelligence Layer capable of:
+
+Ensemble forecasting
+Automatic model ranking
+Champion–challenger deployment
+Dynamic weighted averaging
+Automatic best-model recommendation
+Forecast confidence analysis
+Drift detection
+Scheduled model reevaluation
+DIRECTORY STRUCTURE
+
+Create if missing:
+
+backend/app/forecast_intelligence/
+
+backend/app/forecast_intelligence/ensemble/
+
+backend/app/forecast_intelligence/ranking/
+
+backend/app/forecast_intelligence/champion/
+
+backend/app/forecast_intelligence/drift/
+
+backend/app/forecast_intelligence/confidence/
+
+backend/app/forecast_intelligence/jobs/
+
+backend/app/forecast_intelligence/services/
+Ensemble Engine
+
+Implement
+
+ForecastEnsembleEngine
+
+Support
+
+Mean Ensemble
+Weighted Mean Ensemble
+Performance Weighted Ensemble
+Median Ensemble
+Custom Ensemble Strategies
+
+Support future extension through plugins.
+
+Dynamic Weight Optimization
+
+Automatically compute weights based on
+
+MAE
+RMSE
+MAPE
+SMAPE
+WAPE
+R²
+inference latency
+model stability
+
+Normalize weights.
+
+Prevent negative weights.
+
+Persist optimized weights.
+
+Champion–Challenger Framework
+
+Implement
+
+ChampionChallengerManager
+
+Capabilities
+
+current production model
+challenger model
+automatic evaluation
+scheduled reevaluation
+rollback support
+approval workflow
+
+Support manual override.
+
+Forecast Confidence
+
+Implement
+
+ForecastConfidenceService
+
+Generate
+
+confidence scores
+uncertainty bands
+prediction reliability
+anomaly confidence
+
+Store alongside every prediction.
+
+Drift Detection
+
+Implement
+
+ForecastDriftDetector
+
+Monitor
+
+feature drift
+target drift
+prediction drift
+concept drift
+
+Trigger alerts when thresholds exceed configuration.
+
+Recommendation Engine
+
+Implement
+
+ForecastRecommendationService
+
+Automatically recommend
+
+best production model
+best accuracy model
+fastest inference model
+smallest model
+lowest memory model
+
+Allow filtering by business objective.
+
+Scheduled Reevaluation
+
+Implement scheduler capable of
+
+daily evaluation
+weekly evaluation
+monthly evaluation
+custom cron
+
+Automatically compare all registered models.
+
+Generate reports.
+
+Experiment Intelligence
+
+Extend experiment registry with
+
+production status
+champion flag
+challenger flag
+drift score
+confidence score
+recommendation score
+APIs
+
+Implement
+
+GET  /api/v1/ensemble/models
+
+POST /api/v1/ensemble/predict
+
+GET  /api/v1/champion
+
+POST /api/v1/champion/promote
+
+POST /api/v1/champion/rollback
+
+GET  /api/v1/drift
+
+GET  /api/v1/confidence
+
+GET  /api/v1/recommendations
+
+POST /api/v1/recommendations/recompute
+
+Typed Pydantic schemas only.
+
+Frontend
+
+Create pages
+
+Forecast Intelligence
+
+Champion Dashboard
+
+Model Recommendations
+
+Drift Monitoring
+
+Confidence Analytics
+
+Ensemble Prediction
+
+Display
+
+active champion
+challenger
+ranking
+ensemble weights
+drift indicators
+confidence metrics
+recommendation history
+Visualization
+
+Generate
+
+model ranking chart
+ensemble weight chart
+confidence distribution
+drift timeline
+champion history
+challenger performance
+
+Save under
+
+artifacts/intelligence/
+Alerts
+
+Generate alerts for
+
+drift detected
+champion replaced
+failed prediction
+ensemble degradation
+confidence below threshold
+
+Persist all alerts.
+
+Performance
+
+Support
+
+asynchronous ensemble prediction
+cached recommendations
+lazy loading
+parallel evaluation
+GPU acceleration when available
+Tests
+
+Implement
+
+ensemble tests
+recommendation tests
+drift tests
+confidence tests
+champion tests
+rollback tests
+API tests
+frontend integration tests
+Documentation
+
+Generate
+
+docs/ensemble_forecasting.md
+
+docs/champion_challenger.md
+
+docs/drift_detection.md
+
+docs/confidence_scoring.md
+
+docs/model_recommendations.md
+Acceptance Criteria
+
+Complete only if
+
+Ensemble forecasting works.
+Champion–challenger promotion works.
+Drift detection generates alerts.
+Confidence scores are stored.
+Recommendation engine ranks models.
+APIs function correctly.
+Frontend dashboards are complete.
+Tests pass.
+Documentation is complete.
+DO NOT IMPLEMENT
+
+Do not implement
+
+Kubernetes deployment
+Distributed multi-cluster serving
+Online continual learning
+Reinforcement learning for forecast selection
+Multi-region active-active inference
+
+These belong to Phase 4 – Enterprise MLOps & Production Deployment.
+

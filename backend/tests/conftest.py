@@ -44,6 +44,8 @@ def clean_database() -> None:
     from app.core.database import SessionLocal
     from app.models.dataset import Dataset
     from app.models.forecasting import (
+        DeepForecastCheckpoint,
+        DeepForecastReadinessSnapshot,
         ForecastEvaluation,
         ForecastExperiment,
         ForecastModelRun,
@@ -56,6 +58,8 @@ def clean_database() -> None:
 
     with SessionLocal() as db:
         for model in (
+            DeepForecastCheckpoint,
+            DeepForecastReadinessSnapshot,
             ForecastPredictionArtifact,
             ForecastTuningTrial,
             ForecastEvaluation,

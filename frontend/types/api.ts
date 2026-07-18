@@ -15,6 +15,9 @@ export interface SystemInfoResponse {
   modules: Record<
     | "data_intelligence"
     | "forecasting"
+    | "deep_forecasting_infrastructure"
+    | "deep_forecasting_training"
+    | "probabilistic_forecasting"
     | "causal_intelligence"
     | "simulation"
     | "optimization"
@@ -24,5 +27,7 @@ export interface SystemInfoResponse {
     | "preparation_ready"
     | "baseline_forecasting_ready"
     | "gradient_boosting_ready"
+    | "nhits_ready"
+    | "ready"
   >;
 }

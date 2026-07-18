@@ -4,12 +4,15 @@ import {
   Activity,
   BarChart3,
   Bot,
+  BrainCircuit,
   Database,
   Gauge,
   Menu,
   Network,
+  Server,
   ShieldCheck,
   SlidersHorizontal,
+  Lightbulb,
   X,
 } from "lucide-react";
 import Link from "next/link";
@@ -20,11 +23,14 @@ const items = [
   ["Dashboard", "/dashboard", Gauge],
   ["Data Intelligence", "/data-intelligence", Database],
   ["Baseline Forecasting", "/forecasting", BarChart3],
+  ["Deep Training", "/deep-training", BrainCircuit],
+  ["Explainable AI", "/explainability", Lightbulb],
   ["Causal Intelligence", "/causal-intelligence", Network],
   ["Scenario Lab", "/scenario-lab", Activity],
   ["Budget Optimizer", "/budget-optimizer", SlidersHorizontal],
   ["AI Growth Copilot", "/copilot", Bot],
-  ["Model Trust Center", "/trust-center", ShieldCheck],
+  ["Infrastructure", "/infrastructure", Server],
+  ["Compliance", "/compliance", ShieldCheck],
 ] as const;
 
 function Navigation({ close }: { close?: () => void }) {
@@ -104,7 +110,7 @@ function Brand() {
 function PhaseBadge() {
   return (
     <div className="absolute right-5 bottom-6 left-5 rounded-xl border border-violet-500/25 bg-violet-500/10 p-3 text-xs text-violet-200">
-      Phase 3B · Gradient boosting
+      Phase 5A · Explainable AI
     </div>
   );
 }

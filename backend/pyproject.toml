@@ -25,6 +25,12 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
+deep = [
+  "torch>=2.2,<2.9",
+  "neuralforecast>=2.0,<3.2",
+  "PyYAML>=6.0,<7",
+  "matplotlib>=3.9,<4",
+]
 dev = ["alembic>=1.16,<2", "httpx>=0.28,<1", "mypy>=1.17,<2", "pytest>=8.4,<9", "ruff>=0.12,<1"]
 
 [tool.setuptools.packages.find]
@@ -44,7 +50,7 @@ plugins = ["pydantic.mypy"]
 exclude = ["alembic"]
 
 [[tool.mypy.overrides]]
-module = ["catboost", "joblib", "lightgbm", "optuna", "pandas", "shap", "sklearn", "sklearn.*", "statsmodels", "statsmodels.*", "xgboost"]
+module = ["catboost", "joblib", "lightgbm", "neuralforecast", "neuralforecast.*", "optuna", "pandas", "shap", "sklearn", "sklearn.*", "statsmodels", "statsmodels.*", "xgboost", "yaml"]
 ignore_missing_imports = true
 
 [tool.pytest.ini_options]

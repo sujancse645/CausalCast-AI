@@ -1,0 +1,2648 @@
+You are a Principal Deep Forecasting Scientist, Senior Machine Learning Engineer, Time-Series Research Engineer, MLOps Architect, Senior FastAPI Engineer, Senior Next.js Engineer, Data Governance Specialist, QA Lead, Security Engineer, and Production AI Platform Architect.
+
+Your task is to implement **Phase 3C Part 1 of CausalCast AI: Deep Forecasting Architecture, Infrastructure, Data Pipeline, Model Registry, and Configuration Foundation** inside the existing working repository.
+
+This is Part 1 of a multi-part Phase 3C implementation.
+
+Do not implement the complete Phase 3C training workflow in this part.
+
+Do not start Phase 3C Part 2, Part 3, or Part 4.
+
+This part must establish the architecture, configuration, dependency boundaries, deep-learning infrastructure, governed data pipeline, model registry, database extensions, API schemas, artifact structure, validation rules, and system readiness required for later N-HiTS and Temporal Fusion Transformer training.
+
+# PROJECT IDENTITY
+
+Project name:
+
+CausalCast AI
+
+Full title:
+
+CausalCast AI — Probabilistic Revenue Forecasting and Marketing Decision Intelligence Platform
+
+Tagline:
+
+Predict. Explain. Simulate. Optimize. Decide.
+
+Completed phases:
+
+* Phase 1 — Production application foundation
+* Phase 2A — Governed dataset ingestion
+* Phase 2B — Intelligent schema inference and mapping
+* Phase 2C — Data Quality Intelligence
+* Phase 2D — Governed time-series preparation and feature engineering
+* Phase 3A — Baseline forecasting and rolling backtesting
+* Phase 3B — Gradient-boosting forecasting with LightGBM, XGBoost, and CatBoost
+
+Current phase:
+
+* Phase 3C — Deep Forecasting Intelligence
+
+Current implementation unit:
+
+* Phase 3C Part 1 — Architecture, infrastructure, governed deep-data pipeline, model registry, configuration, environment variables, schemas, storage, and readiness foundation
+
+Future Phase 3C parts:
+
+* Phase 3C Part 2 — N-HiTS training, deep-learning backtesting, tuning, checkpointing, and evaluation
+* Phase 3C Part 3 — Probabilistic forecasts, prediction intervals, ensembles, APIs, frontend, and explainability
+* Phase 3C Part 4 — Full validation, documentation, performance hardening, deployment readiness, and final manual experiment
+
+Do not implement future parts during this task.
+
+# MAIN OBJECTIVE
+
+Build a production-grade deep forecasting foundation that:
+
+1. Extends the existing forecasting architecture without creating a separate parallel system.
+2. Reuses all governed Phase 2D prepared artifacts.
+3. Reuses Phase 3A and Phase 3B experiment, model-run, evaluation, comparison, and artifact concepts.
+4. Introduces a deep-model registry.
+5. Introduces reusable deep-forecasting configuration.
+6. Establishes deterministic CPU and optional GPU execution.
+7. Builds a leakage-safe sequence and panel dataset pipeline.
+8. Supports grouped multi-series forecasting.
+9. Supports future multi-horizon direct forecasting.
+10. Validates historical and known-future covariates.
+11. Establishes checkpoint and artifact storage.
+12. Adds database fields and schemas required for deep models.
+13. Adds dependency and hardware readiness reporting.
+14. Adds safe capability endpoints.
+15. Does not fabricate training, evaluation, or performance results.
+16. Does not train full N-HiTS or TFT models yet.
+17. Preserves all completed functionality.
+18. Keeps all existing tests passing.
+
+# CURRENT PROJECT BASELINE
+
+Before modifying anything, inspect and understand the existing repository.
+
+Expected project root:
+
+```text
+C:\Casualcast AI
+```
+
+The existing project may already contain:
+
+* FastAPI backend
+* Next.js frontend
+* SQLAlchemy database layer
+* Alembic migrations
+* forecasting experiment models
+* forecast model registry
+* forecasting services
+* Phase 2D prepared data artifacts
+* Phase 3A baseline models
+* Phase 3B gradient-boosting models
+* artifact storage
+* feature catalog
+* split manifest
+* backtest folds
+* model comparison APIs
+* frontend forecast workspace
+* frontend model leaderboard
+* model detail pages
+* Docker configuration
+* PowerShell automation
+* backend and frontend tests
+
+Do not assume exact filenames without inspecting the repository.
+
+Adapt to the existing architecture.
+
+Do not duplicate equivalent functionality.
+
+# STRICT SCOPE
+
+Implement in this part:
+
+* deep forecasting module architecture
+* deep forecasting capability registry
+* N-HiTS model definition metadata
+* optional TFT model definition metadata
+* optional N-BEATS model definition metadata
+* dependency availability detection
+* hardware accelerator detection
+* CPU fallback policy
+* deterministic execution configuration
+* deep forecasting environment variables
+* deep experiment configuration schemas
+* deep dataset configuration schemas
+* governed sequence data pipeline
+* grouped panel data pipeline
+* historical covariate classification
+* future-known covariate classification
+* static covariate classification
+* target normalization policy
+* per-series scaling policy
+* missing-value validation
+* sequence-window validation
+* forecast-horizon validation
+* group-level history validation
+* future covariate coverage validation
+* leakage detection for deep features
+* deep artifact directory structure
+* checkpoint metadata structure
+* package environment capture
+* database migration
+* deep model run metadata
+* capability APIs
+* deep model registry API
+* deep readiness API
+* backend tests
+* frontend types and basic capability display
+* documentation
+* configuration examples
+* system information update
+
+Do not implement in this part:
+
+* full N-HiTS training
+* full TFT training
+* N-BEATS training
+* hyperparameter tuning
+* deep-model backtesting execution
+* final test evaluation
+* probabilistic loss training
+* quantile prediction generation
+* conformal calibration
+* ensembling
+* prediction interval charts
+* deep model leaderboard execution
+* full deep experiment frontend
+* SHAP for deep models
+* attention visualizations
+* causal analysis
+* scenario simulation
+* budget optimization
+* RAG
+* AI agents
+* external LLM integration
+* asynchronous distributed workers
+* Kubernetes
+* cloud GPU deployment
+
+# FIRST ACTIONS
+
+Before editing:
+
+1. Read `AGENTS.md` or `agents.md`.
+2. Inspect repository structure.
+3. Inspect backend architecture.
+4. Inspect frontend architecture.
+5. Inspect current database models.
+6. Inspect Alembic migration history.
+7. Inspect Phase 2D preparation artifacts.
+8. Inspect feature catalog format.
+9. Inspect split manifest format.
+10. Inspect Phase 3A forecasting services.
+11. Inspect Phase 3B advanced-model services.
+12. Inspect model registry.
+13. Inspect experiment APIs.
+14. Inspect artifact storage service.
+15. Inspect current configuration and environment variables.
+16. Inspect Docker configuration.
+17. Inspect test strategy.
+18. Inspect current system-info endpoint.
+19. Inspect frontend forecasting workspace.
+20. Inspect existing frontend types.
+
+Run the complete current validation suite before modifications.
+
+Record actual baseline results.
+
+Do not claim a clean baseline unless commands were executed.
+
+# PRE-IMPLEMENTATION VALIDATION
+
+Run the repository’s existing commands.
+
+At minimum verify:
+
+## Backend
+
+* formatter
+* lint
+* type checking
+* backend tests
+* OpenAPI generation
+
+## Database
+
+* current Alembic revision
+* upgrade to head
+
+## Frontend
+
+* formatter
+* lint
+* TypeScript
+* frontend tests
+* production build
+
+## Infrastructure
+
+* Docker Compose configuration validation
+
+If Docker daemon is unavailable, report that honestly.
+
+Do not block implementation solely because Docker runtime cannot start.
+
+# ARCHITECTURE PRINCIPLES
+
+Follow these principles:
+
+1. Extend, do not replace.
+2. Reuse existing forecast experiments.
+3. Reuse existing model-run lifecycle.
+4. Reuse existing artifact storage.
+5. Keep model implementations isolated behind adapters.
+6. Avoid framework-specific types in API schemas.
+7. Keep training framework optional.
+8. Support missing deep-learning dependencies gracefully.
+9. Never require GPU.
+10. CPU must remain supported.
+11. Never load untrusted model checkpoints.
+12. Never deserialize arbitrary user files.
+13. Never use future data accidentally.
+14. Never silently drop series.
+15. Never fabricate availability.
+16. Never fabricate hardware detection.
+17. Never fabricate training metrics.
+18. Keep package imports lazy where appropriate.
+19. Avoid importing large ML frameworks during ordinary API startup when possible.
+20. Keep startup fast and stable.
+
+# RECOMMENDED MODULE STRUCTURE
+
+Adapt naming to the repository, but create a clean architecture resembling:
+
+```text
+backend/app/
+├── api/
+│   └── routes/
+│       └── deep_forecasting.py
+├── models/
+│   └── forecasting.py
+├── schemas/
+│   └── deep_forecasting.py
+├── services/
+│   ├── deep_forecasting/
+│   │   ├── __init__.py
+│   │   ├── capability_service.py
+│   │   ├── config.py
+│   │   ├── covariate_classifier.py
+│   │   ├── data_pipeline.py
+│   │   ├── dependency_service.py
+│   │   ├── hardware_service.py
+│   │   ├── leakage_validator.py
+│   │   ├── model_registry.py
+│   │   ├── sequence_builder.py
+│   │   ├── storage.py
+│   │   ├── types.py
+│   │   └── validation.py
+│   └── forecasting_service.py
+└── core/
+    └── config.py
+```
+
+Do not force this exact layout if the repository already uses a different established structure.
+
+The final layout must remain coherent with the existing project.
+
+# DEEP FORECASTING DOMAIN DESIGN
+
+Introduce a domain layer for deep forecasting.
+
+Core concepts:
+
+* DeepForecastModelDefinition
+* DeepForecastCapability
+* DeepForecastExperimentConfig
+* DeepForecastDatasetConfig
+* DeepForecastCovariateConfig
+* DeepForecastHardwareInfo
+* DeepForecastDependencyInfo
+* DeepForecastReadinessReport
+* DeepForecastSequenceSpecification
+* DeepForecastModelRunMetadata
+* DeepForecastCheckpointMetadata
+* DeepForecastArtifactManifest
+
+Keep API schemas separate from internal dataclasses or domain models where appropriate.
+
+# MODEL REGISTRY
+
+Implement a registry for deep forecasting models.
+
+The registry must be deterministic and immutable at runtime unless explicitly designed otherwise.
+
+Initial model identifiers:
+
+## N-HiTS
+
+Identifier:
+
+```text
+nhits
+```
+
+Display name:
+
+```text
+N-HiTS
+```
+
+Family:
+
+```text
+deep_hierarchical_interpolation
+```
+
+Status:
+
+```text
+planned_ready
+```
+
+This means the infrastructure is ready, but full training is not yet implemented in Part 1.
+
+Capabilities:
+
+* univariate target
+* grouped global forecasting
+* multi-horizon direct forecasting
+* historical covariates
+* future-known covariates
+* static covariates where supported
+* optional probabilistic loss in future part
+* CPU support
+* optional GPU support
+* checkpointing
+* early stopping in future part
+
+## Temporal Fusion Transformer
+
+Identifier:
+
+```text
+temporal_fusion_transformer
+```
+
+Display name:
+
+```text
+Temporal Fusion Transformer
+```
+
+Family:
+
+```text
+attention_based_multi_horizon
+```
+
+Status:
+
+```text
+optional_planned
+```
+
+Capabilities:
+
+* grouped global forecasting
+* static covariates
+* historical covariates
+* known-future covariates
+* attention-based interpretation
+* probabilistic forecasting in future part
+* CPU support with limitations
+* optional GPU support
+
+TFT must remain optional.
+
+Do not make the entire application depend on TFT availability.
+
+## N-BEATS
+
+Identifier:
+
+```text
+nbeats
+```
+
+Display name:
+
+```text
+N-BEATS
+```
+
+Family:
+
+```text
+deep_residual_basis_expansion
+```
+
+Status:
+
+```text
+optional_planned
+```
+
+Treat N-BEATS as a fallback or comparative model for a later phase.
+
+Do not train it in Part 1.
+
+# MODEL DEFINITION FIELDS
+
+Each registry definition must include:
+
+* identifier
+* display_name
+* family
+* description
+* implementation_status
+* enabled_by_default
+* dependency_name
+* dependency_available
+* supported_frequencies
+* supports_grouped_series
+* supports_global_model
+* supports_per_group_model
+* supports_historical_covariates
+* supports_future_covariates
+* supports_static_covariates
+* supports_quantiles
+* supports_probabilistic_loss
+* supports_gpu
+* supports_cpu
+* supports_checkpointing
+* supports_early_stopping
+* supports_explainability
+* minimum_history_formula
+* recommended_input_window
+* recommended_horizon
+* known_limitations
+* future_phase
+
+Do not claim a capability unless the intended library and implementation can support it.
+
+# IMPLEMENTATION STATUS ENUM
+
+Use stable status values such as:
+
+* unavailable
+* dependency_missing
+* planned
+* infrastructure_ready
+* training_ready
+* experimental
+* production_ready
+* disabled
+
+For Part 1:
+
+* N-HiTS should become `infrastructure_ready`.
+* TFT should be `planned` or `dependency_missing`.
+* N-BEATS should be `planned` or `dependency_missing`.
+
+Do not mark any model as `production_ready`.
+
+# DEEP LEARNING FRAMEWORK STRATEGY
+
+Preferred implementation stack:
+
+* PyTorch
+* NeuralForecast
+* PyTorch Lightning only if required by the chosen implementation
+* NumPy
+* Pandas
+* scikit-learn
+* joblib
+
+Preferred primary framework:
+
+```text
+NeuralForecast
+```
+
+Preferred primary model:
+
+```text
+N-HiTS
+```
+
+Do not introduce multiple competing deep forecasting frameworks unless required.
+
+Avoid using both Darts and NeuralForecast in the same primary implementation.
+
+If the repository already uses one framework, evaluate compatibility before adding another.
+
+Recommended policy:
+
+* NeuralForecast is the primary deep forecasting engine.
+* Raw PyTorch is used only for utilities or framework-independent checks.
+* Darts is not added in Part 1 unless a compelling repository-specific reason exists.
+* PyTorch Forecasting is not required in Part 1.
+* TFT remains optional until Part 2 or later.
+
+# DEPENDENCY MANAGEMENT
+
+Add pinned compatible dependency ranges.
+
+Evaluate compatibility with:
+
+* current Python version
+* NumPy version
+* Pandas version
+* scikit-learn version
+* LightGBM
+* XGBoost
+* CatBoost
+* SHAP
+* Optuna
+* FastAPI
+* Pydantic
+* SQLAlchemy
+
+Recommended packages to evaluate:
+
+```text
+torch
+neuralforecast
+pytorch-lightning
+lightning
+utilsforecast
+coreforecast
+```
+
+Do not blindly add both `pytorch-lightning` and `lightning` unless required.
+
+Use the dependency graph of the actual selected NeuralForecast version.
+
+Pin versions compatible with the project.
+
+Do not upgrade unrelated packages unnecessarily.
+
+Do not downgrade working dependencies unless compatibility demands it.
+
+Document every dependency change.
+
+# OPTIONAL DEPENDENCY POLICY
+
+Deep-learning dependencies must be treated as optional capability dependencies.
+
+Requirements:
+
+1. The FastAPI application must start even when deep libraries are missing.
+2. Existing Phase 1–3B functionality must continue working.
+3. Deep registry endpoints must report missing dependencies accurately.
+4. Import errors must not crash ordinary routes.
+5. Deep modules must use lazy imports where practical.
+6. Tests must cover missing-dependency behavior.
+7. Error messages must be user-safe.
+8. Internal import traces must not be exposed.
+9. The UI must disable unavailable deep models.
+10. Documentation must explain how to install deep extras.
+
+Consider dependency extras such as:
+
+```text
+pip install -e ".[deep]"
+```
+
+or a dedicated requirements file:
+
+```text
+requirements-deep.txt
+```
+
+Follow the project’s existing dependency-management strategy.
+
+Do not invent a packaging approach that conflicts with the repository.
+
+# DEPENDENCY AVAILABILITY SERVICE
+
+Implement a dependency service that reports:
+
+* package name
+* installed
+* version
+* minimum supported version
+* maximum tested version if maintained
+* compatible
+* import error category
+* required
+* optional
+* models affected
+
+Packages to inspect:
+
+* torch
+* neuralforecast
+* lightning or pytorch_lightning
+* numpy
+* pandas
+* sklearn
+* joblib
+
+Do not expose raw environment paths.
+
+Do not expose complete stack traces.
+
+# HARDWARE DETECTION
+
+Implement safe accelerator detection.
+
+Report:
+
+* operating system
+* Python architecture
+* CPU logical count
+* configured training threads
+* available memory if safely obtainable
+* PyTorch available
+* CUDA available
+* CUDA device count
+* CUDA device names
+* CUDA version if available
+* MPS available where relevant
+* selected accelerator
+* selected device count
+* CPU fallback enabled
+* deterministic mode configured
+
+Do not require NVIDIA hardware.
+
+Do not assume CUDA because an NVIDIA GPU exists.
+
+Use PyTorch runtime detection when PyTorch is available.
+
+Possible execution modes:
+
+* auto
+* cpu
+* cuda
+* mps
+
+Default:
+
+```text
+auto
+```
+
+Selection policy:
+
+1. Use explicitly configured device when valid.
+2. Otherwise use CUDA if available and permitted.
+3. Otherwise use MPS if available and supported.
+4. Otherwise use CPU.
+
+If requested device is unavailable:
+
+* either fail validation cleanly,
+* or fall back only when fallback is enabled.
+
+Record the actual selected accelerator.
+
+# DETERMINISM
+
+Add deterministic execution support.
+
+Requirements:
+
+* random seed
+* NumPy seed
+* Python seed
+* PyTorch seed
+* deterministic algorithm configuration where practical
+* cuDNN deterministic option where applicable
+* cuDNN benchmark disabled when deterministic mode is active
+* worker seed handling
+* reproducibility metadata
+
+Default seed:
+
+```text
+42
+```
+
+Do not claim bit-for-bit reproducibility across different:
+
+* operating systems
+* CPU architectures
+* GPU models
+* CUDA versions
+* PyTorch versions
+
+Document reproducibility limitations honestly.
+
+# ENVIRONMENT VARIABLES
+
+Add and document configuration similar to:
+
+```env
+DEEP_FORECASTING_ENABLED=true
+DEEP_FORECASTING_ENGINE=neuralforecast
+DEEP_FORECASTING_ENGINE_VERSION=1.0
+DEEP_FORECASTING_RANDOM_SEED=42
+DEEP_FORECASTING_DETERMINISTIC=true
+
+DEEP_FORECASTING_ACCELERATOR=auto
+DEEP_FORECASTING_DEVICES=1
+DEEP_FORECASTING_CPU_FALLBACK=true
+DEEP_FORECASTING_NUM_WORKERS=0
+DEEP_FORECASTING_TORCH_NUM_THREADS=4
+DEEP_FORECASTING_INTEROP_THREADS=1
+
+DEEP_FORECASTING_DEFAULT_MODEL=nhits
+DEEP_FORECASTING_ENABLE_NHITS=true
+DEEP_FORECASTING_ENABLE_TFT=false
+DEEP_FORECASTING_ENABLE_NBEATS=false
+
+DEEP_FORECASTING_DEFAULT_HORIZON=30
+DEEP_FORECASTING_DEFAULT_INPUT_SIZE_MULTIPLIER=4
+DEEP_FORECASTING_MIN_INPUT_SIZE=28
+DEEP_FORECASTING_MAX_INPUT_SIZE=365
+DEEP_FORECASTING_MIN_HISTORY_MULTIPLIER=3
+
+DEEP_FORECASTING_DEFAULT_SCALER=robust
+DEEP_FORECASTING_SCALE_PER_SERIES=true
+DEEP_FORECASTING_ALLOW_GLOBAL_SCALING=false
+DEEP_FORECASTING_TARGET_TRANSFORM=none
+
+DEEP_FORECASTING_MAX_SERIES=500
+DEEP_FORECASTING_MAX_ROWS=1000000
+DEEP_FORECASTING_MAX_FEATURES=200
+DEEP_FORECASTING_MAX_HORIZON=365
+DEEP_FORECASTING_MAX_HISTORY_ROWS_PER_SERIES=10000
+
+DEEP_FORECASTING_CHECKPOINTS_ENABLED=true
+DEEP_FORECASTING_MAX_CHECKPOINTS_PER_RUN=3
+DEEP_FORECASTING_SAVE_OPTIMIZER_STATE=false
+DEEP_FORECASTING_ARTIFACT_CHECKSUM_ALGORITHM=sha256
+
+DEEP_FORECASTING_FAIL_ON_MISSING_FUTURE_COVARIATES=true
+DEEP_FORECASTING_FAIL_ON_DUPLICATE_TIMESTAMPS=true
+DEEP_FORECASTING_FAIL_ON_IRREGULAR_FREQUENCY=true
+DEEP_FORECASTING_ALLOW_MISSING_TARGETS=false
+
+DEEP_FORECASTING_LOG_PROGRESS=false
+DEEP_FORECASTING_LOG_EVERY_N_STEPS=50
+DEEP_FORECASTING_ENABLE_PROFILING=false
+```
+
+Adapt names to existing settings conventions.
+
+Validate every environment variable.
+
+Use typed configuration.
+
+Reject invalid values at startup or configuration resolution.
+
+Do not silently coerce dangerous values.
+
+# CONFIGURATION MODELS
+
+Implement typed configuration models for:
+
+## DeepForecastRuntimeConfig
+
+Fields:
+
+* enabled
+* engine
+* random_seed
+* deterministic
+* accelerator
+* devices
+* cpu_fallback
+* num_workers
+* torch_num_threads
+* interop_threads
+* profiling_enabled
+
+## DeepForecastDataConfig
+
+Fields:
+
+* prepared_dataset_id
+* target_column
+* time_column
+* group_columns
+* frequency
+* forecast_horizon
+* input_size
+* step_size
+* historical_covariates
+* future_covariates
+* static_covariates
+* scale_per_series
+* scaler_type
+* target_transform
+* missing_target_policy
+* duplicate_timestamp_policy
+* irregular_frequency_policy
+
+## DeepForecastModelConfig
+
+Fields:
+
+* model_name
+* enabled
+* implementation_status
+* input_size
+* horizon
+* loss_name
+* valid_loss_name
+* scaler_type
+* max_steps
+* learning_rate
+* batch_size
+* windows_batch_size
+* random_seed
+* accelerator
+* devices
+
+In Part 1, some training fields may be defined but must not trigger training.
+
+## DeepForecastArtifactConfig
+
+Fields:
+
+* artifact_root
+* checkpoint_root
+* checksum_algorithm
+* save_optimizer_state
+* max_checkpoints_per_run
+* environment_capture_enabled
+
+## DeepForecastLimitsConfig
+
+Fields:
+
+* max_rows
+* max_series
+* max_features
+* max_horizon
+* max_history_rows_per_series
+* max_input_size
+* minimum_history_multiplier
+
+# CONFIGURATION VALIDATION
+
+Enforce:
+
+* horizon greater than zero
+* input size greater than or equal to minimum input size
+* input size greater than or equal to horizon where required
+* input size less than configured maximum
+* horizon less than configured maximum
+* devices greater than zero
+* workers non-negative
+* valid scaler
+* valid accelerator
+* valid engine
+* valid model identifier
+* valid checksum algorithm
+* target column not included as a covariate
+* no overlap among historical, future, and static covariates unless explicitly supported
+* group column not duplicated as target
+* time column not duplicated as target
+* feature count within limits
+
+# DATA SOURCE POLICY
+
+Deep forecasting must use only completed Phase 2D prepared artifacts.
+
+Do not train directly from arbitrary uploaded CSV files.
+
+Do not bypass:
+
+* dataset lineage
+* schema mapping
+* quality checks
+* preparation readiness
+* feature catalog
+* split manifest
+* checksum validation
+
+Required artifacts may include:
+
+* prepared.csv
+* feature_catalog.json
+* manifest.json
+* splits.json
+* preview.json
+* preparation_report.json
+
+Validate actual repository format.
+
+Do not hardcode a single path shape if storage abstraction already exists.
+
+# MAIN DEMONSTRATION DATASET
+
+The existing demonstration dataset may include:
+
+Prepared dataset ID:
+
+```text
+ba3f5db4-d72d-4e29-93e1-d97ca9a90a07
+```
+
+Target:
+
+```text
+revenue
+```
+
+Group:
+
+```text
+channel
+```
+
+Frequency:
+
+```text
+daily
+```
+
+Forecast horizon:
+
+```text
+30
+```
+
+Rows:
+
+```text
+2920
+```
+
+Groups:
+
+```text
+4
+```
+
+Use it only for validation and readiness checks in Part 1.
+
+Do not run full deep-model training.
+
+Clearly preserve the synthetic-data label.
+
+# DEEP DATA PIPELINE
+
+Build a reusable deep-data pipeline.
+
+The pipeline must produce a canonical long-format panel dataset compatible with the chosen engine.
+
+Recommended canonical columns:
+
+```text
+unique_id
+ds
+y
+```
+
+Optional feature columns:
+
+* historical covariates
+* future-known covariates
+* static covariates
+* group metadata
+
+Map existing fields safely:
+
+* group column to `unique_id`
+* time column to `ds`
+* target column to `y`
+
+Do not overwrite the source artifact.
+
+Build an in-memory or derived internal representation.
+
+Persist a derived artifact only when explicitly required and governed.
+
+# CANONICAL PANEL REQUIREMENTS
+
+For each series:
+
+* `unique_id` must be stable
+* `ds` must be datetime
+* `y` must be numeric
+* timestamps must be sorted
+* duplicate timestamps must be handled according to policy
+* frequency must be consistent
+* target must not contain infinite values
+* missing targets must follow configured policy
+* group identifiers must not expose sensitive information unnecessarily
+
+For the full panel:
+
+* all configured groups must be represented
+* no group may be silently discarded
+* per-series row counts must be recorded
+* per-series date ranges must be recorded
+* per-series missing counts must be recorded
+* per-series frequency consistency must be recorded
+
+# UNIQUE SERIES IDENTIFIER
+
+If one group column exists:
+
+```text
+unique_id = group value
+```
+
+If multiple group columns exist:
+
+Create a deterministic encoded composite identifier.
+
+Requirements:
+
+* collision resistant
+* reversible only through governed metadata if required
+* no ambiguous separators
+* stable across runs
+* does not leak unsafe raw values through API responses
+
+Persist a mapping manifest if composite identifiers are used.
+
+# TIME INDEX VALIDATION
+
+Validate:
+
+* timezone handling
+* duplicate timestamps
+* monotonic ordering
+* expected frequency
+* missing periods
+* daylight-saving effects where applicable
+* unsupported mixed frequency
+* out-of-range dates
+* invalid timestamps
+
+Default behavior for daily business datasets:
+
+* normalize timestamps consistently
+* preserve dates
+* avoid timezone conversion unless needed
+
+Do not silently infer a frequency when evidence is weak.
+
+If inferred frequency conflicts with preparation metadata, mark the dataset not ready.
+
+# FREQUENCY SUPPORT
+
+Support stable frequency aliases such as:
+
+* hourly
+* daily
+* weekly
+* monthly
+
+Map to engine-specific aliases only inside adapters.
+
+Examples:
+
+* hourly → H or h
+* daily → D
+* weekly → W
+* monthly → MS or M according to actual data semantics
+
+Do not use deprecated Pandas aliases where avoidable.
+
+Document alias mapping.
+
+# MISSING PERIOD HANDLING
+
+Deep forecasting generally requires regular sequences.
+
+Implement explicit missing-period handling policies:
+
+* fail
+* reindex_and_keep_missing
+* reindex_and_impute
+* preparation_managed
+
+Default:
+
+```text
+preparation_managed
+```
+
+Do not invent target values in Part 1.
+
+If missing target rows remain:
+
+* report them
+* classify readiness
+* do not train
+
+Future covariate missingness may be handled separately.
+
+# COVARIATE CLASSIFICATION
+
+Classify features into:
+
+## Historical covariates
+
+Observed only up to the forecast origin.
+
+Examples:
+
+* lagged target features
+* lagged spend
+* lagged clicks
+* lagged impressions
+* historical CTR
+* historical conversion rate
+* past observed campaign outcomes
+
+Historical covariates may not be assumed available in the future.
+
+## Future-known covariates
+
+Known for the complete forecast horizon before prediction.
+
+Examples:
+
+* weekday
+* month
+* quarter
+* holiday schedule
+* planned promotion
+* planned marketing budget
+* scheduled campaign flag
+* deterministic trend index where governed
+
+## Static covariates
+
+Constant for each series or entity.
+
+Examples:
+
+* channel category
+* region
+* product class
+* business unit
+
+Do not classify a feature based only on its name.
+
+Use Phase 2D feature metadata where available.
+
+# COVARIATE METADATA
+
+Each covariate record must include:
+
+* name
+* source
+* category
+* data_type
+* known_at_forecast_time
+* target_derived
+* leakage_status
+* missing_rate
+* cardinality
+* series_variability
+* time_variability
+* approved_for_deep_forecasting
+* exclusion_reason
+* future_coverage_status
+
+# LEAKAGE PREVENTION
+
+Deep models are highly vulnerable to leakage.
+
+Validate:
+
+* target not included as covariate
+* no same-period target derivative
+* no negative lag
+* no centered rolling window
+* no future rolling aggregation
+* no target statistics fitted using validation or test
+* no normalization fitted on validation or test
+* no future campaign outcome
+* no future conversion result
+* no future revenue-derived metric
+* no test-row feature discovery
+* no full-dataset target encoding
+* no future group information
+* no future actual spend unless planned and governed as known future
+
+Explicitly reject:
+
+* same-period ROAS when target is revenue
+* same-period average order value when target is revenue
+* same-period revenue per click
+* same-period revenue per impression
+* post-period campaign success
+* settlement values recorded after outcome
+
+Persist a leakage report.
+
+# FUTURE COVARIATE COVERAGE
+
+For each future-known covariate:
+
+* verify values exist for the entire requested horizon
+* verify every series has coverage
+* verify no unexpected missing values
+* verify data type consistency
+* verify timestamp alignment
+* verify no duplicate forecast timestamps
+
+If future covariates do not cover the horizon:
+
+* mark dataset not ready
+* report exact missing ranges
+* do not silently truncate horizon
+* do not fabricate values
+
+# INPUT WINDOW DESIGN
+
+Add reusable input-window resolution.
+
+Inputs:
+
+* horizon
+* frequency
+* available history
+* model recommendation
+* configured multiplier
+* min input size
+* max input size
+
+Default conceptual formula:
+
+```text
+input_size = max(min_input_size, horizon × input_size_multiplier)
+```
+
+Bound by:
+
+* available history
+* configured max input size
+* model-specific constraints
+
+For horizon 30 and multiplier 4:
+
+```text
+input_size = 120
+```
+
+Do not hardcode 120 globally.
+
+# MINIMUM HISTORY VALIDATION
+
+Suggested minimum:
+
+```text
+minimum_history = input_size + horizon
+```
+
+Stronger default:
+
+```text
+minimum_history = max(input_size + horizon, horizon × minimum_history_multiplier)
+```
+
+Validate per series.
+
+Report:
+
+* eligible series
+* ineligible series
+* required observations
+* actual observations
+* failure reason
+
+Do not silently exclude ineligible series.
+
+# SEQUENCE BUILDER
+
+Implement a deterministic sequence builder or sequence specification service.
+
+It should be able to calculate:
+
+* number of possible training windows
+* number of validation windows
+* number of test windows
+* first valid forecast origin
+* last valid forecast origin
+* per-series eligibility
+* input range
+* output range
+* stride or step size
+* forecast horizon
+* expected tensor shapes
+
+Do not create full tensors unnecessarily in Part 1.
+
+Prefer metadata-first validation.
+
+# SPLIT DISCIPLINE
+
+Reuse Phase 2D split manifest.
+
+Required logical partitions:
+
+* train
+* validation
+* test
+
+Rules:
+
+* chronological
+* non-overlapping
+* test untouched
+* validation after training
+* all groups aligned where expected
+* no future rows in training
+* no test rows in scaler fitting
+* no test rows in vocabulary fitting
+* no test rows in feature selection
+
+For deep models, define how context windows can cross partition boundaries.
+
+Recommended policy:
+
+* validation forecast context may use historical train data
+* validation targets must remain in validation
+* test forecast context may use train plus validation history after model selection
+* test targets must remain untouched
+* no future target may enter model inputs
+
+Document this precisely.
+
+# SCALING STRATEGY
+
+Support configurable scaling.
+
+Recommended options:
+
+* none
+* standard
+* robust
+* minmax
+* median
+* identity
+
+Default:
+
+```text
+robust
+```
+
+Preferred policy:
+
+* scale per series
+* fit using training data only
+* save scaler metadata
+* inverse-transform predictions
+* preserve original target units for metrics
+
+Do not use test data for scaling.
+
+Do not fit scalers using all series together unless global scaling is explicitly enabled.
+
+# TARGET TRANSFORMS
+
+Support metadata and validation for:
+
+* none
+* log1p
+* signed_log1p
+* boxcox
+* yeojohnson
+
+Default:
+
+```text
+none
+```
+
+In Part 1:
+
+* define the interface
+* validate compatibility
+* do not implement every transform unless needed
+* do not automatically transform the target
+
+Reject `log1p` for targets below -1.
+
+Persist transform metadata.
+
+# STATIC COVARIATE PIPELINE
+
+Build static covariate detection.
+
+A static covariate must:
+
+* have one stable value per series
+* not vary over time within the same series
+* not be target-derived
+* not be high-cardinality unsafe metadata
+* not include internal identifiers unless approved
+
+Report any feature incorrectly declared static but varying over time.
+
+# CATEGORICAL FEATURE HANDLING
+
+For future deep models:
+
+* identify categorical features
+* calculate cardinality
+* detect unseen categories
+* define unknown-category policy
+* persist vocabulary metadata
+* fit vocabularies on training only
+* reserve unknown token
+* reserve missing token where needed
+
+Do not fit category vocabularies on validation or test.
+
+Do not expose raw sensitive categories unnecessarily.
+
+# NUMERIC FEATURE HANDLING
+
+Validate:
+
+* numeric parseability
+* NaN
+* positive and negative infinity
+* extreme values
+* constant features
+* near-constant features
+* variance
+* scale differences
+* future coverage
+
+Do not drop features silently.
+
+Record exclusion reasons.
+
+# DATASET READINESS REPORT
+
+Create a comprehensive readiness report.
+
+Suggested fields:
+
+* prepared_dataset_id
+* preparation_status
+* model_ready
+* deep_forecasting_ready
+* checksum_valid
+* source_checksum_valid
+* manifest_valid
+* split_manifest_valid
+* feature_catalog_valid
+* frequency_valid
+* target_valid
+* group_valid
+* future_covariates_valid
+* static_covariates_valid
+* sequence_windows_valid
+* minimum_history_valid
+* train_rows
+* validation_rows
+* test_rows
+* series_count
+* eligible_series_count
+* ineligible_series_count
+* feature_count
+* historical_covariate_count
+* future_covariate_count
+* static_covariate_count
+* input_size
+* horizon
+* warnings
+* blockers
+* synthetic_data
+* generated_at
+* engine
+* selected_accelerator
+
+Readiness states:
+
+* ready
+* ready_with_warnings
+* blocked
+* dependency_missing
+* disabled
+
+# DATABASE EXTENSION
+
+Extend existing forecasting database models additively.
+
+Do not create an unrelated deep experiment table if existing experiments can be extended safely.
+
+Possible additions to ForecastExperiment:
+
+* experiment_family
+* deep_forecasting_enabled
+* deep_engine
+* deep_data_config_json
+* deep_runtime_config_json
+* deep_readiness_status
+
+Possible additions to ForecastModelRun:
+
+* model_framework
+* model_architecture
+* accelerator
+* device_count
+* deterministic
+* random_seed
+* input_size
+* forecast_horizon
+* sequence_count
+* parameter_count
+* checkpoint_available
+* checkpoint_count
+* checkpoint_checksum
+* training_framework_version
+* torch_version
+* cuda_version
+* deep_model_status
+
+Possible new table:
+
+## DeepForecastCheckpoint
+
+Fields:
+
+* id
+* model_run_id
+* checkpoint_type
+* epoch
+* global_step
+* monitored_metric
+* monitored_value
+* artifact_id
+* checksum
+* file_size_bytes
+* framework_version
+* created_at
+
+In Part 1, the table may exist without actual checkpoints.
+
+Possible new table:
+
+## DeepForecastReadinessSnapshot
+
+Fields:
+
+* id
+* prepared_dataset_id
+* readiness_status
+* engine
+* model_name
+* target_column
+* time_column
+* group_columns_json
+* horizon
+* input_size
+* series_count
+* eligible_series_count
+* historical_covariates_json
+* future_covariates_json
+* static_covariates_json
+* warnings_json
+* blockers_json
+* checksum
+* created_at
+
+Create only what is genuinely useful.
+
+Avoid excessive schema growth.
+
+# MIGRATION REQUIREMENTS
+
+Create one additive Alembic migration.
+
+Expected next revision should follow the actual repository head.
+
+The previous reported revision was:
+
+```text
+20260716_0007
+```
+
+Inspect the real revision before creating the new migration.
+
+Do not assume the next ID blindly.
+
+Migration must:
+
+* upgrade successfully
+* downgrade successfully
+* re-upgrade successfully
+* preserve all existing data
+* use nullable fields or safe defaults where appropriate
+* not rewrite large existing tables unnecessarily
+* not delete Phase 3A or Phase 3B records
+
+Report actual results.
+
+# DEEP ARTIFACT STORAGE
+
+Extend the existing artifact service.
+
+Recommended structure:
+
+```text
+artifacts/
+└── deep_forecasting/
+    └── <experiment_id>/
+        └── <model_run_id>/
+            ├── configuration/
+            │   ├── runtime_config.json
+            │   ├── data_config.json
+            │   ├── model_config.json
+            │   └── covariate_catalog.json
+            ├── readiness/
+            │   ├── readiness_report.json
+            │   ├── leakage_report.json
+            │   ├── sequence_manifest.json
+            │   └── hardware_report.json
+            ├── checkpoints/
+            ├── models/
+            ├── predictions/
+            ├── metrics/
+            ├── logs/
+            ├── environment/
+            │   ├── packages.json
+            │   ├── runtime.json
+            │   └── hardware.json
+            └── artifact_manifest.json
+```
+
+In Part 1, create only configuration and readiness artifacts.
+
+Do not create fake checkpoint files.
+
+# ARTIFACT SECURITY
+
+Requirements:
+
+* resolve paths under configured artifact root
+* reject path traversal
+* use generated internal identifiers
+* atomic writes
+* checksum every artifact
+* no arbitrary pickle loading
+* no checkpoint loading from user-controlled paths
+* no symlink escape
+* bounded file size where applicable
+* no absolute paths in API responses
+* no secrets in environment capture
+
+# ARTIFACT MANIFEST
+
+Manifest fields:
+
+* experiment_id
+* model_run_id
+* prepared_dataset_id
+* artifact_type
+* logical_name
+* relative_path
+* checksum
+* checksum_algorithm
+* size_bytes
+* framework
+* framework_version
+* synthetic_data
+* created_at
+
+# CHECKPOINT POLICY
+
+Define checkpoint behavior for future parts.
+
+Checkpoint types:
+
+* latest
+* best_validation
+* final_refit
+
+Rules:
+
+* maximum checkpoints per run
+* deterministic naming
+* atomic write
+* checksum
+* framework version
+* epoch
+* global step
+* monitored metric
+* monitored value
+* safe deletion of older checkpoints
+* no checkpoint from failed untrusted source
+* no arbitrary state loading
+
+Do not create actual checkpoints in Part 1.
+
+# CAPABILITY SERVICE
+
+Implement a capability service that combines:
+
+* feature flag
+* dependency status
+* hardware status
+* model registry status
+* prepared-dataset readiness
+* configured limits
+
+Example output:
+
+```json
+{
+  "enabled": true,
+  "engine": "neuralforecast",
+  "infrastructure_status": "ready",
+  "training_status": "not_implemented_in_part_1",
+  "accelerator": "cpu",
+  "models": [
+    {
+      "identifier": "nhits",
+      "status": "infrastructure_ready"
+    },
+    {
+      "identifier": "temporal_fusion_transformer",
+      "status": "planned"
+    }
+  ]
+}
+```
+
+# API ENDPOINTS
+
+Add endpoints under the existing forecasting API conventions.
+
+Recommended endpoints:
+
+## GET `/api/v1/forecasting/deep/capabilities`
+
+Return:
+
+* enabled
+* engine
+* infrastructure status
+* training status
+* model definitions
+* dependency status
+* hardware summary
+* configured limits
+
+## GET `/api/v1/forecasting/deep/models`
+
+Return all deep model registry definitions.
+
+## GET `/api/v1/forecasting/deep/hardware`
+
+Return bounded safe hardware information.
+
+## GET `/api/v1/forecasting/deep/dependencies`
+
+Return deep dependency readiness.
+
+## POST `/api/v1/preparations/{prepared_dataset_id}/deep-readiness`
+
+Create or calculate a deep forecasting readiness report.
+
+Request fields:
+
+* model_name
+* target_column
+* time_column
+* group_columns
+* horizon
+* input_size
+* historical_covariates
+* future_covariates
+* static_covariates
+* scaler_type
+* target_transform
+
+Do not train a model.
+
+## GET `/api/v1/preparations/{prepared_dataset_id}/deep-readiness`
+
+Return the latest readiness snapshot where supported.
+
+Use the repository’s existing route naming conventions if different.
+
+# API RESPONSE SCHEMAS
+
+Create typed schemas:
+
+* DeepForecastCapabilityResponse
+* DeepForecastModelDefinitionResponse
+* DeepForecastDependencyResponse
+* DeepForecastHardwareResponse
+* DeepForecastReadinessRequest
+* DeepForecastReadinessResponse
+* DeepForecastCovariateResponse
+* DeepForecastSeriesReadiness
+* DeepForecastSequenceSummary
+* DeepForecastLimitResponse
+* DeepForecastArtifactManifestResponse
+
+Do not use untyped dictionaries when stable schemas are possible.
+
+# API ERROR HANDLING
+
+Add domain errors:
+
+* DeepForecastingDisabledError
+* DeepDependencyUnavailableError
+* DeepModelUnavailableError
+* DeepConfigurationError
+* DeepDatasetNotReadyError
+* DeepSequenceValidationError
+* DeepCovariateCoverageError
+* DeepLeakageDetectedError
+* DeepHardwareConfigurationError
+* DeepArtifactStorageError
+
+Map safely to:
+
+* 400
+* 404
+* 409
+* 422
+* 500
+
+Do not expose internal stack traces.
+
+# FRONTEND PART 1 SCOPE
+
+Add only foundational UI support.
+
+Do not build the full deep forecasting workspace yet.
+
+Update forecasting pages to show a deep forecasting capability section.
+
+Add:
+
+* Deep Forecasting status card
+* Engine status
+* dependency status
+* selected accelerator
+* N-HiTS readiness badge
+* TFT planned badge
+* N-BEATS planned badge
+* Deep readiness action for a prepared dataset
+* readiness blockers and warnings
+* input-size and horizon summary
+* covariate category summary
+
+# FRONTEND COMPONENTS
+
+Create or extend components such as:
+
+* DeepForecastingStatusCard
+* DeepModelCapabilityList
+* DeepDependencyStatus
+* DeepHardwareSummary
+* DeepReadinessPanel
+* DeepCovariateSummary
+* DeepSequenceSummary
+* DeepReadinessBadge
+
+Keep components modular.
+
+Do not place everything in one file.
+
+# FRONTEND TYPES
+
+Add typed interfaces:
+
+* DeepForecastModelIdentifier
+* DeepForecastModelStatus
+* DeepForecastCapability
+* DeepForecastDependency
+* DeepForecastHardware
+* DeepForecastReadinessRequest
+* DeepForecastReadiness
+* DeepForecastCovariate
+* DeepForecastSeriesReadiness
+* DeepForecastSequenceSummary
+
+Do not use `any`.
+
+# FRONTEND API CLIENT
+
+Add typed methods:
+
+* getDeepForecastCapabilities()
+* getDeepForecastModels()
+* getDeepForecastHardware()
+* getDeepForecastDependencies()
+* createDeepReadinessReport(preparedDatasetId, request)
+* getDeepReadinessReport(preparedDatasetId)
+
+Follow existing API-client conventions.
+
+Use typed errors.
+
+Use timeouts and retry only according to existing project policy.
+
+# SYSTEM INFORMATION UPDATE
+
+Update system status truthfully.
+
+Suggested values:
+
+* ingestion: ready
+* schema_intelligence: ready
+* data_quality: ready
+* preparation: ready
+* baseline_forecasting: ready
+* gradient_boosting_forecasting: ready
+* deep_forecasting_infrastructure: ready
+* deep_forecasting_training: planned
+* probabilistic_forecasting: planned
+* causal_intelligence: planned
+* simulation: planned
+* optimization: planned
+* ai_copilot: planned
+
+Do not mark deep training as ready.
+
+# LOGGING
+
+Log:
+
+* deep capability request
+* dependency check result
+* hardware detection result
+* readiness analysis start
+* prepared dataset ID
+* model identifier
+* series count
+* horizon
+* input size
+* covariate counts
+* readiness status
+* blocker count
+* warning count
+* artifact write result
+
+Do not log:
+
+* full datasets
+* full feature matrices
+* target values
+* sensitive categories
+* secrets
+* raw absolute paths
+* checkpoint binaries
+* environment secrets
+
+# PERFORMANCE
+
+Part 1 readiness checks must be efficient.
+
+Requirements:
+
+* avoid loading full datasets when metadata is sufficient
+* load required columns only where possible
+* bound per-series diagnostics
+* avoid generating tensors
+* avoid importing PyTorch until required
+* cache dependency checks
+* cache hardware checks safely
+* no GPU memory allocation for simple detection
+* no deep model instantiation
+* no training loop
+* no hyperparameter search
+
+# SECURITY
+
+Validate:
+
+* prepared dataset ownership or access rules where applicable
+* artifact paths
+* model identifiers
+* environment configuration
+* input sizes
+* horizon
+* feature list length
+* group list length
+* request body size
+* no path injection
+* no arbitrary import
+* no arbitrary class loading
+* no arbitrary checkpoint loading
+* no user-provided Python module name
+* no untrusted serialization
+
+# BACKEND TESTS
+
+Add comprehensive deterministic tests.
+
+At minimum:
+
+1. Deep capability endpoint works.
+2. Deep model registry returns N-HiTS.
+3. N-HiTS status is infrastructure-ready.
+4. TFT is optional or planned.
+5. N-BEATS is optional or planned.
+6. Missing PyTorch does not crash application startup.
+7. Missing NeuralForecast does not crash existing APIs.
+8. Dependency status is reported correctly.
+9. Package versions are bounded and safe.
+10. Hardware endpoint works without PyTorch.
+11. Hardware endpoint works with CPU-only PyTorch.
+12. CUDA unavailability is handled.
+13. Invalid requested CUDA configuration fails safely.
+14. CPU fallback works when enabled.
+15. CPU fallback can be disabled.
+16. Random seed validation works.
+17. Accelerator validation works.
+18. Worker-count validation works.
+19. Device-count validation works.
+20. Horizon validation works.
+21. Input-size validation works.
+22. Maximum horizon is enforced.
+23. Maximum rows are enforced.
+24. Maximum series are enforced.
+25. Maximum features are enforced.
+26. Prepared artifact checksum is validated.
+27. Missing manifest blocks readiness.
+28. Missing feature catalog blocks readiness.
+29. Missing split manifest blocks readiness.
+30. Target column validation works.
+31. Time column validation works.
+32. Group column validation works.
+33. Numeric target validation works.
+34. Infinite target values are rejected.
+35. Duplicate timestamp policy works.
+36. Irregular frequency policy works.
+37. Missing target policy works.
+38. Series count is calculated correctly.
+39. Per-series date range is correct.
+40. Composite unique IDs are deterministic.
+41. Composite ID collisions are prevented.
+42. Historical covariates are classified.
+43. Future covariates are classified.
+44. Static covariates are classified.
+45. Target cannot be a covariate.
+46. Target-derived ROAS is excluded.
+47. Target-derived AOV is excluded.
+48. Negative lag feature is rejected.
+49. Centered rolling feature is rejected.
+50. Future target-derived feature is rejected.
+51. Static feature variation is detected.
+52. Future covariate coverage is validated.
+53. Missing future period is reported.
+54. Input-size resolution is deterministic.
+55. Minimum history formula works.
+56. Ineligible series are reported.
+57. Series are not silently dropped.
+58. Sequence count metadata is correct.
+59. Validation context policy is correct.
+60. Test context policy is correct.
+61. Scaler configuration validates.
+62. Target transform configuration validates.
+63. Invalid log transform is rejected.
+64. Artifact readiness report is saved.
+65. Readiness artifact checksum exists.
+66. Leakage report is saved.
+67. Hardware report is saved.
+68. Artifact manifest is saved.
+69. Atomic write behavior is tested.
+70. Path traversal is rejected.
+71. Absolute paths are not returned.
+72. Secrets are excluded from environment artifacts.
+73. Readiness endpoint does not train.
+74. No checkpoint file is fabricated.
+75. Existing Phase 1 tests pass.
+76. Existing Phase 2A tests pass.
+77. Existing Phase 2B tests pass.
+78. Existing Phase 2C tests pass.
+79. Existing Phase 2D tests pass.
+80. Existing Phase 3A tests pass.
+81. Existing Phase 3B tests pass.
+82. OpenAPI generation passes.
+83. Migration upgrade passes.
+84. Migration downgrade passes.
+85. Migration re-upgrade passes.
+
+# FRONTEND TESTS
+
+Add tests for:
+
+1. Deep status card renders.
+2. Engine status renders.
+3. Dependency status renders.
+4. CPU accelerator renders.
+5. CUDA accelerator renders from mock response.
+6. N-HiTS readiness badge renders.
+7. TFT planned badge renders.
+8. N-BEATS planned badge renders.
+9. Disabled state renders.
+10. Missing dependency state renders.
+11. Readiness request is sent correctly.
+12. Readiness blockers render.
+13. Readiness warnings render.
+14. Covariate counts render.
+15. Series counts render.
+16. Input size renders.
+17. Horizon renders.
+18. Synthetic-data label renders.
+19. API error state renders.
+20. Offline state renders.
+21. Loading state renders.
+22. Existing forecasting UI tests pass.
+23. Existing frontend regression tests pass.
+
+Mock all APIs.
+
+# TEST FIXTURES
+
+Create small fixtures for:
+
+* valid grouped daily panel
+* multiple group columns
+* duplicate timestamps
+* irregular frequency
+* missing target
+* missing future covariate
+* insufficient history
+* invalid static covariate
+* target-derived feature
+* negative lag feature
+* centered rolling feature
+* high-cardinality group
+* constant target
+* missing group
+* mixed timezone timestamps
+
+Keep fixtures small.
+
+Do not use the full demonstration dataset in every test.
+
+# DOCUMENTATION
+
+Update:
+
+* README.md
+* docs/architecture.md
+* docs/api.md
+* docs/development-roadmap.md
+* CHANGELOG.md
+* AGENTS.md or agents.md
+* .env.example
+* dependency documentation
+* local setup documentation
+
+Document:
+
+* Phase 3C scope
+* Part 1 limitations
+* why N-HiTS is primary
+* why TFT is optional
+* dependency installation
+* CPU and GPU behavior
+* accelerator selection
+* determinism
+* data format
+* covariate categories
+* leakage prevention
+* input window
+* minimum history
+* future covariate coverage
+* artifact structure
+* readiness endpoint
+* known limitations
+* next Phase 3C part
+
+# POWERSHELL DOCUMENTATION
+
+Provide exact PowerShell commands for:
+
+* installing base dependencies
+* installing deep dependencies
+* checking Python version
+* checking PyTorch
+* checking CUDA
+* running migrations
+* running backend
+* running frontend
+* calling capability endpoint
+* calling hardware endpoint
+* calling dependency endpoint
+* generating readiness report
+* running backend tests
+* running frontend tests
+* running full validation
+* validating Docker Compose
+
+Example PyTorch check:
+
+```powershell
+Set-Location "C:\Casualcast AI\backend"
+
+..\.venv\Scripts\python.exe -c "import torch; print('Torch:', torch.__version__); print('CUDA available:', torch.cuda.is_available()); print('CUDA devices:', torch.cuda.device_count())"
+```
+
+Do not invent commands incompatible with the repository.
+
+# MANUAL READINESS VALIDATION
+
+After implementation, run one actual readiness analysis using the existing prepared demonstration dataset.
+
+Prepared dataset ID:
+
+```text
+ba3f5db4-d72d-4e29-93e1-d97ca9a90a07
+```
+
+Suggested request:
+
+* model: nhits
+* target: revenue
+* group: channel
+* frequency: daily
+* horizon: 30
+* input size: 120
+* scaler: robust
+* scale per series: true
+* target transform: none
+
+Use actual Phase 2D metadata to classify covariates.
+
+Do not manually invent covariate classifications if the feature catalog contains the required information.
+
+Report actual:
+
+* readiness status
+* dependency status
+* accelerator
+* rows
+* groups
+* eligible groups
+* ineligible groups
+* horizon
+* input size
+* minimum history
+* estimated training windows
+* historical covariates
+* future covariates
+* static covariates
+* excluded features
+* leakage blockers
+* future coverage blockers
+* warnings
+* artifact checksums
+
+Do not train N-HiTS.
+
+Do not create model metrics.
+
+# ACCEPTANCE CRITERIA
+
+Phase 3C Part 1 is complete only when:
+
+* all previous phases still work
+* deep module architecture exists
+* model registry exists
+* N-HiTS is registered
+* TFT is optional
+* N-BEATS is optional
+* dependency checks work
+* missing deep dependencies do not break the application
+* hardware detection works
+* CPU fallback works
+* deterministic settings exist
+* environment variables exist
+* typed configuration exists
+* configuration validation works
+* prepared artifacts are checksum-validated
+* canonical panel mapping works
+* group identifiers are deterministic
+* frequency validation works
+* covariate classification works
+* leakage detection works
+* future coverage validation works
+* minimum history validation works
+* sequence metadata works
+* per-series eligibility works
+* no series is silently dropped
+* scaler policy is defined
+* target transform policy is defined
+* database migration works
+* readiness records work
+* artifact manifests work
+* no fake checkpoints are created
+* capability APIs work
+* readiness APIs work
+* basic frontend readiness UI works
+* backend tests pass
+* frontend tests pass
+* Ruff passes
+* MyPy passes
+* ESLint passes
+* TypeScript passes
+* production build passes
+* OpenAPI generation passes
+* migration cycle passes
+* Compose configuration passes
+* documentation is updated
+* manual readiness analysis is executed
+* N-HiTS training is not started
+* TFT training is not started
+* no deep metrics are fabricated
+* Phase 3C Part 2 is not started
+
+# VALIDATION PROCESS
+
+Run:
+
+## Backend
+
+* Ruff format
+* Ruff format check
+* Ruff lint
+* MyPy
+* Pytest
+
+## Database
+
+* Alembic upgrade head
+* Alembic current
+* downgrade one revision
+* upgrade head
+
+## Frontend
+
+* Prettier
+* Prettier check
+* ESLint
+* TypeScript
+* frontend tests
+* production build
+
+## Infrastructure
+
+* Docker Compose configuration validation
+* dependency import validation
+* CPU capability validation
+* CUDA capability validation only when available
+
+## Regression
+
+Verify:
+
+* Phase 1
+* Phase 2A
+* Phase 2B
+* Phase 2C
+* Phase 2D
+* Phase 3A
+* Phase 3B
+
+## Security
+
+Verify:
+
+* path traversal blocked
+* arbitrary import blocked
+* arbitrary checkpoint loading blocked
+* absolute paths hidden
+* secrets excluded
+* feature limits enforced
+* artifact writes atomic
+* checksum validation enabled
+
+## Truthfulness
+
+Verify:
+
+* deep training not executed
+* no model metrics generated
+* no fake checkpoint generated
+* hardware status reflects actual machine
+* dependency status reflects actual environment
+* synthetic dataset is labelled
+* blockers and warnings are not hidden
+
+# CLEANUP
+
+Remove:
+
+* test readiness artifacts
+* temporary databases
+* temporary generated panel files
+* test logs
+* cache files
+* unused imports
+* stale development artifacts
+* duplicate configuration
+* dead code
+
+Preserve the manual readiness report for the synthetic demonstration dataset if appropriate.
+
+# FINAL RESPONSE FORMAT
+
+After implementation, return exactly these sections:
+
+## 1. What was implemented
+
+Summarize:
+
+* architecture
+* registry
+* dependency support
+* hardware support
+* data pipeline
+* covariate classification
+* readiness
+* storage
+* APIs
+* frontend
+* tests
+
+## 2. Repository inspection
+
+State what existing architecture was reused.
+
+## 3. Deep forecasting architecture
+
+Explain:
+
+* framework strategy
+* module boundaries
+* registry
+* adapters
+* optional dependencies
+* CPU/GPU behavior
+
+## 4. Data pipeline
+
+Explain:
+
+* canonical panel format
+* grouping
+* timestamps
+* covariates
+* leakage controls
+* scaling
+* sequence metadata
+
+## 5. Files added or changed
+
+List major files.
+
+## 6. Migration
+
+Report:
+
+* migration ID
+* upgrade result
+* current revision
+* downgrade result
+* re-upgrade result
+
+Do not claim PASS unless executed.
+
+## 7. API endpoints
+
+List all new and updated endpoints.
+
+## 8. Configuration and environment variables
+
+List added variables and defaults.
+
+## 9. Dependency and hardware results
+
+Report actual:
+
+* Python version
+* PyTorch availability
+* PyTorch version
+* NeuralForecast availability
+* Lightning availability
+* CUDA availability
+* CUDA device count
+* selected accelerator
+* CPU fallback status
+
+## 10. Manual readiness result
+
+Report actual:
+
+* prepared dataset ID
+* checksum status
+* rows
+* groups
+* eligible groups
+* ineligible groups
+* target
+* frequency
+* horizon
+* input size
+* sequence counts
+* covariates
+* exclusions
+* blockers
+* warnings
+* readiness status
+* artifact checksums
+
+Do not report model accuracy.
+
+## 11. Validation results
+
+Provide actual PASS/FAIL results for:
+
+* Phase 1 regression
+* Phase 2A regression
+* Phase 2B regression
+* Phase 2C regression
+* Phase 2D regression
+* Phase 3A regression
+* Phase 3B regression
+* backend formatting
+* Ruff
+* MyPy
+* backend tests
+* migration
+* frontend formatting
+* ESLint
+* TypeScript
+* frontend tests
+* production build
+* OpenAPI
+* npm audit
+* Compose validation
+* Docker runtime
+* manual readiness
+
+## 12. Exact PowerShell commands
+
+Provide commands to:
+
+* install dependencies
+* check PyTorch
+* check CUDA
+* migrate
+* start servers
+* call APIs
+* create readiness report
+* run tests
+* run Compose
+
+## 13. URLs
+
+List:
+
+* frontend
+* forecasting page
+* prepared dataset page
+* backend
+* Swagger
+* ReDoc
+* deep capability endpoint
+* deep model endpoint
+* deep dependency endpoint
+* deep hardware endpoint
+* readiness endpoint
+
+## 14. Known limitations
+
+State honestly:
+
+* no N-HiTS training yet
+* no TFT training yet
+* no quantile predictions
+* no prediction intervals
+* no ensemble
+* no deep backtesting
+* no final test evaluation
+* no checkpoint generated
+* any unavailable dependencies
+* any unavailable GPU
+
+## 15. Phase 3C Part 2 recommendation
+
+Recommend implementing:
+
+* N-HiTS training adapter
+* training lifecycle
+* rolling backtesting
+* early stopping
+* checkpointing
+* hyperparameter tuning
+* validation-only model selection
+* controlled final test evaluation
+
+Do not begin Part 2.
+
+Begin now by inspecting the repository and running the complete existing validation suite before changing any files.

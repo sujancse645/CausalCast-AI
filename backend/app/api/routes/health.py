@@ -24,3 +24,13 @@ def health(settings: Annotated[Settings, Depends(get_settings)]) -> HealthRespon
     if not connected:
         return JSONResponse(status_code=status.HTTP_503_SERVICE_UNAVAILABLE, content=response.model_dump(mode="json"))
     return response
+
+@router.get("/health/liveness", response_model=dict)
+def liveness() -> dict:
+    return {"status": "alive"}
+
+@router.get("/health/readiness", response_model=dict)
+def readiness() -> dict | JSONResponse:
+    if database_is_connected():
+        return {"status": "ready"}
+    return JSONResponse(status_code=status.HTTP_503_SERVICE_UNAVAILABLE, content={"status": "not ready"})

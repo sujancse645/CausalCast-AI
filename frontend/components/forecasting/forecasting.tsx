@@ -18,8 +18,11 @@ import {
   getForecastArtifactDownloadUrl,
   getForecastComparison,
   getForecastExperiment,
+  getForecastFeatureImportance,
   getForecastModelRegistry,
+  getForecastModelTuning,
   getForecastPredictions,
+  getForecastShap,
   getPreparation,
   getPreparationSplits,
   listForecastExperiments,
@@ -35,7 +38,16 @@ import type {
   ForecastPrediction,
 } from "@/types/forecasting";
 import type { PreparationResponse, SplitDefinition } from "@/types/preparation";
-import { AdvancedModelSelector } from "./gradient-boosting";
+import type {
+  FeatureImportance,
+  ShapExplanation,
+  TuningSummary,
+} from "@/types/gradient-boosting";
+import {
+  AdvancedModelSelector,
+  FeatureImportancePanel,
+  TuningSummaryPanel,
+} from "./gradient-boosting";
 
 export function ForecastStatusBadge({ status }: { status: string }) {
   return (
@@ -562,10 +574,16 @@ export function ForecastExperimentSummaryView({
   experiment,
   comparison,
   predictions,
+  tuning,
+  importance,
+  shap,
 }: {
   experiment: ForecastExperiment;
   comparison: ForecastComparison;
   predictions: ForecastPrediction[];
+  tuning?: TuningSummary | null;
+  importance?: FeatureImportance | null;
+  shap?: ShapExplanation | null;
 }) {
   const selected = comparison.items.find((x) => x.selected);
   return (
@@ -578,7 +596,7 @@ export function ForecastExperimentSummaryView({
               Experiment {experiment.experiment_version}
             </p>
             <h1 className="text-3xl font-semibold">
-              Baseline forecast evaluation
+              Baseline and gradient-boosting evaluation
             </h1>
           </div>
           <ForecastStatusBadge status={experiment.status} />
@@ -595,6 +613,18 @@ export function ForecastExperimentSummaryView({
       <ForecastChart rows={predictions} experiment={experiment} />
       <ResidualSummaryPanel run={selected} />
       <BacktestResultsTable run={selected} />
+      {tuning && <TuningSummaryPanel summary={tuning} />}
+      {importance && (
+        <FeatureImportancePanel
+          importance={importance}
+          shap={shap ?? undefined}
+        />
+      )}
+      {selected?.model_family === "gradient_boosting" && !importance && (
+        <section className="panel p-5 text-sm text-slate-400">
+          Feature explanations are unavailable for this model run.
+        </section>
+      )}
       {selected && <ForecastArtifactDownloads runId={selected.id} />}
     </div>
   );
@@ -607,6 +637,9 @@ export function ForecastExperimentDetail({
   const [experiment, setExperiment] = useState<ForecastExperiment | null>(null),
     [comparison, setComparison] = useState<ForecastComparison | null>(null),
     [rows, setRows] = useState<ForecastPrediction[]>([]),
+    [tuning, setTuning] = useState<TuningSummary | null>(null),
+    [importance, setImportance] = useState<FeatureImportance | null>(null),
+    [shap, setShap] = useState<ShapExplanation | null>(null),
     [error, setError] = useState<string | null>(null);
   useEffect(() => {
     void Promise.all([
@@ -618,6 +651,26 @@ export function ForecastExperimentDetail({
         setExperiment(a);
         setComparison(b);
         setRows(c.items);
+        const selected = b.items.find((item) => item.selected);
+        if (selected?.model_family === "gradient_boosting") {
+          void getForecastModelTuning(selected.id)
+            .then(setTuning)
+            .catch(() => setTuning(null));
+          if (selected.explanation_available) {
+            void Promise.all([
+              getForecastFeatureImportance(selected.id),
+              getForecastShap(selected.id, 50),
+            ])
+              .then(([featureData, shapData]) => {
+                setImportance(featureData);
+                setShap(shapData);
+              })
+              .catch(() => {
+                setImportance(null);
+                setShap(null);
+              });
+          }
+        }
       })
       .catch((e) =>
         setError(
@@ -637,6 +690,9 @@ export function ForecastExperimentDetail({
       experiment={experiment}
       comparison={comparison}
       predictions={rows}
+      tuning={tuning}
+      importance={importance}
+      shap={shap}
     />
   );
 }

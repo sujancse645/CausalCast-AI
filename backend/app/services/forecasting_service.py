@@ -449,9 +449,27 @@ def execute_experiment(
     storage = ForecastStorageService(settings)
     train = _slice(frame, prepared.date_column, experiment.train_start, experiment.train_end)
     validation = _slice(frame, prepared.date_column, experiment.validation_start, experiment.validation_end)
-    gbm_features, gbm_excluded = safe_gbm_features(
-        prepared.features, experiment.target_column, prepared.group_columns_json
+    gbm_features, gbm_excluded = (
+        safe_gbm_features(prepared.features, experiment.target_column, prepared.group_columns_json)
+        if any(model in GBM_MODELS for model in models)
+        else ([], [])
     )
+    exact_target_copies = [
+        feature
+        for feature in gbm_features
+        if feature not in prepared.group_columns_json
+        and pd.api.types.is_numeric_dtype(train[feature])
+        and np.array_equal(
+            pd.to_numeric(train[feature], errors="coerce").to_numpy(),
+            pd.to_numeric(train[experiment.target_column], errors="coerce").to_numpy(),
+            equal_nan=True,
+        )
+    ]
+    if exact_target_copies:
+        gbm_features = [feature for feature in gbm_features if feature not in exact_target_copies]
+        gbm_excluded.extend(exact_target_copies)
+    if any(model in GBM_MODELS for model in models) and not gbm_features:
+        raise ForecastConfigurationError("No leakage-safe gradient-boosting features remain")
     run_specs = [(name, window) for name in models for window in (windows if name == "moving_average" else [0])]
     try:
         for model_name, window in run_specs:
@@ -663,13 +681,20 @@ def execute_experiment(
                 run.artifact_checksum = model_checksum
                 _artifact(db, experiment, run, "model", model_key, model_checksum)
                 if model_name in GBM_MODELS:
+                    preprocessing_artifact = (
+                        fitted["preprocessing"]
+                        if config.strategy == "global"
+                        else {
+                            group: group_artifact["preprocessing"] for group, group_artifact in fitted["models"].items()
+                        }
+                    )
                     prep_key, prep_checksum = storage.write_joblib(
-                        experiment.id, run.id, "preprocessing", fitted["preprocessing"]
+                        experiment.id, run.id, "preprocessing", preprocessing_artifact
                     )
                     _artifact(db, experiment, run, "preprocessing", prep_key, prep_checksum)
                     feature_importance, shap_summary = (
                         explanations(fitted, validation, settings.gbm_shap_sample_rows)
-                        if config.generate_shap and settings.gbm_enable_shap
+                        if config.strategy == "global" and config.generate_shap and settings.gbm_enable_shap
                         else ([], [])
                     )
                     for artifact_type, payload in (
@@ -684,6 +709,10 @@ def execute_experiment(
                         )
                         _artifact(db, experiment, run, artifact_type, artifact_key, artifact_checksum)
                     run.explanation_available = bool(shap_summary)
+                    if config.strategy == "per_group" and config.generate_shap:
+                        run.hyperparameters_json["explanation_warning"] = (
+                            "Per-group SHAP aggregation is not available; fitted group models remain persisted."
+                        )
                 run.status = ForecastModelStatus.completed
                 run.completed_at = datetime.now(UTC)
                 run.hyperparameters_json["skipped_groups"] = skipped

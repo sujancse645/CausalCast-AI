@@ -1,0 +1,35 @@
+backend:
+  replicaCount: 2
+  image:
+    repository: causalcast/backend
+    pullPolicy: IfNotPresent
+    tag: "latest"
+  resources:
+    requests:
+      cpu: 200m
+      memory: 512Mi
+    limits:
+      cpu: 1000m
+      memory: 1024Mi
+
+frontend:
+  replicaCount: 2
+  image:
+    repository: causalcast/frontend
+    pullPolicy: IfNotPresent
+    tag: "latest"
+
+workers:
+  replicaCount: 2
+
+scheduler:
+  replicaCount: 1
+
+redis:
+  enabled: true
+  
+postgres:
+  enabled: true
+
+ingress:
+  enabled: false

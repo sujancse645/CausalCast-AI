@@ -9,6 +9,8 @@ services:
       DATASET_STORAGE_ROOT: /data/raw
       PREPARATION_STORAGE_ROOT: /data/processed
       FORECAST_ARTIFACT_ROOT: /data/artifacts
+      DEEP_FORECASTING_ENABLED: "true"
+      DEEP_FORECASTING_ACCELERATOR: cpu
     volumes:
       - backend-data:/data
     ports:
@@ -28,5 +30,15 @@ services:
     depends_on:
       backend:
         condition: service_healthy
+  nginx:
+    image: nginx:1.25-alpine
+    ports:
+      - "80:80"
+    volumes:
+      - ./deployment/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - backend
+      - frontend
+
 volumes:
   backend-data:

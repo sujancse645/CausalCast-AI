@@ -13,9 +13,19 @@ def test_system_info(client: TestClient) -> None:
     assert body["database"]["status"] == "connected"
     assert body["modules"]["data_intelligence"] == "preparation_ready"
     assert body["modules"]["forecasting"] == "gradient_boosting_ready"
-    assert set(value for key, value in body["modules"].items() if key not in {"data_intelligence", "forecasting"}) == {
-        "planned"
-    }
+    assert body["modules"]["deep_forecasting_infrastructure"] == "ready"
+    assert body["modules"]["deep_forecasting_training"] == "nhits_ready"
+    assert set(
+        value
+        for key, value in body["modules"].items()
+        if key
+        not in {
+            "data_intelligence",
+            "forecasting",
+            "deep_forecasting_infrastructure",
+            "deep_forecasting_training",
+        }
+    ) == {"planned"}
 
 
 def test_production_rejects_debug() -> None:

@@ -125,3 +125,40 @@ def test_all_gradient_boosting_models_fit_and_preserve_groups() -> None:
         assert len(predicted) == 5
         assert predicted["group"].tolist() == ["A"] * 5
         assert artifact["features"] == ["trend", "group"]
+
+
+def test_per_group_gradient_boosting_fits_independent_models() -> None:
+    train = pd.concat(
+        [
+            frame([10 + i for i in range(20)]),
+            frame([100 + i for i in range(20)]).assign(group="B"),
+        ],
+        ignore_index=True,
+    )
+    future = pd.concat(
+        [frame([30, 31], "2024-01-21"), frame([120, 121], "2024-01-21").assign(group="B")],
+        ignore_index=True,
+    )
+    params = {
+        "n_estimators": 10,
+        "max_depth": 3,
+        "learning_rate": 0.1,
+        "subsample": 0.8,
+        "colsample_bytree": 0.8,
+        "reg_alpha": 0.0,
+        "reg_lambda": 1.0,
+    }
+    predicted, artifact, _ = fit_predict(
+        "lightgbm_regressor",
+        train,
+        future,
+        "target",
+        ["trend", "group"],
+        ["group"],
+        params,
+        Settings(),
+        0,
+        "per_group",
+    )
+    assert set(predicted["group"]) == {"A", "B"}
+    assert set(artifact["models"]) == {"A", "B"}

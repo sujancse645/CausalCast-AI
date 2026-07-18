@@ -15,6 +15,7 @@ import type {
   PreparationResponse,
   SplitDefinition,
 } from "@/types/preparation";
+import { DeepReadinessPanel } from "@/components/forecasting/deep-forecasting";
 export function PreparationDetail({
   datasetId,
   preparedId,
@@ -155,6 +156,7 @@ export function PreparationDetail({
           </table>
         </section>
       )}
+      <DeepReadinessPanel preparedId={preparedId} />
     </div>
   );
 }

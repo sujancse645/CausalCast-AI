@@ -13,14 +13,13 @@ export interface TuningTrial {
 }
 export interface TuningSummary {
   model_run_id: string;
-  tuning_method: string | null;
+  method: string | null;
   completed_trials: number;
   failed_trials: number;
   best_score: number | null;
-  best_iteration: number | null;
-  tuning_duration_ms: number;
   best_parameters: Record<string, unknown>;
-  trials: TuningTrial[];
+  duration_ms: number;
+  items: TuningTrial[];
 }
 export interface FeatureImportanceItem {
   feature: string;

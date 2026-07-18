@@ -50,6 +50,19 @@ import type {
   ShapExplanation,
   TuningSummary,
 } from "@/types/gradient-boosting";
+import type {
+  DeepForecastCapability,
+  DeepForecastDependency,
+  DeepForecastHardware,
+  DeepForecastModelDefinition,
+  DeepForecastReadiness,
+  DeepForecastReadinessRequest,
+} from "@/types/deep-forecasting";
+import type {
+  DeepTrainingExperiment,
+  DeepTrainingList,
+  NHiTSTrainingRequest,
+} from "@/types/deep-training";
 
 export class ApiError extends Error {
   constructor(
@@ -332,6 +345,49 @@ export const getForecastShap = (runId: string, limit = 50) =>
   );
 export const getGradientBoostingStats = () =>
   request<GradientBoostingStats>("/api/v1/forecasting/gradient-boosting/stats");
+export const getDeepForecastCapabilities = () =>
+  request<DeepForecastCapability>("/api/v1/forecasting/deep/capabilities");
+export const getDeepForecastModels = () =>
+  request<DeepForecastModelDefinition[]>("/api/v1/forecasting/deep/models");
+export const getDeepForecastHardware = () =>
+  request<DeepForecastHardware>("/api/v1/forecasting/deep/hardware");
+export const getDeepForecastDependencies = () =>
+  request<DeepForecastDependency[]>("/api/v1/forecasting/deep/dependencies");
+export const createDeepReadinessReport = (
+  preparedId: string,
+  payload: DeepForecastReadinessRequest,
+) =>
+  request<DeepForecastReadiness>(
+    `/api/v1/preparations/${encodeURIComponent(preparedId)}/deep-readiness`,
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    },
+    30000,
+  );
+export const getDeepReadinessReport = (preparedId: string) =>
+  request<DeepForecastReadiness>(
+    `/api/v1/preparations/${encodeURIComponent(preparedId)}/deep-readiness`,
+  );
+export const trainNHiTS = (payload: NHiTSTrainingRequest) =>
+  request<DeepTrainingExperiment>(
+    "/api/v1/deep/train/nhits",
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    },
+    900000,
+  );
+export const getDeepTrainingStatus = () =>
+  request<DeepTrainingList>("/api/v1/deep/train/status");
+export const getDeepExperiments = () =>
+  request<DeepTrainingList>("/api/v1/deep/experiments");
+export const getDeepExperiment = (identifier: string) =>
+  request<DeepTrainingExperiment>(
+    `/api/v1/deep/experiments/${encodeURIComponent(identifier)}`,
+  );
 export const getForecastArtifactDownloadUrl = (
   runId: string,
   artifactType: string,

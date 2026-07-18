@@ -1,0 +1,4918 @@
+You are continuing development of the existing CausalCast AI repository.
+
+The file "phase4a_prompt.txt" is the authoritative implementation specification for Phase 4A.
+
+Your responsibility is to implement that specification completely while preserving all previously completed work.
+
+===========================================================
+PROJECT CONTEXT
+===========================================================
+
+The repository already contains completed implementations from:
+
+• Phase 1
+• Phase 2A
+• Phase 2B
+• Phase 2C
+• Phase 2D
+• Phase 3A
+• Phase 3B
+• Phase 3C Part 1
+• Phase 3C Part 2A
+• Phase 3C Part 2B
+• Phase 3C Part 2C
+• Phase 3C Part 2D
+
+Everything above must remain functional.
+
+This phase extends the platform with Enterprise MLOps and Production Infrastructure.
+
+Never downgrade existing implementations.
+
+Never remove functionality.
+
+===========================================================
+BEFORE WRITING CODE
+===========================================================
+
+Perform repository inspection.
+
+Read and inspect:
+
+• phase4a_prompt.txt
+• git status
+• git diff
+• git log
+• backend/
+• frontend/
+• deployment/
+• docker/
+• configs/
+• tests/
+• migrations/
+• docs/
+
+Determine:
+
+• what already exists
+• what is partially implemented
+• what is missing
+
+Produce a concise implementation plan.
+
+Do NOT immediately start coding.
+
+===========================================================
+IMPLEMENTATION RULES
+===========================================================
+
+Only implement missing functionality.
+
+Never duplicate code.
+
+Never overwrite working implementations.
+
+Prefer extending existing modules.
+
+Maintain backward compatibility.
+
+Maintain API compatibility.
+
+Maintain database compatibility.
+
+Reuse existing services whenever possible.
+
+Use dependency injection.
+
+Use strongly typed models.
+
+Use production-quality architecture.
+
+Use modular design.
+
+Use comprehensive logging.
+
+Use structured configuration.
+
+Never introduce placeholder implementations.
+
+Never introduce TODO comments.
+
+Never generate fake metrics.
+
+===========================================================
+CODE QUALITY
+===========================================================
+
+All code must be production ready.
+
+Requirements:
+
+• complete type hints
+• docstrings
+• structured logging
+• dependency injection
+• configuration validation
+• centralized error handling
+• reusable utilities
+• reusable services
+• modular architecture
+• maintainability
+• lint compliant
+
+===========================================================
+WORKFLOW
+===========================================================
+
+Implement incrementally.
+
+After each logical milestone:
+
+1. format code
+
+2. lint code
+
+3. backend tests
+
+4. frontend tests
+
+5. integration tests (if applicable)
+
+Fix failures before continuing.
+
+Do not continue with failing tests.
+
+===========================================================
+ERROR HANDLING
+===========================================================
+
+If Windows reports:
+
+• EPERM
+• Access denied
+• File lock
+• Permission error
+
+Do NOT terminate implementation.
+
+Explain the issue.
+
+Continue implementing unrelated work.
+
+Retry the failed operation later.
+
+If a build tool crashes:
+
+Continue implementing remaining modules.
+
+Retry validation after implementation.
+
+===========================================================
+VALIDATION
+===========================================================
+
+When implementation finishes automatically execute:
+
+Backend
+
+• formatting
+• lint
+• unit tests
+• integration tests
+
+Frontend
+
+• formatting
+• lint
+• unit tests
+• production build
+
+Verify:
+
+• Docker builds
+
+• configuration loading
+
+• startup validation
+
+• health endpoints
+
+• monitoring
+
+• logging
+
+• deployment scripts
+
+===========================================================
+COMPLETION REQUIREMENTS
+===========================================================
+
+The phase is complete ONLY if:
+
+✓ every requirement inside phase4a_prompt.txt is implemented
+
+✓ formatting succeeds
+
+✓ lint succeeds
+
+✓ backend tests pass
+
+✓ frontend tests pass
+
+✓ production build succeeds
+
+✓ documentation is generated
+
+✓ no placeholder implementations remain
+
+✓ no duplicate modules exist
+
+✓ backward compatibility is preserved
+
+===========================================================
+FINAL REPORT
+===========================================================
+
+When complete provide:
+
+1. Summary of implementation
+
+2. Files modified
+
+3. New modules created
+
+4. APIs added
+
+5. Database changes
+
+6. Docker changes
+
+7. Deployment changes
+
+8. Infrastructure changes
+
+9. Tests executed
+
+10. Build results
+
+11. Remaining manual steps (only if absolutely unavoidable)
+
+Begin by reading phase4a_prompt.txt and inspecting the repository.
+
+Do NOT immediately begin implementation.
+Do NOT regenerate already completed work.
+Only implement missing functionality.
+You are continuing development of the existing CausalCast AI repository.
+
+This is Phase 4B: Enterprise Cloud Deployment, Kubernetes Orchestration, Scalability, and Resilient Production Operations.
+
+The following phases are already completed and must remain fully functional:
+
+- Phase 1
+- Phase 2A
+- Phase 2B
+- Phase 2C
+- Phase 2D
+- Phase 3A
+- Phase 3B
+- Phase 3C Part 1
+- Phase 3C Part 2A
+- Phase 3C Part 2B
+- Phase 3C Part 2C
+- Phase 3C Part 2D
+- Phase 4A
+
+Do not restart completed work.
+
+Do not duplicate existing modules.
+
+Do not replace working implementations.
+
+Do not remove existing functionality.
+
+Only extend the current architecture.
+
+Backward compatibility is mandatory.
+
+======================================================================
+PHASE OBJECTIVE
+======================================================================
+
+Implement enterprise-grade cloud deployment and scalability infrastructure for CausalCast AI.
+
+The platform must support:
+
+- Kubernetes deployment
+- production-grade manifests
+- Helm-based deployment
+- horizontal autoscaling
+- worker autoscaling
+- GPU-aware scheduling
+- rolling deployment
+- blue-green deployment
+- canary deployment
+- ingress and TLS
+- service discovery
+- load balancing
+- persistent storage
+- production secrets
+- centralized monitoring
+- distributed tracing
+- resilient queues
+- fault tolerance
+- backup and restoration
+- disaster recovery foundations
+- cloud-provider-neutral deployment
+
+This phase must build on the Docker, health, logging, metrics, configuration, and infrastructure foundation created in Phase 4A.
+
+======================================================================
+FIRST ACTION: REPOSITORY INSPECTION
+======================================================================
+
+Before writing any code:
+
+1. Read the full Phase 4A implementation and documentation.
+
+2. Inspect:
+
+- git status
+- git diff
+- git log
+- backend/
+- frontend/
+- deployment/
+- deployment/docker/
+- deployment/kubernetes/
+- deployment/nginx/
+- deployment/scripts/
+- deployment/terraform/
+- docker-compose files
+- Dockerfiles
+- environment files
+- configuration modules
+- monitoring modules
+- health modules
+- worker infrastructure
+- scheduler infrastructure
+- database migrations
+- Redis configuration
+- tests/
+- docs/
+- CI/CD workflows
+
+3. Determine:
+
+- what already exists
+- what is complete
+- what is partially implemented
+- what can be reused
+- what is missing
+- what should not be duplicated
+
+4. Produce a concise implementation plan before changing files.
+
+Do not begin by generating Kubernetes files blindly.
+
+Inspect the actual services, ports, health endpoints, environment variables, worker commands, storage paths, and dependencies first.
+
+======================================================================
+IMPLEMENTATION PRINCIPLES
+======================================================================
+
+Follow these rules throughout the phase:
+
+- Extend existing infrastructure.
+- Preserve all public APIs.
+- Preserve current Docker behavior.
+- Preserve development Docker Compose workflows.
+- Keep local development working.
+- Keep production configuration separate from development configuration.
+- Never hardcode credentials.
+- Never commit real secrets.
+- Never introduce fake cloud integrations.
+- Never introduce placeholder manifests.
+- Never use TODO-only implementations.
+- Never assume a specific cloud provider unless through optional overlays.
+- Prefer Kubernetes-native patterns.
+- Prefer reusable Helm templates.
+- Prefer declarative infrastructure.
+- Use least-privilege security.
+- Use immutable image tags in production examples.
+- Use resource requests and limits.
+- Use readiness, liveness, and startup probes.
+- Use graceful shutdown.
+- Use rolling-safe database migration patterns.
+- Avoid breaking in-flight forecast jobs during deployments.
+
+======================================================================
+TARGET PRODUCTION ARCHITECTURE
+======================================================================
+
+Support the following logical services:
+
+1. Frontend service
+2. Backend API service
+3. Forecast inference worker
+4. Training worker
+5. Background job worker
+6. Scheduler service
+7. PostgreSQL
+8. Redis
+9. Nginx or Kubernetes ingress
+10. Prometheus
+11. Grafana
+12. OpenTelemetry Collector
+13. Optional object-storage integration
+14. Optional GPU worker pool
+15. Migration job
+16. Backup job
+17. Restore utility
+18. Alerting service
+
+Do not create duplicate services if the existing repository already combines some responsibilities.
+
+Use the actual repository architecture as the source of truth.
+
+======================================================================
+DIRECTORY STRUCTURE
+======================================================================
+
+Create only if missing:
+
+deployment/kubernetes/
+deployment/kubernetes/base/
+deployment/kubernetes/base/backend/
+deployment/kubernetes/base/frontend/
+deployment/kubernetes/base/workers/
+deployment/kubernetes/base/scheduler/
+deployment/kubernetes/base/postgres/
+deployment/kubernetes/base/redis/
+deployment/kubernetes/base/ingress/
+deployment/kubernetes/base/monitoring/
+deployment/kubernetes/base/otel/
+deployment/kubernetes/base/jobs/
+deployment/kubernetes/base/storage/
+deployment/kubernetes/overlays/
+deployment/kubernetes/overlays/development/
+deployment/kubernetes/overlays/staging/
+deployment/kubernetes/overlays/production/
+deployment/kubernetes/overlays/gpu/
+deployment/helm/
+deployment/helm/causalcast/
+deployment/helm/causalcast/templates/
+deployment/helm/causalcast/templates/backend/
+deployment/helm/causalcast/templates/frontend/
+deployment/helm/causalcast/templates/workers/
+deployment/helm/causalcast/templates/scheduler/
+deployment/helm/causalcast/templates/monitoring/
+deployment/helm/causalcast/templates/jobs/
+deployment/helm/causalcast/templates/networking/
+deployment/helm/causalcast/templates/storage/
+deployment/scripts/kubernetes/
+deployment/scripts/backup/
+deployment/scripts/restore/
+deployment/scripts/release/
+deployment/terraform/modules/
+deployment/terraform/environments/
+docs/cloud/
+tests/deployment/
+tests/kubernetes/
+
+Do not create empty directories.
+
+Do not create redundant Kubernetes and Helm implementations with conflicting values.
+
+Use one shared source of configuration wherever practical.
+
+======================================================================
+KUBERNETES BASE MANIFESTS
+======================================================================
+
+Implement production-ready Kubernetes resources for all required platform services.
+
+For each deployable service, implement as appropriate:
+
+- Deployment
+- StatefulSet
+- Service
+- ConfigMap
+- Secret reference
+- ServiceAccount
+- Role
+- RoleBinding
+- PodDisruptionBudget
+- NetworkPolicy
+- HorizontalPodAutoscaler
+- PersistentVolumeClaim
+- Ingress
+- Job
+- CronJob
+
+Every workload must include:
+
+- metadata labels
+- consistent selectors
+- deployment annotations
+- container image configuration
+- container ports
+- environment variables
+- secret references
+- resource requests
+- resource limits
+- startup probe
+- readiness probe
+- liveness probe
+- termination grace period
+- preStop hooks where useful
+- security context
+- pod security context
+- non-root execution
+- read-only root filesystem where compatible
+- dropped Linux capabilities
+- seccomp profile
+- graceful shutdown support
+- log output to stdout/stderr
+- configurable replica count
+
+Never use privileged containers.
+
+Never mount the Docker socket.
+
+Never place secrets directly inside manifests.
+
+======================================================================
+KUSTOMIZE OVERLAYS
+======================================================================
+
+Implement Kustomize support for:
+
+- development
+- staging
+- production
+- optional GPU deployment
+
+The base configuration must remain cloud neutral.
+
+Development overlay may use:
+
+- lower resource limits
+- single replicas
+- local storage classes
+- debug logging
+
+Staging overlay must use:
+
+- production-like topology
+- reduced replica count
+- test domain
+- separate secrets
+- realistic resource limits
+
+Production overlay must use:
+
+- multiple replicas
+- PodDisruptionBudgets
+- autoscaling
+- stricter network policies
+- production ingress
+- TLS
+- production resource limits
+- anti-affinity
+- topology spreading
+- backup jobs
+- monitoring
+- alerting
+
+GPU overlay must support:
+
+- GPU resource requests
+- accelerator node selection
+- node affinity
+- tolerations
+- CPU fallback configuration
+- separate GPU worker deployment
+
+Do not require GPU for the standard deployment.
+
+======================================================================
+HELM CHART
+======================================================================
+
+Implement a complete Helm chart:
+
+deployment/helm/causalcast/
+
+Required files:
+
+- Chart.yaml
+- values.yaml
+- values-development.yaml
+- values-staging.yaml
+- values-production.yaml
+- values-gpu.yaml
+- templates/_helpers.tpl
+- templates/NOTES.txt
+- templates/tests/
+
+The chart must support configurable:
+
+- image registry
+- image repository
+- image tag
+- image pull policy
+- image pull secrets
+- replica counts
+- autoscaling
+- ingress
+- TLS
+- resource requests
+- resource limits
+- database settings
+- Redis settings
+- persistent storage
+- monitoring
+- tracing
+- worker concurrency
+- scheduler settings
+- GPU support
+- node selectors
+- affinities
+- tolerations
+- topology spread constraints
+- service accounts
+- security contexts
+- secrets references
+- external database
+- external Redis
+- external object storage
+- migration jobs
+- backup jobs
+
+The chart must render successfully with:
+
+helm lint
+
+helm template
+
+Do not hardcode release names or namespaces.
+
+Use helper templates for shared names and labels.
+
+======================================================================
+BACKEND API DEPLOYMENT
+======================================================================
+
+Create a production backend deployment.
+
+Requirements:
+
+- multiple replicas
+- stateless API pods
+- configurable Uvicorn or Gunicorn worker count
+- readiness checks using the existing readiness endpoint
+- liveness checks using the existing health endpoint
+- startup checks for migrations and dependencies
+- graceful request draining
+- request timeout configuration
+- maximum body size configuration
+- correlation ID propagation
+- structured logging
+- OpenTelemetry environment support
+- Prometheus scraping annotations
+- resource limits
+- autoscaling
+- PodDisruptionBudget
+- topology spreading
+- anti-affinity preference
+
+Long-running training or prediction operations must not block backend API pods.
+
+Use background workers for long-running tasks.
+
+======================================================================
+FRONTEND DEPLOYMENT
+======================================================================
+
+Create a production frontend deployment.
+
+Requirements:
+
+- Next.js production build
+- standalone output if compatible with current configuration
+- non-root container
+- health endpoint or TCP health check
+- backend API URL injection
+- secure runtime configuration
+- multiple replicas
+- static asset caching
+- compression
+- readiness and liveness probes
+- resource limits
+- autoscaling
+- PodDisruptionBudget
+- graceful shutdown
+- ingress integration
+
+Do not expose internal backend service addresses directly to browser clients unless required by architecture.
+
+Use the existing API proxy or configured public API endpoint.
+
+======================================================================
+WORKER DEPLOYMENTS
+======================================================================
+
+Implement separate scalable worker deployments based on existing architecture.
+
+Support, where applicable:
+
+- inference workers
+- training workers
+- background task workers
+- report-generation workers
+
+Worker requirements:
+
+- configurable concurrency
+- queue selection
+- graceful task completion
+- task cancellation
+- retry configuration
+- dead-letter handling
+- visibility timeout
+- shutdown timeout
+- structured logs
+- metrics
+- OpenTelemetry traces
+- resource requests
+- resource limits
+- optional GPU allocation
+- autoscaling based on queue depth
+- PodDisruptionBudget where appropriate
+- preStop draining
+- no task loss during rollout
+
+Do not invent a new queue framework if the repository already uses one.
+
+Extend the current worker and queue architecture.
+
+======================================================================
+SCHEDULER DEPLOYMENT
+======================================================================
+
+Deploy the scheduler as a singleton service unless the existing scheduler supports leader election.
+
+Requirements:
+
+- prevent duplicate scheduled jobs
+- support leader election or single replica
+- persist scheduling state if required
+- structured logging
+- health checks
+- graceful shutdown
+- CronJob alternative for Kubernetes-native schedules
+- configurable timezone
+- configurable schedule definitions
+- alert on missed schedules
+
+Never allow multiple scheduler replicas to run duplicate forecasting jobs accidentally.
+
+======================================================================
+DATABASE DEPLOYMENT
+======================================================================
+
+Support both:
+
+1. Internal PostgreSQL deployment for development and testing
+2. External managed PostgreSQL for staging and production
+
+Internal PostgreSQL requirements:
+
+- StatefulSet
+- PersistentVolumeClaim
+- credentials from Secret
+- readiness probe
+- liveness probe
+- resource limits
+- backup support
+- anti-affinity where practical
+- configurable storage class
+- configurable storage size
+
+Production configuration should recommend an external managed database but must remain deployable with internal PostgreSQL if explicitly enabled.
+
+Implement safe connection pool configuration.
+
+Support SSL database connections.
+
+Do not expose PostgreSQL publicly.
+
+======================================================================
+DATABASE MIGRATIONS
+======================================================================
+
+Implement a Kubernetes migration Job.
+
+Requirements:
+
+- run migrations before application rollout
+- use existing migration framework
+- fail deployment if migrations fail
+- log migration results
+- use the same backend image
+- acquire migration lock if supported
+- prevent concurrent migration jobs
+- support dry-run or validation mode if current framework allows
+- never run destructive migrations automatically without explicit configuration
+
+Document rollback expectations.
+
+Do not run migrations separately in every backend pod.
+
+======================================================================
+REDIS DEPLOYMENT
+======================================================================
+
+Support:
+
+1. Internal Redis for development
+2. External managed Redis for production
+
+Requirements:
+
+- authentication
+- persistence where appropriate
+- readiness probe
+- liveness probe
+- configurable memory limit
+- configurable eviction policy
+- TLS support for external Redis
+- internal-only service
+- queue and cache namespaces
+- connection retry
+- failover-aware connection configuration where supported
+
+Do not expose Redis publicly.
+
+======================================================================
+PERSISTENT STORAGE
+======================================================================
+
+Design persistent storage for:
+
+- model artifacts
+- checkpoints
+- reports
+- uploaded datasets
+- generated visualizations
+- backup archives
+- experiment artifacts
+
+Support:
+
+- PersistentVolumeClaim
+- configurable storage class
+- access modes
+- object-storage mode
+- local development storage
+- production external object storage
+
+Create a storage abstraction configuration compatible with:
+
+- local filesystem
+- S3-compatible object storage
+- cloud object storage through S3-compatible configuration when possible
+
+Do not implement fake object storage.
+
+If object-storage support already exists, integrate it.
+
+If it does not exist, add a clean interface and real S3-compatible implementation only if dependencies and architecture support it.
+
+======================================================================
+INGRESS AND TLS
+======================================================================
+
+Implement ingress configuration supporting:
+
+- frontend routing
+- backend API routing
+- WebSocket or SSE routing if used
+- TLS
+- configurable domains
+- request size limits
+- connection timeouts
+- proxy buffering configuration
+- rate limiting
+- secure headers
+- CORS consistency
+- health endpoint access
+- certificate manager integration
+
+Support optional cert-manager annotations.
+
+Example routing:
+
+- / -> frontend
+- /api -> backend
+- /docs -> backend only when enabled
+- /metrics -> restricted or internal only
+
+Do not expose internal monitoring endpoints publicly.
+
+======================================================================
+SERVICE DISCOVERY
+======================================================================
+
+Use Kubernetes DNS service names.
+
+All internal service URLs must be configurable.
+
+Do not hardcode:
+
+- localhost
+- Docker Compose service names
+- cluster-specific IPs
+- fixed namespaces
+
+Use environment-driven service discovery.
+
+Ensure local Docker Compose still works independently.
+
+======================================================================
+AUTOSCALING
+======================================================================
+
+Implement Horizontal Pod Autoscalers for:
+
+- backend API
+- frontend
+- inference workers
+- background workers
+- training workers where safe
+
+Support scaling signals:
+
+- CPU utilization
+- memory utilization
+- request rate
+- queue depth
+- custom Prometheus metrics
+
+Use autoscaling/v2.
+
+Set sensible:
+
+- minimum replicas
+- maximum replicas
+- scale-up policies
+- scale-down policies
+- stabilization windows
+
+Do not scale the singleton scheduler horizontally unless leader election exists.
+
+Do not scale active training jobs in a way that interrupts stateful training.
+
+======================================================================
+QUEUE-BASED AUTOSCALING
+======================================================================
+
+Add support for queue-driven autoscaling.
+
+Prefer Kubernetes Event-Driven Autoscaling patterns if compatible.
+
+Support optional KEDA manifests or Helm values for:
+
+- Redis queue depth
+- pending inference jobs
+- pending training jobs
+- background task backlog
+
+KEDA must be optional.
+
+The platform must still deploy without KEDA installed.
+
+Document installation requirements.
+
+======================================================================
+GPU-AWARE SCHEDULING
+======================================================================
+
+Implement optional GPU worker scheduling.
+
+Support:
+
+- nvidia.com/gpu resource requests
+- GPU node selectors
+- node affinity
+- tolerations
+- separate GPU worker pool
+- GPU capability detection
+- CPU fallback
+- configurable GPU memory behavior
+- one or more workers per GPU based on configuration
+- prevention of GPU scheduling on unsupported nodes
+
+Do not request GPU resources for backend, frontend, database, or ordinary CPU workers.
+
+======================================================================
+ROLLING DEPLOYMENTS
+======================================================================
+
+Configure safe rolling updates.
+
+Requirements:
+
+- maxUnavailable
+- maxSurge
+- readiness gates through probes
+- graceful termination
+- connection draining
+- worker task draining
+- migration sequencing
+- rollback support
+- revision history
+
+Ensure that traffic is only sent to ready pods.
+
+======================================================================
+BLUE-GREEN DEPLOYMENT
+======================================================================
+
+Implement optional blue-green deployment tooling.
+
+Support:
+
+- blue deployment
+- green deployment
+- separate services or selectors
+- smoke tests before traffic switch
+- manual promotion
+- automated rollback on failure
+- release metadata
+- traffic switching scripts
+
+Create scripts under:
+
+deployment/scripts/release/
+
+Examples:
+
+- deploy-blue-green.ps1
+- deploy-blue-green.sh
+- promote-release.ps1
+- promote-release.sh
+- rollback-release.ps1
+- rollback-release.sh
+
+Scripts must be safe, documented, and parameterized.
+
+Do not automatically delete the previous stable version immediately after promotion.
+
+======================================================================
+CANARY DEPLOYMENT
+======================================================================
+
+Implement optional canary deployment support.
+
+Support:
+
+- configurable canary replica count
+- configurable traffic percentage
+- canary-specific image tag
+- metric comparison
+- error-rate threshold
+- latency threshold
+- manual or automated promotion
+- rollback
+
+Support ingress-controller annotations where practical.
+
+Keep the default deployment strategy as rolling update.
+
+Canary must be opt-in.
+
+Do not assume Istio is installed.
+
+Provide optional Istio-compatible examples only if clearly separated.
+
+======================================================================
+LOAD BALANCING
+======================================================================
+
+Ensure:
+
+- backend requests distribute across replicas
+- frontend requests distribute across replicas
+- WebSocket or SSE behavior works if used
+- sticky sessions are avoided unless required
+- session state remains externalized
+- health checks remove unhealthy pods
+- ingress timeout supports long-running streamed responses where needed
+
+Long-running compute must remain in workers, not synchronous API requests.
+
+======================================================================
+NETWORK POLICIES
+======================================================================
+
+Implement default-deny network policies for production.
+
+Allow only required communication, for example:
+
+- ingress to frontend
+- ingress to backend
+- backend to PostgreSQL
+- backend to Redis
+- workers to PostgreSQL
+- workers to Redis
+- workers to artifact storage
+- Prometheus to metrics endpoints
+- OpenTelemetry services to collector
+- DNS resolution
+
+Do not leave PostgreSQL or Redis open to all pods.
+
+Provide an option to disable NetworkPolicy for clusters without compatible CNI support.
+
+======================================================================
+RBAC AND SERVICE ACCOUNTS
+======================================================================
+
+Create least-privilege service accounts.
+
+Separate service accounts for:
+
+- backend
+- workers
+- scheduler
+- migration jobs
+- backup jobs
+- monitoring
+
+Only grant Kubernetes API access where needed.
+
+Do not use cluster-admin.
+
+Do not bind application pods to the default service account if avoidable.
+
+Set automountServiceAccountToken to false unless access is required.
+
+======================================================================
+POD SECURITY
+======================================================================
+
+Apply secure defaults:
+
+- runAsNonRoot
+- runAsUser
+- runAsGroup
+- fsGroup where needed
+- allowPrivilegeEscalation false
+- readOnlyRootFilesystem where compatible
+- capabilities drop ALL
+- seccomp RuntimeDefault
+- no privileged containers
+- no host network
+- no host PID
+- no host IPC
+- no hostPath volumes unless explicitly justified
+
+Use writable temporary directories through emptyDir when required.
+
+======================================================================
+CONFIGURATION AND SECRETS
+======================================================================
+
+Use ConfigMaps for non-sensitive settings.
+
+Use Secrets for:
+
+- database credentials
+- Redis credentials
+- JWT secrets
+- API keys
+- object-storage credentials
+- OAuth credentials
+- monitoring credentials
+
+Support:
+
+- pre-created Kubernetes Secrets
+- external secrets integration
+- sealed-secrets-compatible documentation
+- secret rotation without code changes
+
+Do not include real secret values.
+
+Provide example secret templates with placeholders only.
+
+Ensure logs never print secret values.
+
+======================================================================
+EXTERNAL SECRETS
+======================================================================
+
+Add optional support documentation and example manifests for:
+
+- External Secrets Operator
+- cloud secret managers
+- Vault-compatible secret sources
+
+Keep this integration optional.
+
+The Helm chart must support referencing an existing Secret.
+
+======================================================================
+OBSERVABILITY STACK
+======================================================================
+
+Integrate:
+
+- Prometheus
+- Grafana
+- OpenTelemetry Collector
+- application metrics
+- distributed traces
+- structured logs
+
+Do not duplicate Phase 4A metrics instrumentation.
+
+Deploy and configure the infrastructure around the existing instrumentation.
+
+======================================================================
+PROMETHEUS
+======================================================================
+
+Provide:
+
+- ServiceMonitor resources if Prometheus Operator is available
+- scrape annotations fallback
+- backend metrics scraping
+- worker metrics scraping
+- scheduler metrics scraping
+- Redis metrics integration if enabled
+- PostgreSQL metrics integration if enabled
+- queue-depth metrics
+- prediction-latency metrics
+- training-duration metrics
+- model-loading metrics
+- error metrics
+- request metrics
+
+ServiceMonitor support must be optional.
+
+======================================================================
+GRAFANA
+======================================================================
+
+Create dashboard definitions or provisioning files for:
+
+1. Platform overview
+2. API performance
+3. Forecast inference
+4. Training jobs
+5. Worker queues
+6. Database health
+7. Redis health
+8. Kubernetes resources
+9. Model performance
+10. Deployment health
+
+Dashboards must display actual exported metrics.
+
+Do not create charts backed by nonexistent metrics.
+
+Store dashboards under a structured deployment monitoring directory.
+
+======================================================================
+OPENTELEMETRY
+======================================================================
+
+Deploy an OpenTelemetry Collector.
+
+Support:
+
+- OTLP HTTP
+- OTLP gRPC
+- traces
+- metrics where applicable
+- batch processing
+- memory limiting
+- configurable exporters
+- console exporter for development
+- production exporter configuration through secrets
+
+Propagate correlation IDs and trace context between:
+
+- frontend proxy
+- backend
+- worker queue
+- workers
+- scheduler
+- database operations
+- external storage operations
+
+Do not hardcode a commercial observability vendor.
+
+======================================================================
+ALERTING
+======================================================================
+
+Create alerting rules for:
+
+- backend unavailable
+- frontend unavailable
+- worker unavailable
+- scheduler unavailable
+- PostgreSQL unavailable
+- Redis unavailable
+- excessive API latency
+- high error rate
+- queue backlog
+- stuck jobs
+- failed migrations
+- low disk space
+- high memory use
+- high CPU use
+- GPU unavailable
+- repeated model load failures
+- prediction error spike
+- failed backups
+- certificate expiration
+- deployment rollout failure
+
+Alert thresholds must be configurable.
+
+Provide Alertmanager-compatible rules where applicable.
+
+Do not embed real notification credentials.
+
+======================================================================
+BACKUP SYSTEM
+======================================================================
+
+Implement production backup foundations.
+
+Support backups for:
+
+- PostgreSQL
+- model artifacts
+- experiment metadata
+- configuration snapshots
+- report artifacts
+- uploaded datasets where required
+
+Create Kubernetes CronJobs for scheduled backups.
+
+Requirements:
+
+- configurable schedule
+- timestamped backups
+- retention policy
+- compression
+- integrity verification
+- failure reporting
+- optional object-storage destination
+- encryption support where practical
+- non-root execution
+- least-privilege credentials
+
+Do not claim a backup succeeded unless verification succeeds.
+
+======================================================================
+RESTORE SYSTEM
+======================================================================
+
+Implement restore scripts and documentation.
+
+Support:
+
+- database restore
+- artifact restore
+- configuration restore
+- verification after restore
+- dry-run validation
+- environment safeguards
+- explicit confirmation for destructive restore
+- namespace selection
+- backup selection
+
+Create both PowerShell and shell scripts where practical.
+
+Never automatically overwrite a production database without explicit confirmation.
+
+======================================================================
+DISASTER RECOVERY FOUNDATION
+======================================================================
+
+Document and implement the foundation for:
+
+- recovery point objective
+- recovery time objective
+- backup frequency
+- restore validation
+- service dependency order
+- database recovery
+- Redis recovery expectations
+- artifact restoration
+- secret restoration
+- DNS and ingress recovery
+- cluster recreation
+- rollback procedure
+
+Do not claim multi-region active-active support in this phase.
+
+Do not implement fake cross-region replication.
+
+======================================================================
+CI/CD FOR KUBERNETES
+======================================================================
+
+Extend the existing CI/CD pipeline.
+
+Required stages:
+
+1. dependency installation
+2. backend formatting
+3. backend linting
+4. backend tests
+5. frontend formatting
+6. frontend linting
+7. frontend tests
+8. frontend production build
+9. Docker image build
+10. container security scan
+11. image metadata generation
+12. Kubernetes manifest validation
+13. Helm lint
+14. Helm template validation
+15. deployment policy checks
+16. staging deployment
+17. smoke tests
+18. production approval gate
+19. production deployment
+20. rollback path
+
+Do not trigger production deployment from arbitrary branches.
+
+Use environment protection and manual approval for production.
+
+======================================================================
+CONTAINER IMAGE MANAGEMENT
+======================================================================
+
+Implement:
+
+- deterministic image tagging
+- semantic version tag
+- Git commit SHA tag
+- environment tag where appropriate
+- image labels
+- build metadata
+- image digest support
+- vulnerability scanning
+- software bill of materials generation if tooling is available
+- non-root runtime
+- reproducible builds where practical
+
+Never rely only on the latest tag in production.
+
+======================================================================
+SECURITY SCANNING
+======================================================================
+
+Add or extend:
+
+- dependency scanning
+- container scanning
+- secret scanning
+- infrastructure-as-code scanning
+- Kubernetes manifest validation
+- Helm validation
+
+Use existing project tooling where available.
+
+Do not introduce unnecessary duplicate scanners.
+
+Document local and CI usage.
+
+======================================================================
+POLICY VALIDATION
+======================================================================
+
+Add automated validation for Kubernetes manifests.
+
+Validate:
+
+- resource limits present
+- non-root security
+- no privileged containers
+- probes present
+- image tags are not latest in production
+- secrets are not embedded
+- hostPath is not used
+- service accounts are explicit
+- network policy expectations
+- ingress TLS in production
+
+Use scripts or policy tooling that fits the existing repository.
+
+======================================================================
+CLOUD PROVIDER OVERLAYS
+======================================================================
+
+Keep the core deployment cloud neutral.
+
+Optionally provide documented overlays or examples for:
+
+- Amazon EKS
+- Google Kubernetes Engine
+- Azure Kubernetes Service
+
+Cloud examples may include:
+
+- storage class configuration
+- load balancer annotations
+- managed database integration
+- managed Redis integration
+- container registry configuration
+- workload identity guidance
+
+Do not create fully fake Terraform environments with nonexistent values.
+
+Use parameterized templates and examples.
+
+======================================================================
+TERRAFORM FOUNDATION
+======================================================================
+
+Extend deployment/terraform only if Phase 4A already introduced Terraform or if it fits the repository architecture.
+
+Provide modular infrastructure foundations for:
+
+- network
+- Kubernetes cluster
+- container registry
+- database
+- Redis
+- object storage
+- observability integration
+- DNS
+- secrets references
+
+Requirements:
+
+- reusable modules
+- environment separation
+- variables
+- outputs
+- remote-state guidance
+- no embedded credentials
+- sensible validation
+- documentation
+
+Do not attempt to provision every cloud simultaneously through one conflicting configuration.
+
+Create provider-neutral documentation and separate provider examples.
+
+======================================================================
+SMOKE TESTS
+======================================================================
+
+Implement post-deployment smoke tests.
+
+Validate:
+
+- frontend loads
+- backend health works
+- readiness works
+- database connectivity works
+- Redis connectivity works
+- model registry responds
+- prediction endpoint responds
+- background job can be submitted
+- worker processes the job
+- prediction history can be retrieved
+- metrics endpoint responds internally
+- ingress TLS works when configured
+
+Smoke tests must fail clearly and return non-zero exit codes.
+
+======================================================================
+LOAD TESTING
+======================================================================
+
+Add a basic load-testing framework.
+
+Test:
+
+- health endpoints
+- prediction submission
+- asynchronous prediction
+- model registry lookup
+- prediction history
+- concurrent frontend/API usage
+
+Measure:
+
+- requests per second
+- p50 latency
+- p95 latency
+- p99 latency
+- error rate
+- queue delay
+- worker throughput
+
+Do not use fake test results.
+
+Include scripts and documentation, not fabricated performance claims.
+
+======================================================================
+RESILIENCE TESTS
+======================================================================
+
+Add tests or documented scripts for:
+
+- backend pod termination
+- worker pod termination
+- Redis restart
+- database connection interruption
+- deployment rollback
+- queue backlog
+- failed migration
+- failed model loading
+- storage unavailability
+- expired or invalid secret
+- unavailable GPU
+
+The platform must fail safely and recover where possible.
+
+======================================================================
+KUBERNETES VALIDATION TESTS
+======================================================================
+
+Implement automated tests validating:
+
+- all YAML parses
+- Kustomize builds
+- Helm chart lints
+- Helm templates render
+- required labels exist
+- selectors match
+- services target valid ports
+- probes reference valid endpoints
+- resource limits exist
+- secrets are referenced correctly
+- production ingress uses TLS
+- security contexts are present
+- NetworkPolicies are valid
+- autoscaling targets exist
+- migration jobs use correct commands
+- CronJobs use valid schedules
+
+======================================================================
+BACKEND CHANGES
+======================================================================
+
+Only make backend changes required for cloud operation.
+
+Possible changes include:
+
+- improved readiness checks
+- startup probe endpoint
+- worker health endpoint
+- scheduler health endpoint
+- build/version metadata
+- graceful termination handling
+- queue metrics
+- deployment metadata exposure
+- OpenTelemetry configuration
+- trusted proxy configuration
+- configurable host and port
+- database pool tuning
+- Redis retry configuration
+- storage backend selection
+
+Do not rewrite the forecasting logic.
+
+======================================================================
+FRONTEND CHANGES
+======================================================================
+
+Only make frontend changes required for production cloud deployment.
+
+Possible changes include:
+
+- runtime API configuration
+- health endpoint
+- build metadata
+- deployment version display
+- maintenance state handling
+- backend unavailable state
+- retry behavior
+- environment validation
+- telemetry configuration
+
+Do not redesign completed dashboards unnecessarily.
+
+======================================================================
+INFRASTRUCTURE DASHBOARD EXTENSION
+======================================================================
+
+Extend the existing Phase 4A infrastructure dashboard to display, where APIs and metrics support it:
+
+- deployment environment
+- application version
+- Git commit
+- Kubernetes namespace
+- active replicas
+- desired replicas
+- pod health
+- worker count
+- queue depth
+- autoscaling state
+- database status
+- Redis status
+- model storage status
+- deployment history
+- rollout status
+- backup status
+- last successful backup
+
+Do not expose sensitive cluster information publicly.
+
+Use role-based access controls if the project already has authorization support.
+
+======================================================================
+API ENDPOINTS
+======================================================================
+
+Extend or implement only if not already available:
+
+GET /api/v1/system/deployment
+GET /api/v1/system/version
+GET /api/v1/system/readiness
+GET /api/v1/system/liveness
+GET /api/v1/system/startup
+GET /api/v1/system/workers
+GET /api/v1/system/queues
+GET /api/v1/system/storage
+GET /api/v1/system/backups
+GET /api/v1/system/rollout
+
+Requirements:
+
+- typed Pydantic responses
+- authorization where appropriate
+- no leaked secrets
+- graceful fallback outside Kubernetes
+- clear status values
+- structured error responses
+
+Do not make Kubernetes API access mandatory for normal application operation.
+
+======================================================================
+DOCUMENTATION
+======================================================================
+
+Create or update:
+
+docs/cloud/kubernetes.md
+docs/cloud/helm.md
+docs/cloud/kustomize.md
+docs/cloud/scaling.md
+docs/cloud/gpu-deployment.md
+docs/cloud/ingress-tls.md
+docs/cloud/blue-green.md
+docs/cloud/canary.md
+docs/cloud/monitoring.md
+docs/cloud/tracing.md
+docs/cloud/backups.md
+docs/cloud/restoration.md
+docs/cloud/disaster-recovery.md
+docs/cloud/cloud-providers.md
+docs/cloud/terraform.md
+docs/cloud/production-runbook.md
+docs/cloud/troubleshooting.md
+
+Documentation must include:
+
+- architecture
+- prerequisites
+- local cluster deployment
+- staging deployment
+- production deployment
+- configuration reference
+- secrets setup
+- database configuration
+- Redis configuration
+- storage configuration
+- ingress setup
+- TLS setup
+- monitoring setup
+- autoscaling
+- GPU deployment
+- backup and restore
+- rolling deployment
+- blue-green deployment
+- canary deployment
+- rollback
+- troubleshooting
+- cleanup
+
+Include commands for PowerShell and shell where practical.
+
+Do not include real credentials.
+
+======================================================================
+LOCAL KUBERNETES SUPPORT
+======================================================================
+
+Support local validation with one or more of:
+
+- Docker Desktop Kubernetes
+- kind
+- minikube
+
+Provide scripts for:
+
+- creating a local cluster
+- installing the platform
+- waiting for readiness
+- running smoke tests
+- uninstalling
+- deleting the cluster
+
+Do not require a paid cloud environment to validate the manifests.
+
+======================================================================
+TESTS
+======================================================================
+
+Implement comprehensive tests for:
+
+Backend:
+
+- readiness behavior
+- liveness behavior
+- startup behavior
+- deployment metadata
+- queue health
+- storage health
+- graceful shutdown
+- environment configuration
+
+Infrastructure:
+
+- Kubernetes manifest validation
+- Kustomize builds
+- Helm lint
+- Helm template rendering
+- security context validation
+- NetworkPolicy validation
+- autoscaling target validation
+- ingress validation
+- migration Job validation
+- backup CronJob validation
+
+Scripts:
+
+- argument validation
+- dry-run behavior
+- failure exit codes
+- confirmation safeguards
+
+Frontend:
+
+- deployment status rendering
+- health-state rendering
+- unavailable-state handling
+- runtime configuration
+- version rendering
+
+Integration:
+
+- deployment smoke tests
+- background job flow
+- health dependency flow
+- backup command validation
+- rollout command validation
+
+Do not remove or weaken existing tests.
+
+======================================================================
+VALIDATION COMMANDS
+======================================================================
+
+Use the actual repository commands discovered during inspection.
+
+At minimum, validate where tools are installed:
+
+Backend:
+
+- formatter
+- linter
+- type checking
+- focused tests
+- full test suite
+
+Frontend:
+
+- npm run format
+- npm run lint
+- frontend unit tests
+- npm run build
+
+Docker:
+
+- build backend image
+- build frontend image
+- build worker image
+- validate Compose configuration
+
+Kubernetes:
+
+- kubectl apply --dry-run=client
+- kubectl kustomize
+- kustomize build if available
+- helm lint
+- helm template
+
+Infrastructure:
+
+- Terraform formatting and validation if Terraform is implemented
+- YAML validation
+- shell script linting if available
+- PowerShell syntax validation where practical
+
+Do not falsely claim commands passed if tools are unavailable.
+
+Clearly report skipped validations and why.
+
+======================================================================
+WINDOWS FILE-LOCK HANDLING
+======================================================================
+
+This repository is developed on Windows.
+
+If EPERM, Access Denied, or file-lock errors occur:
+
+1. Identify the exact process and file.
+2. Do not repeatedly overwrite the same locked file.
+3. Continue unrelated implementation.
+4. Stop stale Node, Vitest, Next.js, Python, or formatter processes only when safe.
+5. Retry after the process is stopped.
+6. Do not discard working changes.
+7. Do not restart the entire phase.
+8. Report any unresolved lock honestly.
+
+Avoid running long-lived development servers during formatting and production builds.
+
+======================================================================
+ACCEPTANCE CRITERIA
+======================================================================
+
+Phase 4B is complete only when all applicable criteria are satisfied:
+
+1. Kubernetes base manifests exist and are valid.
+2. Development, staging, and production overlays render.
+3. Helm chart lints successfully.
+4. Helm templates render successfully.
+5. Backend deploys with probes and resource limits.
+6. Frontend deploys with probes and resource limits.
+7. Workers deploy and drain tasks safely.
+8. Scheduler prevents duplicate execution.
+9. PostgreSQL supports internal or external configuration.
+10. Redis supports internal or external configuration.
+11. Migration Job is implemented.
+12. Persistent artifact storage is configurable.
+13. Ingress routing is implemented.
+14. TLS configuration is supported.
+15. Horizontal autoscaling is implemented.
+16. Queue-based autoscaling is optionally supported.
+17. GPU worker scheduling is optionally supported.
+18. Rolling updates are safe.
+19. Blue-green deployment is available as an opt-in strategy.
+20. Canary deployment is available as an opt-in strategy.
+21. NetworkPolicies are implemented.
+22. Least-privilege service accounts are implemented.
+23. Secure pod contexts are implemented.
+24. Monitoring integration works.
+25. OpenTelemetry Collector configuration exists.
+26. Grafana dashboards use real metrics.
+27. Alert rules are implemented.
+28. Backup CronJobs exist.
+29. Restore scripts include safeguards.
+30. Disaster-recovery documentation exists.
+31. CI/CD validates Docker, Helm, and Kubernetes resources.
+32. Smoke tests are implemented.
+33. Load-test scripts are implemented.
+34. Existing local Docker Compose development remains functional.
+35. Existing Phase 1 through Phase 4A features remain functional.
+36. Backend tests pass.
+37. Frontend tests pass.
+38. Production frontend build succeeds.
+39. Documentation is complete.
+40. No placeholder implementation remains.
+
+======================================================================
+DO NOT IMPLEMENT IN PHASE 4B
+======================================================================
+
+Do not implement the following in this phase:
+
+- full enterprise identity federation
+- SAML
+- advanced organization RBAC redesign
+- subscription billing
+- multi-tenant billing isolation
+- legal compliance certification
+- SOC 2 certification automation
+- HIPAA certification claims
+- continuous online model learning
+- reinforcement learning
+- autonomous production changes without approval
+- multi-region active-active deployment
+- global traffic management
+- cross-region database replication
+- full service mesh requirement
+- enterprise data-loss prevention
+- SIEM integration
+- advanced audit governance
+
+These belong to Phase 4C or later enterprise phases.
+
+======================================================================
+IMPLEMENTATION WORKFLOW
+======================================================================
+
+Execute the work incrementally.
+
+Recommended order:
+
+Milestone 1:
+- inspect repository
+- write implementation plan
+- identify existing Phase 4A infrastructure
+
+Milestone 2:
+- Kubernetes base manifests
+- service accounts
+- configuration
+- secrets references
+- probes
+- security contexts
+
+Milestone 3:
+- Kustomize overlays
+- development
+- staging
+- production
+- GPU
+
+Milestone 4:
+- Helm chart
+- values files
+- lint and render validation
+
+Milestone 5:
+- ingress
+- TLS
+- NetworkPolicies
+- service discovery
+
+Milestone 6:
+- autoscaling
+- queue scaling
+- GPU scheduling
+- PodDisruptionBudgets
+
+Milestone 7:
+- rolling
+- blue-green
+- canary
+- rollback scripts
+
+Milestone 8:
+- monitoring
+- Grafana
+- Prometheus
+- OpenTelemetry
+- alerting
+
+Milestone 9:
+- backups
+- restoration
+- disaster-recovery foundation
+
+Milestone 10:
+- CI/CD
+- security scanning
+- policy validation
+- smoke tests
+
+Milestone 11:
+- backend and frontend infrastructure integration
+
+Milestone 12:
+- documentation
+- full validation
+- final report
+
+After every milestone:
+
+- inspect git diff
+- format changed code
+- lint changed code
+- run focused tests
+- fix genuine regressions before continuing
+
+Do not wait until the end to discover all failures.
+
+======================================================================
+FINAL REPORT
+======================================================================
+
+When finished, provide a structured final report containing:
+
+1. Implementation summary
+2. Repository inspection findings
+3. Kubernetes resources created
+4. Helm chart changes
+5. Kustomize overlays created
+6. Backend deployment changes
+7. Frontend deployment changes
+8. Worker and scheduler deployment changes
+9. Database and Redis deployment changes
+10. Storage changes
+11. Ingress and TLS changes
+12. Autoscaling changes
+13. GPU deployment support
+14. Blue-green deployment support
+15. Canary deployment support
+16. Monitoring and tracing changes
+17. Alerting rules
+18. Backup and restore changes
+19. CI/CD changes
+20. Security controls
+21. Tests added
+22. Commands executed
+23. Test results
+24. Build results
+25. Kubernetes validation results
+26. Helm validation results
+27. Files modified
+28. Files created
+29. Remaining manual steps
+30. Known limitations
+
+Be completely honest.
+
+Do not claim success for commands that were not executed.
+
+Do not claim cloud deployment occurred unless an actual cluster was available.
+
+Begin now by inspecting the repository and Phase 4A implementation.
+
+Do not immediately generate files.
+
+Do not restart completed work.
+
+Do not duplicate existing infrastructure.
+You are continuing development of the existing CausalCast AI repository.
+
+This is Phase 4C: Enterprise Security, Governance, Compliance, Audit, Data Protection, Access Control, and Operational Hardening.
+
+The following phases are already completed and must remain fully functional:
+
+- Phase 1
+- Phase 2A
+- Phase 2B
+- Phase 2C
+- Phase 2D
+- Phase 3A
+- Phase 3B
+- Phase 3C Part 1
+- Phase 3C Part 2A
+- Phase 3C Part 2B
+- Phase 3C Part 2C
+- Phase 3C Part 2D
+- Phase 4A
+- Phase 4B
+
+Do not restart completed work.
+
+Do not duplicate modules.
+
+Do not replace working implementations.
+
+Do not remove existing functionality.
+
+Do not weaken existing security controls.
+
+Only extend the current architecture.
+
+Backward compatibility is mandatory.
+
+======================================================================
+PHASE OBJECTIVE
+======================================================================
+
+Implement the enterprise security and governance layer required to operate CausalCast AI safely in production.
+
+The platform must support:
+
+- enterprise-grade authentication hardening
+- role-based access control
+- permission-based authorization
+- tenant-aware authorization foundations
+- audit logging
+- immutable security events
+- sensitive-action approval workflows
+- session security
+- API security
+- secrets governance
+- encryption controls
+- privacy and data protection
+- retention policies
+- deletion workflows
+- access reviews
+- compliance evidence generation
+- security monitoring
+- incident management foundations
+- backup governance
+- disaster-recovery governance
+- operational runbooks
+- secure administration
+- software supply-chain protection
+- secure deployment policies
+- model governance
+- dataset governance
+- prediction governance
+- security testing
+- abuse prevention
+
+This phase must build on the MLOps, Kubernetes, monitoring, deployment, logging, tracing, and infrastructure work implemented in Phase 4A and Phase 4B.
+
+======================================================================
+FIRST ACTION: REPOSITORY INSPECTION
+======================================================================
+
+Before writing any code:
+
+1. Inspect the entire repository.
+
+2. Read:
+
+- git status
+- git diff
+- git log
+- backend/
+- frontend/
+- deployment/
+- deployment/kubernetes/
+- deployment/helm/
+- deployment/terraform/
+- configs/
+- tests/
+- migrations/
+- docs/
+- CI/CD workflows
+- authentication modules
+- authorization modules
+- user models
+- role models
+- organization or tenant models
+- audit logging
+- API middleware
+- security headers
+- session handling
+- JWT handling
+- password handling
+- secrets configuration
+- database models
+- storage abstraction
+- model registry
+- experiment registry
+- forecast registry
+- prediction history
+- training jobs
+- background workers
+- administrator interfaces
+
+3. Determine:
+
+- what already exists
+- what is production ready
+- what is partial
+- what is missing
+- what must be extended
+- what must not be duplicated
+- what security weaknesses exist
+
+4. Produce a concise implementation plan before modifying files.
+
+Do not immediately generate security code.
+
+Do not assume authentication or authorization architecture without inspecting it.
+
+======================================================================
+CORE IMPLEMENTATION PRINCIPLES
+======================================================================
+
+Follow these rules throughout the phase:
+
+- Security must be enforced server-side.
+- Frontend hiding is not authorization.
+- Deny by default.
+- Use least privilege.
+- Use explicit permissions.
+- Preserve compatibility with existing roles.
+- Never hardcode credentials.
+- Never log secrets.
+- Never log passwords.
+- Never log raw access tokens.
+- Never expose internal stack traces in production responses.
+- Never introduce fake compliance claims.
+- Never claim certification.
+- Never store sensitive data without purpose.
+- Never implement placeholder encryption.
+- Never create TODO-only security checks.
+- Never bypass authorization for convenience.
+- Never expose administrator endpoints publicly without authentication.
+- Never weaken audit evidence.
+- Never allow client-controlled roles or permissions.
+- Never trust uploaded file names or MIME types alone.
+- Never allow arbitrary command execution.
+- Never allow arbitrary filesystem paths.
+- Never allow unrestricted model artifact loading.
+- Never allow unsafe deserialization.
+- Never use pickle with untrusted artifacts without strict controls.
+- Never allow silent privilege escalation.
+- Never delete audit records through ordinary user APIs.
+
+======================================================================
+DIRECTORY STRUCTURE
+======================================================================
+
+Create only if missing:
+
+backend/app/security/
+backend/app/security/authentication/
+backend/app/security/authorization/
+backend/app/security/rbac/
+backend/app/security/policies/
+backend/app/security/sessions/
+backend/app/security/tokens/
+backend/app/security/passwords/
+backend/app/security/api/
+backend/app/security/encryption/
+backend/app/security/secrets/
+backend/app/security/audit/
+backend/app/security/events/
+backend/app/security/incidents/
+backend/app/security/privacy/
+backend/app/security/retention/
+backend/app/security/compliance/
+backend/app/security/governance/
+backend/app/security/approvals/
+backend/app/security/risk/
+backend/app/security/middleware/
+backend/app/security/rate_limit/
+backend/app/security/uploads/
+backend/app/security/model_governance/
+backend/app/security/dataset_governance/
+backend/app/security/prediction_governance/
+
+frontend/app/security/
+frontend/app/admin/security/
+frontend/app/admin/audit/
+frontend/app/admin/access/
+frontend/app/admin/incidents/
+frontend/app/admin/compliance/
+frontend/app/admin/governance/
+frontend/components/security/
+frontend/components/admin/security/
+frontend/lib/security/
+frontend/types/security/
+
+deployment/security/
+deployment/security/policies/
+deployment/security/scanning/
+deployment/security/secrets/
+deployment/security/kubernetes/
+deployment/security/supply-chain/
+deployment/security/compliance/
+
+docs/security/
+tests/security/
+tests/authorization/
+tests/audit/
+tests/privacy/
+tests/compliance/
+
+Do not create empty directories.
+
+Follow the existing repository naming conventions.
+
+======================================================================
+AUTHENTICATION HARDENING
+======================================================================
+
+Inspect and harden the existing authentication system.
+
+Support, where compatible:
+
+- secure password hashing
+- password policy
+- password history
+- failed-login throttling
+- account lockout
+- lockout expiry
+- email verification status
+- password reset tokens
+- single-use reset tokens
+- reset token expiry
+- session revocation
+- token rotation
+- refresh-token rotation
+- refresh-token reuse detection
+- device or session tracking
+- logout from current session
+- logout from all sessions
+- administrator session revocation
+- configurable session duration
+- idle timeout
+- absolute timeout
+- suspicious-login detection
+- login audit events
+- optional MFA-ready architecture
+
+Use established password-hashing libraries already present in the repository.
+
+Prefer Argon2id where supported.
+
+Do not invent custom cryptography.
+
+Do not expose whether a specific user exists during password reset or login failure responses.
+
+Use constant-style generic messages where appropriate.
+
+======================================================================
+PASSWORD POLICY
+======================================================================
+
+Implement a configurable password policy.
+
+Support:
+
+- minimum length
+- maximum length
+- banned common passwords
+- compromised-password integration abstraction
+- password reuse prevention
+- password history
+- required complexity only if consistent with existing product policy
+- administrator-enforced reset
+- expired-password workflow if enabled
+- secure reset flow
+
+Avoid unnecessary complexity rules that reduce usability.
+
+Prefer length and compromised-password checks.
+
+Never store plaintext passwords.
+
+Never log password values.
+
+======================================================================
+MULTI-FACTOR AUTHENTICATION FOUNDATION
+======================================================================
+
+Implement MFA foundations only if compatible with the existing authentication system.
+
+Support:
+
+- TOTP enrollment
+- TOTP verification
+- recovery codes
+- recovery-code hashing
+- one-time recovery-code consumption
+- MFA-required roles
+- MFA policy configuration
+- session elevation after MFA
+- MFA disable workflow with reauthentication
+- administrator reset workflow with audit logs
+
+Do not implement SMS OTP unless an existing trusted provider integration already exists.
+
+Do not include fake SMS integrations.
+
+MFA may remain optional by default but must be enforceable for privileged roles.
+
+======================================================================
+SESSION MANAGEMENT
+======================================================================
+
+Implement secure session management.
+
+Every session should track, where supported:
+
+- session ID
+- user ID
+- creation time
+- last activity
+- expiry
+- IP address or anonymized network metadata
+- user-agent metadata
+- device label
+- authentication method
+- MFA status
+- revoked status
+- revocation time
+- revocation reason
+
+Provide APIs to:
+
+- list active sessions
+- revoke a specific session
+- revoke all other sessions
+- revoke all sessions
+- identify current session
+
+Do not expose full token values.
+
+Apply privacy-conscious storage for network metadata.
+
+======================================================================
+TOKEN SECURITY
+======================================================================
+
+Harden JWT or token handling.
+
+Requirements:
+
+- strong signing secret or asymmetric keys
+- configurable issuer
+- configurable audience
+- short-lived access tokens
+- refresh-token rotation
+- token revocation support
+- key rotation support
+- clock-skew tolerance
+- strict algorithm validation
+- reject unsigned tokens
+- reject unexpected algorithms
+- reject wrong issuer
+- reject wrong audience
+- reject expired tokens
+- reject malformed tokens
+- reject revoked tokens
+- structured authentication errors
+
+Do not accept algorithm selection from untrusted token headers without strict allowlisting.
+
+Never log full tokens.
+
+======================================================================
+ROLE-BASED ACCESS CONTROL
+======================================================================
+
+Implement or extend production-grade RBAC.
+
+Support existing roles and add only what is necessary.
+
+Possible roles include:
+
+- platform administrator
+- organization administrator
+- security administrator
+- ML administrator
+- data steward
+- data scientist
+- analyst
+- operator
+- auditor
+- reviewer
+- standard user
+- read-only user
+- service account
+
+Do not hardcode authorization logic across route handlers.
+
+Centralize permissions.
+
+Use explicit permission identifiers.
+
+Example permission groups:
+
+- users.read
+- users.create
+- users.update
+- users.disable
+- users.delete
+- roles.read
+- roles.assign
+- roles.manage
+- datasets.read
+- datasets.upload
+- datasets.update
+- datasets.delete
+- datasets.approve
+- datasets.export
+- models.read
+- models.train
+- models.load
+- models.unload
+- models.promote
+- models.rollback
+- models.delete
+- predictions.read
+- predictions.create
+- predictions.export
+- experiments.read
+- experiments.manage
+- jobs.read
+- jobs.cancel
+- infrastructure.read
+- infrastructure.manage
+- security.read
+- security.manage
+- audit.read
+- audit.export
+- compliance.read
+- compliance.manage
+- incidents.read
+- incidents.manage
+- backups.read
+- backups.execute
+- backups.restore
+- approvals.read
+- approvals.submit
+- approvals.approve
+- approvals.reject
+
+Use existing naming conventions if permissions already exist.
+
+======================================================================
+PERMISSION-BASED AUTHORIZATION
+======================================================================
+
+Implement centralized authorization services.
+
+Create or extend:
+
+- PermissionService
+- AuthorizationService
+- PolicyDecisionService
+- ResourceAccessService
+
+Authorization decisions must consider:
+
+- authenticated identity
+- role
+- permissions
+- resource ownership
+- organization or tenant scope
+- object state
+- approval state
+- environment
+- operation sensitivity
+
+Provide reusable dependencies or decorators for API endpoints.
+
+Examples:
+
+- require_permission(...)
+- require_any_permission(...)
+- require_all_permissions(...)
+- require_role(...)
+- require_resource_access(...)
+
+Do not scatter manual role string comparisons across controllers.
+
+======================================================================
+ATTRIBUTE-BASED POLICY FOUNDATION
+======================================================================
+
+Add a lightweight policy layer for sensitive operations.
+
+Policy decisions may include:
+
+- only model owners or ML administrators can modify model metadata
+- only approved datasets can be used for production training
+- only security administrators can view incident evidence
+- only auditors can export full audit logs
+- only production-approved models can be promoted
+- only authorized users can restore backups
+- only specific environments allow destructive operations
+- sensitive actions require recent reauthentication
+
+Do not implement an overly complex external policy engine unless the repository already uses one.
+
+Create extensible policy interfaces.
+
+======================================================================
+TENANT AND ORGANIZATION ISOLATION FOUNDATION
+======================================================================
+
+If organization or tenant concepts already exist, enforce them consistently.
+
+If they do not exist, implement only a minimal foundation without redesigning the entire application.
+
+Support:
+
+- organization ID or tenant ID on scoped resources
+- tenant-aware repository queries
+- tenant-aware API filters
+- tenant-aware audit events
+- tenant-aware storage paths
+- tenant-aware cache keys
+- tenant-aware job payloads
+- tenant-aware model artifacts
+- tenant-aware prediction history
+
+Prevent cross-tenant access.
+
+Never trust tenant identifiers sent by the client without server-side membership validation.
+
+Do not implement billing or subscriptions in this phase.
+
+======================================================================
+SERVICE ACCOUNTS
+======================================================================
+
+Implement secure service-account foundations.
+
+Support:
+
+- service-account identity
+- scoped permissions
+- token creation
+- token rotation
+- token expiry
+- token revocation
+- last-used timestamp
+- environment restriction
+- IP or network restriction where practical
+- descriptive purpose
+- audit logging
+
+Display service-account secrets only once at creation.
+
+Store only hashed token material where possible.
+
+Never allow service accounts to inherit unrestricted administrator access by default.
+
+======================================================================
+AUDIT LOGGING
+======================================================================
+
+Implement or extend enterprise audit logging.
+
+Audit events must include, where applicable:
+
+- event ID
+- timestamp
+- actor ID
+- actor type
+- actor role
+- organization or tenant
+- action
+- resource type
+- resource ID
+- result
+- reason
+- request ID
+- correlation ID
+- trace ID
+- source IP or privacy-conscious network metadata
+- user agent
+- environment
+- previous state summary
+- new state summary
+- approval reference
+- incident reference
+- metadata
+- cryptographic integrity field
+
+Audit sensitive actions including:
+
+- login
+- logout
+- failed login
+- password reset
+- MFA enrollment
+- MFA removal
+- session revocation
+- user creation
+- role assignment
+- permission changes
+- account disablement
+- dataset upload
+- dataset deletion
+- dataset export
+- model training
+- model registration
+- model promotion
+- model rollback
+- model deletion
+- prediction execution
+- prediction export
+- experiment deletion
+- job cancellation
+- backup execution
+- restore execution
+- secret rotation
+- configuration change
+- approval decision
+- incident change
+- audit export
+
+Do not log sensitive payload contents unnecessarily.
+
+======================================================================
+AUDIT INTEGRITY
+======================================================================
+
+Implement tamper-evident audit integrity.
+
+Use an append-only design where practical.
+
+Support:
+
+- event hashing
+- previous-event hash
+- chain verification
+- integrity status
+- verification reports
+- detection of missing or altered records
+- scheduled integrity verification
+- alert on verification failure
+
+Use a well-defined canonical serialization before hashing.
+
+Do not claim immutability if the database itself is not immutable.
+
+Describe the system accurately as tamper-evident.
+
+Do not allow ordinary application users to edit audit events.
+
+======================================================================
+SECURITY EVENT SYSTEM
+======================================================================
+
+Create or extend a structured security-event service.
+
+Security event categories:
+
+- authentication
+- authorization
+- session
+- token
+- data access
+- privilege change
+- suspicious behavior
+- integrity failure
+- configuration change
+- secret change
+- malware or upload detection
+- abuse prevention
+- incident
+- backup
+- restore
+- model governance
+- dataset governance
+
+Support severity:
+
+- informational
+- low
+- medium
+- high
+- critical
+
+Support status:
+
+- open
+- acknowledged
+- investigating
+- contained
+- resolved
+- dismissed
+
+Persist security events separately from ordinary application logs.
+
+======================================================================
+APPROVAL WORKFLOWS
+======================================================================
+
+Implement approval workflows for sensitive actions.
+
+Possible approval-required actions:
+
+- production model promotion
+- production model rollback
+- destructive dataset deletion
+- bulk data export
+- production backup restore
+- role escalation
+- security policy changes
+- secret rotation
+- audit-log export
+- incident closure
+- retention-policy change
+
+Implement:
+
+- ApprovalRequest
+- ApprovalDecision
+- ApprovalPolicy
+- ApprovalService
+
+Support:
+
+- requester
+- approver
+- request reason
+- target action
+- resource
+- expiry
+- status
+- decision reason
+- timestamps
+- duplicate-request prevention
+- self-approval restriction where required
+- multi-approver policy foundation
+
+Do not execute protected actions before approval.
+
+======================================================================
+SENSITIVE-ACTION REAUTHENTICATION
+======================================================================
+
+Require recent authentication or MFA elevation for sensitive actions where supported.
+
+Examples:
+
+- password change
+- MFA removal
+- role assignment
+- secret rotation
+- restore operation
+- audit export
+- destructive deletion
+- production model promotion
+
+Implement a configurable recent-authentication window.
+
+Do not rely only on frontend confirmation dialogs.
+
+======================================================================
+API SECURITY
+======================================================================
+
+Harden all APIs.
+
+Implement or verify:
+
+- authentication enforcement
+- authorization enforcement
+- request size limits
+- strict content-type validation
+- body schema validation
+- query validation
+- pagination limits
+- sorting allowlists
+- filtering allowlists
+- safe error responses
+- request IDs
+- correlation IDs
+- idempotency support for sensitive writes
+- rate limiting
+- abuse detection
+- replay protection where appropriate
+- secure CORS
+- secure headers
+- timeout limits
+- response caching controls
+- no sensitive debug data
+- endpoint-specific permissions
+
+Reject unexpected fields when appropriate.
+
+Avoid mass-assignment vulnerabilities.
+
+======================================================================
+RATE LIMITING
+======================================================================
+
+Implement configurable rate limiting.
+
+Support:
+
+- per-IP limits
+- per-user limits
+- per-service-account limits
+- endpoint-specific limits
+- login-specific limits
+- password-reset limits
+- export limits
+- model-training submission limits
+- prediction submission limits
+- expensive-operation limits
+
+Use Redis when available.
+
+Provide safe in-memory fallback for development.
+
+Return standards-compliant rate-limit responses where practical.
+
+Do not rely only on Nginx or ingress rate limiting.
+
+Use defense in depth.
+
+======================================================================
+IDEMPOTENCY
+======================================================================
+
+Implement idempotency support for sensitive or expensive operations.
+
+Possible endpoints:
+
+- prediction submission
+- model training submission
+- backup execution
+- restore request
+- model promotion
+- approval request
+- payment-like future operations
+
+Support:
+
+- idempotency key
+- actor scope
+- endpoint scope
+- request hash
+- response persistence
+- expiry
+- conflict detection
+
+Do not replay operations when the request payload differs under the same key.
+
+======================================================================
+SECURITY HEADERS
+======================================================================
+
+Configure secure headers through the application and/or ingress.
+
+Include where appropriate:
+
+- Content-Security-Policy
+- X-Content-Type-Options
+- Referrer-Policy
+- Permissions-Policy
+- Strict-Transport-Security in production
+- frame-ancestor restrictions
+- secure cache-control for sensitive pages
+
+Do not break Next.js assets or required frontend functionality.
+
+Test the resulting headers.
+
+======================================================================
+CORS POLICY
+======================================================================
+
+Use environment-specific CORS configuration.
+
+Requirements:
+
+- explicit allowed origins
+- no wildcard with credentials
+- allowed methods
+- allowed headers
+- exposed headers only when necessary
+- configurable development origins
+- strict production origins
+- preflight handling
+- tests
+
+Do not allow arbitrary origins in production.
+
+======================================================================
+CSRF PROTECTION
+======================================================================
+
+If cookie-based authentication is used, implement CSRF protection.
+
+Support:
+
+- same-site cookies
+- CSRF token
+- origin validation
+- referer validation where appropriate
+- double-submit or server-side token pattern
+- secure cookie settings
+
+If bearer tokens are used exclusively and not automatically attached by browsers, document why CSRF protection differs.
+
+Do not add incompatible CSRF logic blindly.
+
+======================================================================
+FILE-UPLOAD SECURITY
+======================================================================
+
+Harden dataset, artifact, configuration, and document uploads.
+
+Validate:
+
+- maximum size
+- allowed extensions
+- detected MIME type
+- file signature where practical
+- safe filename
+- generated storage name
+- path traversal prevention
+- decompression limits
+- archive-bomb protection
+- CSV formula injection risk
+- encoding validation
+- schema validation
+- row limits
+- column limits
+- malformed file handling
+
+Quarantine files before processing where appropriate.
+
+Never execute uploaded files.
+
+Never trust user-provided paths.
+
+Never deserialize arbitrary uploaded model artifacts without verification.
+
+======================================================================
+MODEL-ARTIFACT SECURITY
+======================================================================
+
+Implement security controls for model artifacts.
+
+Support:
+
+- artifact checksum
+- artifact signature metadata
+- trusted source
+- framework allowlist
+- model type allowlist
+- expected file extension
+- expected metadata
+- secure loading path
+- restricted deserialization
+- quarantine status
+- approval status
+- integrity verification before load
+- load audit event
+- rejection of altered artifacts
+
+Avoid unsafe pickle loading from untrusted sources.
+
+If existing artifacts use pickle, restrict loading to trusted internally generated artifacts and document the risk.
+
+Prefer safer serialization formats where practical.
+
+======================================================================
+DATASET GOVERNANCE
+======================================================================
+
+Implement dataset governance metadata.
+
+Track:
+
+- dataset ID
+- owner
+- organization or tenant
+- source
+- upload time
+- checksum
+- schema version
+- classification
+- sensitivity
+- purpose
+- consent or legal-basis metadata where applicable
+- retention policy
+- approval status
+- quality status
+- lineage
+- transformations
+- training usage
+- export history
+- deletion status
+
+Possible classifications:
+
+- public
+- internal
+- confidential
+- restricted
+
+Enforce permissions according to classification.
+
+Do not allow restricted datasets to be exported by unauthorized users.
+
+======================================================================
+DATA LINEAGE
+======================================================================
+
+Implement lineage foundations.
+
+Track relationships between:
+
+- raw dataset
+- cleaned dataset
+- feature dataset
+- training run
+- model artifact
+- prediction
+- report
+- export
+
+Support lineage queries.
+
+Display lineage in administrator or governance views.
+
+Do not fabricate lineage when the source is unknown.
+
+Mark unknown lineage explicitly.
+
+======================================================================
+MODEL GOVERNANCE
+======================================================================
+
+Implement model-governance metadata.
+
+Track:
+
+- model owner
+- model purpose
+- model version
+- training dataset
+- feature schema
+- training configuration
+- metrics
+- limitations
+- intended use
+- prohibited use
+- approval status
+- validation status
+- deployment status
+- risk level
+- review date
+- reviewer
+- champion or challenger status
+- drift status
+- rollback history
+- audit references
+
+Support lifecycle states:
+
+- draft
+- training
+- validation
+- approved
+- production
+- suspended
+- retired
+- rejected
+
+Prevent unapproved models from production promotion.
+
+======================================================================
+MODEL CARDS
+======================================================================
+
+Generate model-card foundations.
+
+Model cards should include:
+
+- model overview
+- intended use
+- out-of-scope use
+- training data summary
+- feature summary
+- evaluation metrics
+- validation methodology
+- limitations
+- assumptions
+- known risks
+- fairness considerations where applicable
+- drift status
+- monitoring expectations
+- owner
+- version
+- approval history
+
+Do not generate fake fairness claims.
+
+Only include metrics that actually exist.
+
+======================================================================
+PREDICTION GOVERNANCE
+======================================================================
+
+Track prediction governance metadata.
+
+Include:
+
+- prediction ID
+- actor
+- model version
+- model approval status
+- input schema version
+- dataset or request source
+- timestamp
+- environment
+- confidence
+- uncertainty
+- policy decision
+- output destination
+- export status
+- retention status
+- audit reference
+
+Prevent production predictions from using disallowed or retired models unless an authorized override exists.
+
+Log overrides.
+
+======================================================================
+PRIVACY AND DATA PROTECTION
+======================================================================
+
+Implement privacy-aware data handling.
+
+Support:
+
+- data minimization
+- purpose metadata
+- access logging
+- retention policy
+- deletion workflow
+- export workflow
+- anonymization or pseudonymization utilities where appropriate
+- masking in logs
+- masking in UI
+- restricted field handling
+- privacy-aware error messages
+- environment-specific sample data
+
+Do not claim GDPR, DPDP, HIPAA, or other legal compliance automatically.
+
+Implement technical controls that may support compliance programs.
+
+======================================================================
+SENSITIVE-DATA MASKING
+======================================================================
+
+Implement reusable masking utilities for:
+
+- email addresses
+- phone numbers
+- access tokens
+- API keys
+- database URLs
+- passwords
+- secret values
+- authorization headers
+- cookies
+- personal identifiers
+- uploaded file paths where sensitive
+
+Use masking in:
+
+- logs
+- audit metadata
+- error responses
+- administrative UI
+- support exports
+
+Do not mask values required for legitimate authorized workflows without offering controlled reveal permissions.
+
+======================================================================
+DATA RETENTION
+======================================================================
+
+Implement configurable retention policies.
+
+Support retention for:
+
+- audit logs
+- security events
+- application logs
+- prediction history
+- training artifacts
+- temporary uploads
+- failed jobs
+- exported reports
+- session records
+- refresh tokens
+- backup archives
+- deleted-user metadata
+
+Retention policies should include:
+
+- resource type
+- duration
+- archive behavior
+- deletion behavior
+- legal hold status
+- last evaluation
+- next evaluation
+
+Use scheduled jobs for retention enforcement.
+
+Never delete records under legal hold.
+
+Audit retention actions.
+
+======================================================================
+DELETION WORKFLOWS
+======================================================================
+
+Implement safe deletion workflows.
+
+Support:
+
+- soft delete
+- scheduled hard delete
+- dependency checks
+- approval requirement
+- legal hold
+- retention override
+- export before deletion where required
+- deletion audit
+- deletion status tracking
+- cancellation before execution
+- irreversible-action confirmation
+
+Sensitive deletions must not happen immediately from a single unverified frontend click.
+
+======================================================================
+LEGAL HOLD FOUNDATION
+======================================================================
+
+Implement a legal-hold or preservation foundation.
+
+Support:
+
+- hold ID
+- scope
+- resource types
+- reason
+- requester
+- approver
+- start time
+- optional end time
+- status
+- affected records
+
+Legal hold must override normal deletion and retention workflows.
+
+Do not claim legal sufficiency.
+
+This is a technical preservation mechanism.
+
+======================================================================
+DATA EXPORT GOVERNANCE
+======================================================================
+
+Implement governed exports.
+
+Support:
+
+- export request
+- requested fields
+- resource scope
+- requester
+- approval status
+- reason
+- output format
+- expiry
+- encryption option
+- download count
+- audit event
+- watermark or metadata where appropriate
+
+Prevent unrestricted bulk exports.
+
+Use permission checks and rate limits.
+
+Generated export URLs must expire.
+
+======================================================================
+ENCRYPTION CONTROLS
+======================================================================
+
+Implement encryption configuration and governance.
+
+Support:
+
+- TLS in transit
+- database TLS configuration
+- Redis TLS configuration
+- object-storage TLS
+- encryption-at-rest configuration guidance
+- encrypted backups
+- key identifiers
+- key rotation metadata
+- application-level encryption for selected sensitive fields where justified
+
+Use trusted cryptographic libraries.
+
+Do not implement custom encryption algorithms.
+
+Do not store encryption keys in source code.
+
+Do not expose keys in logs.
+
+======================================================================
+APPLICATION-LEVEL FIELD ENCRYPTION
+======================================================================
+
+Only implement application-level field encryption for fields that genuinely need it.
+
+Possible candidates:
+
+- external service credentials
+- sensitive integration tokens
+- recovery secrets
+- selected regulated data
+
+Requirements:
+
+- authenticated encryption
+- key version
+- rotation support
+- decryption authorization
+- failure handling
+- audit events
+- migration strategy
+
+Do not encrypt fields that must be indexed or searched without carefully considering architecture.
+
+Do not encrypt all data blindly.
+
+======================================================================
+KEY ROTATION FOUNDATION
+======================================================================
+
+Implement key-rotation metadata and workflows.
+
+Support:
+
+- active key version
+- previous key versions
+- rotation time
+- rotation status
+- migration progress
+- rollback status
+- audit event
+- failure recovery
+
+Integrate with external secret-management systems where configured.
+
+Do not rotate real production keys automatically without explicit configuration and approval.
+
+======================================================================
+SECRETS GOVERNANCE
+======================================================================
+
+Extend existing secrets handling.
+
+Track:
+
+- secret name
+- purpose
+- environment
+- owner
+- source
+- creation date
+- rotation date
+- expiry
+- last access where available
+- status
+- dependent services
+
+Do not store secret values in the application database unless encrypted and necessary.
+
+Prefer references to Kubernetes Secrets, Vault, cloud secret managers, or environment injection.
+
+Add validation that required secrets exist without exposing their values.
+
+======================================================================
+SECURITY CONFIGURATION
+======================================================================
+
+Create typed security configuration.
+
+Possible settings:
+
+- authentication mode
+- access token lifetime
+- refresh token lifetime
+- password policy
+- MFA policy
+- session timeout
+- lockout thresholds
+- CORS origins
+- trusted proxies
+- rate limits
+- upload limits
+- retention intervals
+- audit hashing
+- export limits
+- approval policy
+- incident thresholds
+- security alert destinations
+- model artifact trust policy
+
+Validate configuration at startup.
+
+Reject insecure production defaults.
+
+Warn clearly for development-only settings.
+
+======================================================================
+SECURITY POSTURE CHECK
+======================================================================
+
+Implement a SecurityPostureService.
+
+Evaluate configuration and deployment posture.
+
+Possible checks:
+
+- debug mode disabled
+- secure cookies enabled
+- TLS expected
+- default secrets absent
+- strong JWT key configured
+- production CORS strict
+- database TLS enabled
+- Redis authentication enabled
+- audit logging enabled
+- backups configured
+- retention configured
+- MFA required for administrators if policy enabled
+- insecure model loading disabled
+- unrestricted uploads disabled
+- default administrator password absent
+- Kubernetes security context enabled
+- network policies enabled
+
+Return:
+
+- check name
+- severity
+- status
+- explanation
+- remediation
+
+Do not expose full sensitive configuration.
+
+======================================================================
+SECURITY DASHBOARD
+======================================================================
+
+Create an administrator security dashboard.
+
+Display:
+
+- security posture score
+- open security events
+- critical alerts
+- failed login trend
+- locked accounts
+- active administrator sessions
+- recent privilege changes
+- recent secret rotations
+- audit-chain status
+- approval queue
+- open incidents
+- backup status
+- policy violations
+- model-governance warnings
+- dataset-governance warnings
+- retention-job status
+
+Do not expose this dashboard to ordinary users.
+
+Use real backend data only.
+
+======================================================================
+ACCESS REVIEW
+======================================================================
+
+Implement access-review foundations.
+
+Support periodic review of:
+
+- users
+- roles
+- permissions
+- service accounts
+- inactive accounts
+- privileged accounts
+- stale sessions
+- unused API keys
+- organization memberships
+
+Track:
+
+- review cycle
+- reviewer
+- resource
+- current access
+- decision
+- reason
+- completion status
+- audit event
+
+Do not automatically remove access without a configured policy and audit trail.
+
+======================================================================
+INCIDENT MANAGEMENT FOUNDATION
+======================================================================
+
+Implement a lightweight incident system.
+
+Create or extend:
+
+- SecurityIncident
+- IncidentTimelineEvent
+- IncidentEvidenceReference
+- IncidentAction
+- IncidentService
+
+Support:
+
+- incident creation
+- severity
+- category
+- status
+- owner
+- affected systems
+- affected users
+- detection time
+- containment time
+- resolution time
+- root-cause summary
+- evidence references
+- timeline
+- action items
+- audit links
+
+Statuses:
+
+- open
+- triaged
+- investigating
+- contained
+- monitoring
+- resolved
+- closed
+
+Do not store raw secrets as incident evidence.
+
+======================================================================
+SECURITY ALERTING
+======================================================================
+
+Generate alerts for:
+
+- repeated failed logins
+- account lockout
+- suspicious token reuse
+- privilege escalation
+- role change
+- audit-chain failure
+- unauthorized access attempts
+- repeated forbidden requests
+- unusual bulk exports
+- secret expiry
+- secret rotation failure
+- insecure production configuration
+- failed backup
+- failed restore
+- model artifact integrity failure
+- unapproved model promotion attempt
+- restricted dataset export attempt
+- retention-job failure
+- malware or unsafe upload signal
+- excessive prediction abuse
+- unusual service-account use
+
+Persist alerts and integrate with the existing monitoring or alerting system.
+
+Do not embed real notification credentials.
+
+======================================================================
+ABUSE PREVENTION
+======================================================================
+
+Implement basic abuse detection.
+
+Possible signals:
+
+- excessive login attempts
+- repeated password-reset requests
+- excessive prediction requests
+- repeated invalid uploads
+- repeated authorization failures
+- rapid export requests
+- suspicious service-account usage
+- repeated model-load failures
+- unusually large job submissions
+- high request velocity
+
+Support configurable thresholds.
+
+Avoid irreversible automatic account actions without clear policies.
+
+Prefer temporary throttling, alerting, and review.
+
+======================================================================
+COMPLIANCE EVIDENCE FOUNDATION
+======================================================================
+
+Implement evidence collection that can support audits.
+
+Generate evidence summaries for:
+
+- authentication controls
+- access controls
+- role assignments
+- access reviews
+- audit integrity
+- security events
+- incident history
+- backup history
+- restore tests
+- vulnerability scans
+- dependency scans
+- container scans
+- deployment approvals
+- model approvals
+- dataset approvals
+- retention enforcement
+- secret rotation
+- security configuration
+
+Do not claim formal compliance certification.
+
+Label reports as technical evidence or readiness reports.
+
+======================================================================
+COMPLIANCE REPORTS
+======================================================================
+
+Implement reports such as:
+
+- access-control report
+- privileged-access report
+- audit-integrity report
+- security-events report
+- backup-compliance report
+- retention report
+- model-governance report
+- dataset-governance report
+- incident report
+- security-posture report
+
+Support:
+
+- JSON
+- CSV
+- PDF only if existing document-generation infrastructure supports it
+- date range
+- organization scope
+- environment
+- generated by
+- generation time
+- checksum
+- audit event
+
+Do not include secrets.
+
+Apply export permissions.
+
+======================================================================
+ADMINISTRATIVE SECURITY APIs
+======================================================================
+
+Implement or extend typed APIs.
+
+Possible endpoints:
+
+GET    /api/v1/security/posture
+GET    /api/v1/security/events
+GET    /api/v1/security/events/{id}
+POST   /api/v1/security/events/{id}/acknowledge
+POST   /api/v1/security/events/{id}/resolve
+
+GET    /api/v1/security/sessions
+DELETE /api/v1/security/sessions/{id}
+POST   /api/v1/security/sessions/revoke-all
+
+GET    /api/v1/security/roles
+POST   /api/v1/security/roles
+PATCH  /api/v1/security/roles/{id}
+GET    /api/v1/security/permissions
+POST   /api/v1/security/users/{id}/roles
+DELETE /api/v1/security/users/{id}/roles/{role_id}
+
+GET    /api/v1/security/audit
+GET    /api/v1/security/audit/{id}
+POST   /api/v1/security/audit/verify
+POST   /api/v1/security/audit/export
+
+GET    /api/v1/security/approvals
+POST   /api/v1/security/approvals
+POST   /api/v1/security/approvals/{id}/approve
+POST   /api/v1/security/approvals/{id}/reject
+
+GET    /api/v1/security/incidents
+POST   /api/v1/security/incidents
+GET    /api/v1/security/incidents/{id}
+PATCH  /api/v1/security/incidents/{id}
+
+GET    /api/v1/security/access-reviews
+POST   /api/v1/security/access-reviews
+POST   /api/v1/security/access-reviews/{id}/complete
+
+GET    /api/v1/governance/datasets
+GET    /api/v1/governance/datasets/{id}
+PATCH  /api/v1/governance/datasets/{id}
+POST   /api/v1/governance/datasets/{id}/approve
+
+GET    /api/v1/governance/models
+GET    /api/v1/governance/models/{id}
+PATCH  /api/v1/governance/models/{id}
+POST   /api/v1/governance/models/{id}/approve
+POST   /api/v1/governance/models/{id}/suspend
+
+GET    /api/v1/privacy/retention
+POST   /api/v1/privacy/retention
+PATCH  /api/v1/privacy/retention/{id}
+POST   /api/v1/privacy/deletion-requests
+GET    /api/v1/privacy/deletion-requests/{id}
+POST   /api/v1/privacy/legal-holds
+DELETE /api/v1/privacy/legal-holds/{id}
+
+GET    /api/v1/compliance/reports
+POST   /api/v1/compliance/reports
+GET    /api/v1/compliance/reports/{id}
+
+Only implement endpoints that fit the existing API structure.
+
+Do not create conflicting duplicates.
+
+Every endpoint must use:
+
+- typed request schemas
+- typed response schemas
+- authentication
+- authorization
+- pagination
+- filtering
+- safe errors
+- audit logging
+
+======================================================================
+FRONTEND ADMINISTRATION
+======================================================================
+
+Create or extend secure administrator pages:
+
+- Security Overview
+- Security Events
+- Active Sessions
+- Users and Roles
+- Permissions
+- Audit Explorer
+- Audit Integrity
+- Approval Queue
+- Incidents
+- Access Reviews
+- Dataset Governance
+- Model Governance
+- Retention Policies
+- Deletion Requests
+- Legal Holds
+- Compliance Reports
+- Security Configuration
+- Service Accounts
+
+Requirements:
+
+- permission-aware navigation
+- server-side authorization
+- safe empty states
+- loading states
+- error states
+- pagination
+- filters
+- search
+- sorting
+- confirmation flows
+- approval dialogs
+- recent-authentication prompts where required
+- accessible forms
+- no sensitive data leakage
+
+Do not expose administrator pages to users without required permissions.
+
+======================================================================
+AUDIT EXPLORER
+======================================================================
+
+Implement an Audit Explorer frontend.
+
+Support:
+
+- date range
+- actor
+- action
+- resource type
+- resource ID
+- result
+- severity
+- organization
+- request ID
+- correlation ID
+- event detail
+- integrity status
+- export request
+- pagination
+
+Do not allow users to edit audit events.
+
+======================================================================
+MODEL GOVERNANCE UI
+======================================================================
+
+Display:
+
+- model lifecycle state
+- owner
+- version
+- approval
+- validation
+- risk
+- intended use
+- limitations
+- dataset lineage
+- metrics
+- drift status
+- deployment history
+- rollback history
+- audit timeline
+- model card
+
+Provide controlled actions:
+
+- submit for approval
+- approve
+- reject
+- suspend
+- retire
+- promote only through existing promotion service
+- rollback through approval policy
+
+======================================================================
+DATASET GOVERNANCE UI
+======================================================================
+
+Display:
+
+- owner
+- classification
+- source
+- checksum
+- schema
+- sensitivity
+- retention
+- lineage
+- approval
+- training usage
+- export history
+- deletion status
+- legal hold
+
+Controlled actions:
+
+- classify
+- approve
+- reject
+- restrict
+- request export
+- request deletion
+- apply legal hold if authorized
+
+======================================================================
+DATABASE CHANGES
+======================================================================
+
+Create migrations only where needed.
+
+Possible tables:
+
+- permissions
+- roles
+- role_permissions
+- user_roles
+- sessions
+- refresh_tokens
+- service_accounts
+- audit_events
+- audit_integrity_checks
+- security_events
+- security_incidents
+- incident_timeline
+- approval_requests
+- approval_decisions
+- access_reviews
+- dataset_governance
+- model_governance
+- model_cards
+- retention_policies
+- deletion_requests
+- legal_holds
+- export_requests
+- compliance_reports
+- key_rotation_records
+
+Use existing database conventions.
+
+Add indexes for:
+
+- timestamps
+- actor
+- action
+- resource
+- organization
+- status
+- severity
+- owner
+- approval state
+
+Avoid unnecessary duplication with existing tables.
+
+Preserve downgrade compatibility where the migration framework supports it.
+
+======================================================================
+SECURE ERROR HANDLING
+======================================================================
+
+Harden error handling.
+
+Production responses must not expose:
+
+- stack traces
+- internal paths
+- SQL details
+- secrets
+- token values
+- infrastructure details
+- internal host names
+- model artifact paths
+- filesystem paths
+
+Use consistent structured errors.
+
+Include:
+
+- error code
+- safe message
+- request ID
+- optional retry information
+
+Log detailed errors server-side with masking.
+
+======================================================================
+LOGGING HARDENING
+======================================================================
+
+Extend structured logging.
+
+Requirements:
+
+- secret redaction
+- authorization-header redaction
+- cookie redaction
+- query-parameter redaction where sensitive
+- request ID
+- correlation ID
+- trace ID
+- actor ID
+- tenant or organization ID
+- action
+- outcome
+- latency
+- safe resource metadata
+
+Prevent logging full uploaded datasets.
+
+Prevent logging model inputs containing sensitive data unless explicitly allowed and masked.
+
+======================================================================
+SOFTWARE SUPPLY-CHAIN SECURITY
+======================================================================
+
+Extend CI/CD and deployment security.
+
+Implement or verify:
+
+- pinned dependency versions
+- lockfile enforcement
+- dependency vulnerability scanning
+- container vulnerability scanning
+- secret scanning
+- license reporting where tooling exists
+- SBOM generation
+- image signing support
+- provenance metadata
+- checksum verification
+- protected production environments
+- manual approval gates
+- immutable production image tags
+- deployment audit events
+- artifact integrity verification
+
+Do not claim signed images unless signing is actually configured and executed.
+
+Provide optional signing configuration where credentials are unavailable.
+
+======================================================================
+KUBERNETES SECURITY HARDENING
+======================================================================
+
+Extend Phase 4B Kubernetes controls.
+
+Verify:
+
+- non-root containers
+- read-only root filesystem where possible
+- dropped capabilities
+- seccomp RuntimeDefault
+- no privileged containers
+- no host networking
+- no hostPath unless justified
+- explicit service accounts
+- automountServiceAccountToken disabled where unnecessary
+- NetworkPolicies
+- resource limits
+- PodDisruptionBudgets
+- restricted monitoring endpoints
+- TLS ingress
+- secret references
+- separate namespaces or environment isolation
+- least-privilege RBAC
+- production debug endpoints disabled
+
+Add policy validation tests.
+
+Do not break local development.
+
+======================================================================
+SECURITY SCANNING PIPELINE
+======================================================================
+
+Add or extend CI checks for:
+
+- Python dependencies
+- npm dependencies
+- containers
+- Kubernetes manifests
+- Helm charts
+- Terraform
+- secrets
+- source-code patterns
+- unsafe deserialization
+- insecure hashing
+- command injection risks
+- path traversal risks
+
+Use existing tools where possible.
+
+Avoid duplicating equivalent scanners unnecessarily.
+
+Document local execution.
+
+======================================================================
+BACKUP GOVERNANCE
+======================================================================
+
+Extend backup controls.
+
+Track:
+
+- backup ID
+- type
+- environment
+- scope
+- start time
+- completion time
+- status
+- integrity status
+- encryption status
+- destination
+- retention
+- operator
+- approval
+- restore eligibility
+
+Sensitive restore actions require authorization, reauthentication, and approval where policy demands it.
+
+Do not expose backup credentials.
+
+======================================================================
+RESTORE GOVERNANCE
+======================================================================
+
+Implement restore governance.
+
+Support:
+
+- restore request
+- environment
+- backup selection
+- requester
+- reason
+- approval
+- dry run
+- preflight validation
+- destructive-action confirmation
+- execution status
+- verification status
+- rollback plan
+- audit evidence
+
+Never restore production automatically without explicit authorization.
+
+======================================================================
+OPERATIONAL RUNBOOKS
+======================================================================
+
+Create runbooks for:
+
+- account compromise
+- token compromise
+- leaked secret
+- suspicious administrator activity
+- audit integrity failure
+- model artifact compromise
+- restricted dataset exposure
+- failed backup
+- failed restore
+- unauthorized production promotion
+- excessive prediction abuse
+- service-account compromise
+- incident escalation
+- user offboarding
+- emergency access revocation
+- key rotation
+- production security rollback
+
+Runbooks must be practical and specific to the repository.
+
+Do not include real secrets.
+
+======================================================================
+BREAK-GLASS ACCESS FOUNDATION
+======================================================================
+
+Implement a documented emergency-access mechanism only if justified.
+
+Requirements:
+
+- disabled by default
+- explicit enablement
+- short duration
+- limited permissions
+- mandatory reason
+- mandatory audit event
+- strong authentication
+- automatic expiry
+- notification
+- post-use review
+
+Do not create an undocumented administrator bypass.
+
+======================================================================
+USER OFFBOARDING
+======================================================================
+
+Implement an offboarding workflow.
+
+Support:
+
+- disable account
+- revoke sessions
+- revoke refresh tokens
+- revoke service tokens owned by user
+- transfer resource ownership
+- remove roles
+- preserve audit history
+- preserve legal-hold data
+- cancel pending approvals
+- record reason
+- audit event
+
+Do not hard-delete the user immediately if audit references depend on the identity.
+
+======================================================================
+TESTS
+======================================================================
+
+Implement comprehensive tests.
+
+Authentication:
+
+- password policy
+- login throttling
+- account lockout
+- token expiry
+- refresh rotation
+- token reuse detection
+- session revocation
+- MFA flow if implemented
+
+Authorization:
+
+- role permissions
+- permission dependencies
+- resource ownership
+- tenant isolation
+- forbidden access
+- administrator boundaries
+- service-account scope
+
+Audit:
+
+- event creation
+- integrity chain
+- verification success
+- tamper detection
+- export authorization
+- sensitive-data masking
+
+Approvals:
+
+- request creation
+- self-approval restriction
+- approval
+- rejection
+- expiry
+- protected action execution
+
+Privacy:
+
+- retention evaluation
+- deletion request
+- legal hold
+- export governance
+- masking
+
+Governance:
+
+- dataset approval
+- model approval
+- production-promotion restriction
+- lineage
+- model-card generation
+
+API security:
+
+- rate limiting
+- invalid content type
+- oversized body
+- malformed payload
+- unexpected fields
+- CORS
+- security headers
+- safe errors
+- idempotency
+
+Upload security:
+
+- path traversal
+- invalid extension
+- MIME mismatch
+- oversized file
+- archive-bomb limits
+- unsafe artifact rejection
+
+Frontend:
+
+- permission-aware navigation
+- unauthorized states
+- audit explorer
+- security dashboard
+- approval actions
+- incident workflows
+- governance pages
+
+Infrastructure:
+
+- production security configuration
+- Kubernetes security contexts
+- NetworkPolicies
+- secret references
+- restricted metrics
+- policy validation
+
+Do not weaken existing tests.
+
+======================================================================
+DOCUMENTATION
+======================================================================
+
+Create or update:
+
+docs/security/architecture.md
+docs/security/authentication.md
+docs/security/session-management.md
+docs/security/token-security.md
+docs/security/mfa.md
+docs/security/rbac.md
+docs/security/permissions.md
+docs/security/service-accounts.md
+docs/security/audit-logging.md
+docs/security/audit-integrity.md
+docs/security/security-events.md
+docs/security/incidents.md
+docs/security/approvals.md
+docs/security/api-security.md
+docs/security/rate-limiting.md
+docs/security/upload-security.md
+docs/security/model-artifact-security.md
+docs/security/secrets-governance.md
+docs/security/encryption.md
+docs/security/key-rotation.md
+docs/security/privacy.md
+docs/security/retention.md
+docs/security/deletion.md
+docs/security/legal-holds.md
+docs/security/dataset-governance.md
+docs/security/model-governance.md
+docs/security/model-cards.md
+docs/security/prediction-governance.md
+docs/security/access-reviews.md
+docs/security/compliance-evidence.md
+docs/security/security-testing.md
+docs/security/supply-chain.md
+docs/security/kubernetes-hardening.md
+docs/security/incident-response.md
+docs/security/production-runbook.md
+docs/security/troubleshooting.md
+
+Documentation must clearly distinguish:
+
+- implemented controls
+- optional controls
+- configuration requirements
+- known limitations
+- future enterprise integrations
+
+Do not claim legal certification or regulatory compliance.
+
+======================================================================
+VALIDATION COMMANDS
+======================================================================
+
+Use the actual repository commands discovered during inspection.
+
+At minimum validate where tooling exists:
+
+Backend:
+
+- formatting
+- linting
+- static type checking
+- focused security tests
+- full backend tests
+
+Frontend:
+
+- npm run format
+- npm run lint
+- frontend tests
+- npm run build
+
+Database:
+
+- migration validation
+- migration upgrade
+- migration downgrade where safe
+- schema consistency
+
+Security:
+
+- dependency scan
+- secret scan
+- container scan
+- manifest scan
+- unsafe-pattern scan
+
+Infrastructure:
+
+- Docker build
+- Docker Compose validation
+- Kubernetes manifest validation
+- Kustomize build
+- Helm lint
+- Helm template
+- Terraform fmt and validate if present
+
+Do not falsely report unavailable tools as successful.
+
+Clearly list skipped checks and the reason.
+
+======================================================================
+WINDOWS FILE-LOCK HANDLING
+======================================================================
+
+This repository is developed on Windows.
+
+If EPERM, Access Denied, or file-lock errors occur:
+
+1. Identify the exact file.
+2. Identify likely stale processes.
+3. Do not repeatedly retry the same write indefinitely.
+4. Continue unrelated implementation.
+5. Stop stale Node, Vitest, Next.js, Python, formatter, or Codex child processes only when safe.
+6. Delete only generated caches such as .next when appropriate.
+7. Preserve working source changes.
+8. Retry validation after the lock is released.
+9. Do not restart the entire phase.
+10. Report unresolved operating-system issues honestly.
+
+Avoid running development servers during formatting and production builds.
+
+======================================================================
+IMPLEMENTATION WORKFLOW
+======================================================================
+
+Implement incrementally.
+
+Milestone 1:
+- repository inspection
+- security architecture review
+- implementation plan
+
+Milestone 2:
+- authentication hardening
+- sessions
+- token rotation
+- password policy
+- MFA foundation
+
+Milestone 3:
+- roles
+- permissions
+- centralized authorization
+- tenant-scope enforcement
+- service accounts
+
+Milestone 4:
+- audit logging
+- audit integrity
+- security events
+
+Milestone 5:
+- approvals
+- sensitive-action reauthentication
+- access reviews
+
+Milestone 6:
+- API hardening
+- rate limiting
+- idempotency
+- security headers
+- CORS
+- CSRF where applicable
+
+Milestone 7:
+- upload security
+- model-artifact security
+- secrets governance
+- encryption configuration
+
+Milestone 8:
+- dataset governance
+- lineage
+- model governance
+- model cards
+- prediction governance
+
+Milestone 9:
+- privacy
+- retention
+- deletion
+- legal hold
+- governed exports
+
+Milestone 10:
+- incident management
+- security alerting
+- abuse detection
+- security dashboard
+
+Milestone 11:
+- compliance evidence
+- compliance reports
+- backup and restore governance
+
+Milestone 12:
+- supply-chain security
+- Kubernetes hardening
+- CI security checks
+
+Milestone 13:
+- frontend administration
+- audit explorer
+- governance pages
+- incident pages
+
+Milestone 14:
+- tests
+- documentation
+- full validation
+- final report
+
+After every milestone:
+
+- inspect git diff
+- format changed code
+- lint changed code
+- run focused tests
+- fix genuine regressions
+- preserve completed functionality
+
+======================================================================
+ACCEPTANCE CRITERIA
+======================================================================
+
+Phase 4C is complete only when all applicable criteria are satisfied:
+
+1. Authentication is hardened.
+2. Password policy is configurable.
+3. Session management works.
+4. Token rotation and revocation work.
+5. MFA foundation works if implemented.
+6. RBAC is centralized.
+7. Permission checks are server-side.
+8. Resource-level authorization works.
+9. Tenant isolation is enforced where applicable.
+10. Service accounts are scoped and revocable.
+11. Audit events are generated for sensitive actions.
+12. Audit integrity verification works.
+13. Tampering is detected.
+14. Security events are persisted.
+15. Approval workflows protect sensitive actions.
+16. Recent reauthentication is enforced where required.
+17. APIs enforce size, schema, authentication, and authorization.
+18. Rate limiting works.
+19. Idempotency works where configured.
+20. CORS is strict in production.
+21. CSRF protection is correct for the authentication model.
+22. Upload validation works.
+23. Unsafe model artifacts are rejected.
+24. Secrets are never logged.
+25. Sensitive values are masked.
+26. Dataset governance metadata works.
+27. Data lineage is tracked.
+28. Model governance lifecycle works.
+29. Unapproved models cannot be promoted.
+30. Model cards are generated from real metadata.
+31. Prediction governance metadata is stored.
+32. Retention policies execute.
+33. Legal hold prevents deletion.
+34. Deletion workflows are controlled.
+35. Export governance works.
+36. Incident management works.
+37. Security alerts are generated.
+38. Access reviews are supported.
+39. Compliance evidence reports are generated.
+40. Backup and restore governance is implemented.
+41. Security dashboard works.
+42. Audit Explorer works.
+43. Administrative security pages enforce permissions.
+44. Supply-chain checks are integrated.
+45. Kubernetes security checks pass.
+46. Backend tests pass.
+47. Frontend tests pass.
+48. Production frontend build succeeds.
+49. Database migrations succeed.
+50. Documentation is complete.
+51. No placeholder implementations remain.
+52. No fake compliance claims exist.
+53. Existing Phase 1 through Phase 4B functionality remains operational.
+
+======================================================================
+DO NOT IMPLEMENT IN PHASE 4C
+======================================================================
+
+Do not implement:
+
+- subscription billing
+- payment processing
+- pricing plans
+- usage-based invoicing
+- full commercial multi-tenant SaaS billing
+- SAML enterprise federation unless already integrated
+- SCIM provisioning unless already integrated
+- formal SOC 2 certification
+- formal ISO 27001 certification
+- formal HIPAA certification
+- formal GDPR certification
+- legal-policy automation
+- global multi-region active-active architecture
+- cross-region database replication
+- full SIEM vendor integration
+- enterprise DLP product integration
+- autonomous security remediation without approval
+- reinforcement-learning security controls
+- continuous online model learning
+- AI Copilot
+- external ERP integrations
+- Salesforce integration
+- SAP integration
+- Snowflake integration
+- Power BI integration
+
+Those belong to later optional enterprise or SaaS phases.
+
+======================================================================
+FINAL REPORT
+======================================================================
+
+When complete, provide a structured final report containing:
+
+1. Repository inspection findings
+2. Security architecture implemented
+3. Authentication changes
+4. Session and token changes
+5. RBAC and permission changes
+6. Tenant-isolation changes
+7. Service-account changes
+8. Audit changes
+9. Audit-integrity results
+10. Security-event changes
+11. Approval workflow changes
+12. API-security changes
+13. Rate-limiting changes
+14. Upload-security changes
+15. Model-artifact security changes
+16. Secrets and encryption changes
+17. Dataset-governance changes
+18. Model-governance changes
+19. Prediction-governance changes
+20. Privacy and retention changes
+21. Deletion and legal-hold changes
+22. Incident-management changes
+23. Security-dashboard changes
+24. Compliance-evidence changes
+25. Backup and restore governance
+26. Supply-chain security changes
+27. Kubernetes-hardening changes
+28. Database migrations
+29. APIs created or modified
+30. Frontend pages created or modified
+31. Tests added
+32. Commands executed
+33. Backend test results
+34. Frontend test results
+35. Build results
+36. Security scan results
+37. Infrastructure validation results
+38. Files created
+39. Files modified
+40. Remaining manual steps
+41. Known limitations
+
+Be completely honest.
+
+Do not claim success for commands that were not executed.
+
+Do not claim security certification.
+
+Do not claim compliance merely because controls were implemented.
+
+Begin now by inspecting the repository.
+
+Do not immediately generate files.
+
+Do not restart completed phases.
+
+Do not duplicate existing functionality.

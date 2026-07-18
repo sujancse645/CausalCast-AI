@@ -4,6 +4,7 @@ from typing import Literal
 
 from pydantic import field_validator, model_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
+import os
 
 
 class Settings(BaseSettings):
@@ -123,8 +124,53 @@ class Settings(BaseSettings):
     gbm_shap_sample_rows: int = 500
     gbm_n_jobs: int = 4
     gbm_max_memory_mb: int = 4096
+    deep_forecasting_enabled: bool = True
+    deep_forecasting_engine: Literal["neuralforecast"] = "neuralforecast"
+    deep_forecasting_engine_version: str = "1.0"
+    deep_forecasting_random_seed: int = 42
+    deep_forecasting_deterministic: bool = True
+    deep_forecasting_accelerator: Literal["auto", "cpu", "cuda", "mps"] = "auto"
+    deep_forecasting_devices: int = 1
+    deep_forecasting_cpu_fallback: bool = True
+    deep_forecasting_num_workers: int = 0
+    deep_forecasting_torch_num_threads: int = 4
+    deep_forecasting_interop_threads: int = 1
+    deep_forecasting_default_model: Literal["nhits", "temporal_fusion_transformer", "nbeats"] = "nhits"
+    deep_forecasting_enable_nhits: bool = True
+    deep_forecasting_enable_tft: bool = False
+    deep_forecasting_enable_nbeats: bool = False
+    deep_forecasting_default_horizon: int = 30
+    deep_forecasting_default_input_size_multiplier: int = 4
+    deep_forecasting_min_input_size: int = 28
+    deep_forecasting_max_input_size: int = 365
+    deep_forecasting_min_history_multiplier: int = 3
+    deep_forecasting_default_scaler: Literal["none", "standard", "robust", "minmax", "median", "identity"] = "robust"
+    deep_forecasting_scale_per_series: bool = True
+    deep_forecasting_allow_global_scaling: bool = False
+    deep_forecasting_target_transform: Literal["none", "log1p", "signed_log1p", "boxcox", "yeojohnson"] = "none"
+    deep_forecasting_max_series: int = 500
+    deep_forecasting_max_rows: int = 1000000
+    deep_forecasting_max_features: int = 200
+    deep_forecasting_max_horizon: int = 365
+    deep_forecasting_max_history_rows_per_series: int = 10000
+    deep_forecasting_checkpoints_enabled: bool = True
+    deep_forecasting_max_checkpoints_per_run: int = 3
+    deep_forecasting_save_optimizer_state: bool = False
+    deep_forecasting_artifact_checksum_algorithm: Literal["sha256"] = "sha256"
+    deep_forecasting_fail_on_missing_future_covariates: bool = True
+    deep_forecasting_fail_on_duplicate_timestamps: bool = True
+    deep_forecasting_fail_on_irregular_frequency: bool = True
+    deep_forecasting_allow_missing_targets: bool = False
+    deep_forecasting_log_progress: bool = False
+    deep_forecasting_log_every_n_steps: int = 50
+    deep_forecasting_enable_profiling: bool = False
 
-    model_config = SettingsConfigDict(env_file=".env", extra="ignore", case_sensitive=False)
+    model_config = SettingsConfigDict(
+        env_file=(".env", f".env.{os.environ.get('APP_ENV', 'development')}"),
+        extra="ignore",
+        case_sensitive=False,
+        secrets_dir="/run/secrets" if os.path.exists("/run/secrets") else None
+    )
 
     @field_validator("cors_origins", "allowed_dataset_extensions", mode="before")
     @classmethod
@@ -145,6 +191,36 @@ class Settings(BaseSettings):
     def positive_limits(cls, value: int) -> int:
         if value < 1:
             raise ValueError("Dataset limits must be positive")
+        return value
+
+    @field_validator(
+        "deep_forecasting_devices",
+        "deep_forecasting_torch_num_threads",
+        "deep_forecasting_interop_threads",
+        "deep_forecasting_default_horizon",
+        "deep_forecasting_default_input_size_multiplier",
+        "deep_forecasting_min_input_size",
+        "deep_forecasting_max_input_size",
+        "deep_forecasting_min_history_multiplier",
+        "deep_forecasting_max_series",
+        "deep_forecasting_max_rows",
+        "deep_forecasting_max_features",
+        "deep_forecasting_max_horizon",
+        "deep_forecasting_max_history_rows_per_series",
+        "deep_forecasting_max_checkpoints_per_run",
+        "deep_forecasting_log_every_n_steps",
+    )
+    @classmethod
+    def positive_deep_limits(cls, value: int) -> int:
+        if value < 1:
+            raise ValueError("Deep forecasting limits must be positive")
+        return value
+
+    @field_validator("deep_forecasting_num_workers")
+    @classmethod
+    def nonnegative_deep_workers(cls, value: int) -> int:
+        if value < 0:
+            raise ValueError("Deep forecasting workers cannot be negative")
         return value
 
     @field_validator(
@@ -183,6 +259,10 @@ class Settings(BaseSettings):
             raise ValueError("DEBUG must be false in production")
         if "*" in self.cors_origins:
             raise ValueError("Wildcard CORS origins are not permitted")
+        if self.deep_forecasting_min_input_size > self.deep_forecasting_max_input_size:
+            raise ValueError("Deep minimum input size cannot exceed maximum input size")
+        if self.deep_forecasting_default_horizon > self.deep_forecasting_max_horizon:
+            raise ValueError("Deep default horizon exceeds the configured maximum")
         return self
 
 

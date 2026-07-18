@@ -1,0 +1,8 @@
+backend:
+  replicaCount: 3
+frontend:
+  replicaCount: 3
+workers:
+  replicaCount: 3
+ingress:
+  enabled: true

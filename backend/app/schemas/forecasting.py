@@ -170,13 +170,17 @@ class ForecastModelRunSummary(BaseModel):
     training_duration_ms: int
     backtest_duration_ms: int
     failure_message: str | None
+    tuning_method: str | None = None
     tuning_trial_count: int = 0
     failed_trial_count: int = 0
     tuning_duration_ms: int = 0
     best_iteration: int | None = None
+    best_score: float | None = None
     feature_count: int = 0
     strategy: str = "global"
+    global_model: bool = True
     explanation_available: bool = False
+    dependency_version: str | None = None
 
 
 class ForecastModelRunResponse(ForecastModelRunSummary):
