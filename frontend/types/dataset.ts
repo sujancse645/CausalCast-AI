@@ -67,6 +67,6 @@ export interface DatasetStats {
   ingestion_status: "operational";
 }
 export interface DatasetApiErrorBody {
-  detail: string;
+  detail: unknown;
   existing_dataset_id?: string;
 }

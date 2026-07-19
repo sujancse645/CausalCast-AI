@@ -90,6 +90,21 @@ export class ApiError extends Error {
 let authToken: string | null = null;
 let tokenPromise: Promise<string | null> | null = null;
 
+function getErrorMessage(body: DatasetApiErrorBody, status: number): string {
+  if (typeof body.detail === "string") return body.detail;
+  if (Array.isArray(body.detail)) {
+    const messages = body.detail
+      .map((item) =>
+        item && typeof item === "object" && "msg" in item
+          ? String(item.msg)
+          : null,
+      )
+      .filter((message): message is string => Boolean(message));
+    if (messages.length > 0) return messages.join("; ");
+  }
+  return `API returned ${status}`;
+}
+
 async function getAuthToken(): Promise<string | null> {
   if (authToken) return authToken;
   if (tokenPromise) return tokenPromise;
@@ -136,7 +151,7 @@ async function request<T>(
       const body = (await response.json().catch(() => ({
         detail: `API returned ${response.status}`,
       }))) as DatasetApiErrorBody;
-      throw new ApiError(body.detail, response.status, body);
+      throw new ApiError(getErrorMessage(body, response.status), response.status, body);
     }
     return (await response.json()) as T;
   } catch (error) {
@@ -521,7 +536,7 @@ export async function streamRagChat(
     const body = (await response.json().catch(() => ({
       detail: `API returned ${response.status}`,
     }))) as DatasetApiErrorBody;
-    throw new ApiError(body.detail, response.status, body);
+    throw new ApiError(getErrorMessage(body, response.status), response.status, body);
   }
   if (!response.body) throw new ApiError("The response stream is unavailable");
 

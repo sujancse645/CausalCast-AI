@@ -1,11 +1,42 @@
 from fastapi import APIRouter, Depends, HTTPException
+from sqlalchemy import func, select
 from sqlalchemy.orm import Session
 
 from app.core.database import get_db
 from app.explainability.services.explanation import ExplanationService
-from app.schemas.explainability import CapabilitiesResponse, ExplanationRequest, ExplanationResponse
+from app.models.explainability import DiagnosticReport, Explanation, Scenario
+from app.schemas.explainability import (
+    CapabilitiesResponse,
+    ExplainabilitySummaryResponse,
+    ExplanationRequest,
+    ExplanationResponse,
+)
 
 router = APIRouter(prefix="/explainability", tags=["explainability"])
+
+
+@router.get("/summary", response_model=ExplainabilitySummaryResponse)
+def get_explainability_summary(db: Session = Depends(get_db)) -> ExplainabilitySummaryResponse:
+    global_count = db.scalar(
+        select(func.count()).select_from(Explanation).where(Explanation.explanation_type.like("global_%"))
+    )
+    local_shap_count = db.scalar(
+        select(func.count())
+        .select_from(Explanation)
+        .where(Explanation.explanation_type == "local_feature_attribution")
+    )
+    anomaly_count = db.scalar(
+        select(func.count()).select_from(DiagnosticReport).where(DiagnosticReport.report_type == "anomaly")
+    )
+    active_scenario_count = db.scalar(
+        select(func.count()).select_from(Scenario).where(Scenario.status.in_(("draft", "running")))
+    )
+    return ExplainabilitySummaryResponse(
+        global_explanations_count=global_count or 0,
+        local_shap_runs=local_shap_count or 0,
+        detected_anomalies=anomaly_count or 0,
+        active_scenarios=active_scenario_count or 0,
+    )
 
 
 @router.get(

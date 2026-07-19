@@ -18,6 +18,13 @@ class CapabilitiesResponse(BaseModel):
     methods: list[ExplanationMethodSchema]
 
 
+class ExplainabilitySummaryResponse(BaseModel):
+    global_explanations_count: int
+    local_shap_runs: int
+    detected_anomalies: int
+    active_scenarios: int
+
+
 class ExplanationRequest(BaseModel):
     explanation_type: str = Field(..., description="e.g. global_feature_importance, local_feature_attribution")
     method: str = Field(..., description="e.g. tree_shap_global")
