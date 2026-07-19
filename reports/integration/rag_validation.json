@@ -1,0 +1,163 @@
+{
+  "generated_at": "2026-07-19T12:26:58.002166+00:00",
+  "discovered_document_count": 55,
+  "indexed_document_count": 43,
+  "skipped_document_count": 12,
+  "chunk_count": 6460,
+  "embedding_dimension": 384,
+  "embedded_chunks": 5,
+  "reused_chunks": 6455,
+  "index_path": "backend/storage/vector_db/index.faiss",
+  "metadata_path": "backend/storage/vector_db/metadata.pkl",
+  "indexing_runtime_ms": 9915,
+  "generation_provider": "deterministic_grounded_fallback",
+  "flan_t5_runtime_status": "not_integrated",
+  "questions": [
+    {
+      "question": "Which model performs best for Tourism Quarterly?",
+      "answer": "According to the Tourism model comparison, xgboost has the lowest RMSE (123264).",
+      "answer_sources": [
+        "reports/tourism/model_comparison.json"
+      ],
+      "retrieved_sources": [
+        "reports/tourism/model_comparison.json",
+        "reports/tourism/catboost_metrics.json",
+        "reports/tourism/preprocessing_summary.json",
+        "README.md",
+        "reports/tourism/model_comparison.csv"
+      ],
+      "similarities": [
+        0.379887,
+        0.359078,
+        0.355531,
+        0.354338,
+        0.35405
+      ],
+      "runtime_ms": 137
+    },
+    {
+      "question": "What are the Electricity forecasting metrics?",
+      "answer": "For Electricity, the lowest-RMSE model is LightGBM; its reported metrics are MAE 17181.7, RMSE 25892.7, R2 0.994.",
+      "answer_sources": [
+        "reports/electricity/model_comparison.csv"
+      ],
+      "retrieved_sources": [
+        "README.md",
+        "reports/electricity/model_comparison.csv",
+        "reports/integration/real_forecast_validation.json",
+        "reports/integration/real_forecast_validation.json",
+        "reports/integration/real_forecast_validation.md"
+      ],
+      "similarities": [
+        0.53392,
+        0.521889,
+        0.468019,
+        0.440786,
+        0.403987
+      ],
+      "runtime_ms": 25
+    },
+    {
+      "question": "Which datasets are supported?",
+      "answer": "The validated forecasting datasets are: Rossmann Store Sales, Electricity Load, M4 Daily, Online Retail II, Tourism (yearly source).",
+      "answer_sources": [
+        "reports/integration/real_forecast_validation.json"
+      ],
+      "retrieved_sources": [
+        "reports/integration/real_forecast_validation.json",
+        "reports/integration/real_forecast_validation.json",
+        "reports/integration/real_forecast_validation.json",
+        "reports/integration/real_forecast_validation.json",
+        "reports/integration/real_forecast_validation.json"
+      ],
+      "similarities": [
+        0.613521,
+        0.612397,
+        0.578617,
+        0.576285,
+        0.575429
+      ],
+      "runtime_ms": 25
+    },
+    {
+      "question": "How does the forecasting API work?",
+      "answer": "`GET /api/v1/forecasting/models` returns the stable baseline registry. `GET /api/v1/forecasting/stats` returns real aggregate experiment statistics. `GET /api/v1/reports/{dataset}` returns the selected comparison record.",
+      "answer_sources": [
+        "docs/api.md"
+      ],
+      "retrieved_sources": [
+        "docs/api.md",
+        "docs/api.md",
+        "README.md",
+        "docs/api.md",
+        "docs/api.md"
+      ],
+      "similarities": [
+        0.592409,
+        0.557281,
+        0.553017,
+        0.540921,
+        0.540894
+      ],
+      "runtime_ms": 20
+    },
+    {
+      "question": "What is the architecture of the RAG system?",
+      "answer": "See [RAG architecture](docs/RAG.md). The RAG subsystem is independent from forecasting and indexes only project knowledge. It excludes environments, dependencies, models, raw/processed/features datasets, vector storage, caches, oversized files, and its own RAG validation reports.",
+      "answer_sources": [
+        "README.md",
+        "docs/RAG.md"
+      ],
+      "retrieved_sources": [
+        "docs/RAG.md",
+        "docs/RAG.md",
+        "docs/RAG.md",
+        "docs/RAG.md",
+        "README.md"
+      ],
+      "similarities": [
+        0.468028,
+        0.407222,
+        0.391417,
+        0.344603,
+        0.32823
+      ],
+      "runtime_ms": 18
+    },
+    {
+      "question": "What is the private launch code for the CausalCast Mars mission?",
+      "answer": "I could not find that information in the project.",
+      "answer_sources": [],
+      "retrieved_sources": [
+        "reports/audit/latest/release-report.md",
+        "docs/development-roadmap.md",
+        "docs/audits/phase-e-execution-plan.md",
+        "docs/api.md",
+        "docs/development-roadmap.md"
+      ],
+      "similarities": [
+        0.373327,
+        0.337313,
+        0.329016,
+        0.321343,
+        0.296322
+      ],
+      "runtime_ms": 17
+    }
+  ],
+  "api_validation": {
+    "chat_http_status": 200,
+    "chat_answer": "According to the Tourism model comparison, xgboost has the lowest RMSE (123264).",
+    "chat_sources": [
+      "reports/tourism/model_comparison.json"
+    ],
+    "unavailable_http_status": 200,
+    "unavailable_answer": "I could not find that information in the project.",
+    "unavailable_sources": [],
+    "search_http_status": 200,
+    "search_result_count": 5,
+    "document_http_status": 200,
+    "document_count": 43,
+    "chunk_count": 6460
+  }
+}

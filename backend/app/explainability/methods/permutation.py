@@ -1,5 +1,8 @@
+from collections.abc import Callable
+from typing import Any
+
 import numpy as np
-from typing import Any, Callable
+
 
 def calculate_permutation_importance(
     model_predict_fn: Callable[[Any], np.ndarray],
@@ -8,21 +11,21 @@ def calculate_permutation_importance(
     metric_fn: Callable[[np.ndarray, np.ndarray], float],
     feature_names: list[str],
     n_repeats: int = 5,
-    random_state: int = 42
+    random_state: int = 42,
 ) -> dict[str, Any]:
     """
     Time-series safe block permutation importance.
     For standard permutation, we shuffle the values of a feature, make predictions, and measure the drop in metric.
-    
+
     Returns:
         dict with "importances", "importances_mean", "importances_std", etc.
     """
     rng = np.random.default_rng(random_state)
     baseline_pred = model_predict_fn(X)
     baseline_score = metric_fn(y, baseline_pred)
-    
-    importances = []
-    
+
+    importances: list[dict[str, str | float]] = []
+
     for col_idx, feat_name in enumerate(feature_names):
         scores = []
         for _ in range(n_repeats):
@@ -37,17 +40,12 @@ def calculate_permutation_importance(
             # The caller must provide a metric_fn that aligns with this (e.g. negate RMSE).
             drop = baseline_score - score
             scores.append(drop)
-        
-        importances.append({
-            "feature": feat_name,
-            "mean_decrease": float(np.mean(scores)),
-            "std_decrease": float(np.std(scores))
-        })
-        
+
+        importances.append(
+            {"feature": feat_name, "mean_decrease": float(np.mean(scores)), "std_decrease": float(np.std(scores))}
+        )
+
     # Sort by mean decrease descending
-    importances = sorted(importances, key=lambda x: x["mean_decrease"], reverse=True)
-    
-    return {
-        "baseline_score": baseline_score,
-        "importances": importances
-    }
+    importances = sorted(importances, key=lambda item: float(item["mean_decrease"]), reverse=True)
+
+    return {"baseline_score": baseline_score, "importances": importances}

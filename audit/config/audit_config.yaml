@@ -1,0 +1,48 @@
+audit:
+  project_name: "CausalCast AI"
+  report_output_dir: "reports/audit"
+  profiles:
+    quick:
+      - repository_inventory
+      - static_secrets
+      - backend_lint
+      - frontend_lint
+      - type_checking
+      - fast_unit_tests
+    full:
+      - quick
+      - backend_full_tests
+      - frontend_full_tests
+      - playwright_e2e
+      - migrations
+      - production_build
+      - ai_pipeline_audit
+      - dependency_scan
+    security:
+      - static_secrets
+      - dependency_scan
+      - authentication
+      - authorization
+      - cors_headers
+    release:
+      - full
+      - final_release_gate
+
+  targets:
+    backend_src: "backend/app"
+    frontend_src: "frontend"
+    tests_src: "tests"
+    scripts_src: "scripts"
+    
+  commands:
+    backend_startup: "python -m uvicorn app.main:app --reload"
+    frontend_startup: "npm run dev"
+    db_migration: "alembic upgrade head"
+    backend_test: "python -m pytest"
+    frontend_test: "npm test"
+    e2e_test: "npx playwright test"
+    backend_lint: "python -m ruff check --no-cache ."
+    frontend_lint: "npm run lint"
+    backend_typecheck: "python -m mypy app"
+    frontend_typecheck: "npm run typecheck"
+    production_build: "npm run build"

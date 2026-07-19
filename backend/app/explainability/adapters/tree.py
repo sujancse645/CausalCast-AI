@@ -3,7 +3,6 @@ from typing import Any
 from app.explainability.adapters.base import BaseExplainerAdapter
 from app.explainability.core.engine import ExplainabilityEngine
 from app.explainability.core.registry import ExplanationMethodRegistry
-from app.models.forecasting import ForecastModelRun
 
 
 @ExplainabilityEngine.register_adapter("gradient_boosting")
@@ -21,7 +20,7 @@ class TreeExplainerAdapter(BaseExplainerAdapter):
                 ExplanationMethodRegistry.get_method("tree_shap_local"),
                 ExplanationMethodRegistry.get_method("native_importance"),
                 ExplanationMethodRegistry.get_method("permutation_importance"),
-            ]
+            ],
         }
 
     def explain_global(self, method: str, parameters: dict[str, Any]) -> dict[str, Any]:

@@ -10,7 +10,10 @@ export const metadata: Metadata = {
 
 export default function CompliancePage() {
   return (
-    <ModulePage title="Compliance & Governance" icon={<ShieldCheck className="text-emerald-400" />}>
+    <ModulePage
+      title="Compliance & Governance"
+      icon={<ShieldCheck className="text-emerald-400" />}
+    >
       <ComplianceDashboard />
     </ModulePage>
   );

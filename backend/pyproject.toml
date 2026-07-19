@@ -15,12 +15,15 @@ dependencies = [
   "joblib>=1.4,<2",
   "numpy>=1.26,<3",
   "pandas>=2.2,<3",
+  "pyarrow>=18,<23",
   "scikit-learn>=1.5,<2",
   "statsmodels>=0.14,<1",
   "catboost>=1.2.8,<2",
   "lightgbm>=4.6,<5",
   "optuna>=4.5,<5",
   "shap>=0.48,<1",
+  "sentence-transformers>=3.4,<6",
+  "faiss-cpu>=1.9,<2",
   "xgboost>=3.0,<4",
 ]
 
@@ -42,6 +45,7 @@ line-length = 120
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "UP", "B", "SIM"]
+ignore = ["B008", "E501"] # FastAPI Depends() defaults and formatter-compatible long strings/comments.
 
 [tool.mypy]
 python_version = "3.11"
@@ -50,7 +54,7 @@ plugins = ["pydantic.mypy"]
 exclude = ["alembic"]
 
 [[tool.mypy.overrides]]
-module = ["catboost", "joblib", "lightgbm", "neuralforecast", "neuralforecast.*", "optuna", "pandas", "shap", "sklearn", "sklearn.*", "statsmodels", "statsmodels.*", "xgboost", "yaml"]
+module = ["catboost", "faiss", "joblib", "jose", "jose.*", "lightgbm", "neuralforecast", "neuralforecast.*", "optuna", "pandas", "passlib", "passlib.*", "pythonjsonlogger", "pythonjsonlogger.*", "sentence_transformers", "sentence_transformers.*", "shap", "sklearn", "sklearn.*", "statsmodels", "statsmodels.*", "xgboost", "yaml"]
 ignore_missing_imports = true
 
 [tool.pytest.ini_options]

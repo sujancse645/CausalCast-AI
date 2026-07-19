@@ -1,13 +1,14 @@
+import os
 from functools import lru_cache
 from pathlib import Path
 from typing import Literal
 
 from pydantic import field_validator, model_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
-import os
 
 
 class Settings(BaseSettings):
+    project_root: Path = Path(__file__).resolve().parents[3]
     app_name: str = "CausalCast AI"
     app_version: str = "0.1.0"
     app_env: Literal["development", "test", "staging", "production"] = "development"
@@ -18,6 +19,21 @@ class Settings(BaseSettings):
     database_url: str = "sqlite:///./causalcast.db"
     cors_origins: list[str] = ["http://localhost:3000"]
     log_level: str = "INFO"
+    development_username: str | None = None
+    development_password: str | None = None
+    rag_project_root: Path = Path(__file__).resolve().parents[3]
+    model_root: Path = Path(__file__).resolve().parents[3] / "models"
+    data_root: Path = Path(__file__).resolve().parents[3] / "datasets"
+    reports_root: Path = Path(__file__).resolve().parents[3] / "reports"
+    rag_storage_root: Path = Path(__file__).resolve().parents[2] / "storage" / "vector_db"
+    rag_embedding_model: str = "sentence-transformers/all-MiniLM-L6-v2"
+    rag_chunk_size: int = 800
+    rag_chunk_overlap: int = 150
+    rag_top_k: int = 5
+    rag_minimum_similarity: float = 0.25
+    rag_embedding_batch_size: int = 32
+    rag_max_file_size_mb: int = 10
+    rag_max_csv_rows: int = 20000
     dataset_storage_root: Path = Path("../data/raw")
     dataset_upload_dir: str = "uploads"
     dataset_quarantine_dir: str = "quarantine"
@@ -75,7 +91,7 @@ class Settings(BaseSettings):
     preparation_max_lag: int = 90
     preparation_max_rolling_window: int = 90
     preparation_max_groups: int = 1000
-    preparation_allow_quality_override: bool = False
+    preparation_allow_quality_override: bool = True
     preparation_default_missing_period_policy: str = "preserve"
     preparation_default_duplicate_policy: str = "aggregate"
     preparation_random_seed: int = 42
@@ -169,7 +185,7 @@ class Settings(BaseSettings):
         env_file=(".env", f".env.{os.environ.get('APP_ENV', 'development')}"),
         extra="ignore",
         case_sensitive=False,
-        secrets_dir="/run/secrets" if os.path.exists("/run/secrets") else None
+        secrets_dir="/run/secrets" if os.path.exists("/run/secrets") else None,
     )
 
     @field_validator("cors_origins", "allowed_dataset_extensions", mode="before")

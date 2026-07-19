@@ -2,7 +2,13 @@
 
 import { useEffect, useState } from "react";
 import { getSystemInfo, getHealth } from "@/lib/api";
-import { Activity, Database, Server, Cpu, Clock, CheckCircle, AlertTriangle } from "lucide-react";
+import {
+  Activity,
+  Database,
+  Server,
+  CheckCircle,
+  AlertTriangle,
+} from "lucide-react";
 import type { SystemInfoResponse, HealthResponse } from "@/types/api";
 
 export function InfrastructureDashboard() {
@@ -15,7 +21,7 @@ export function InfrastructureDashboard() {
       try {
         const [sysData, healthData] = await Promise.all([
           getSystemInfo(),
-          getHealth()
+          getHealth(),
         ]);
         setSystem(sysData);
         setHealth(healthData);
@@ -31,7 +37,11 @@ export function InfrastructureDashboard() {
   }, []);
 
   if (loading && !system) {
-    return <div className="p-8 text-center text-slate-400">Loading infrastructure data...</div>;
+    return (
+      <div className="p-8 text-center text-slate-400">
+        Loading infrastructure data...
+      </div>
+    );
   }
 
   const isHealthy = health?.status === "healthy";
@@ -43,9 +53,15 @@ export function InfrastructureDashboard() {
         <div className="panel p-5">
           <div className="flex items-center justify-between">
             <h3 className="font-semibold text-slate-200">API Status</h3>
-            {isHealthy ? <CheckCircle className="text-emerald-400" size={20} /> : <AlertTriangle className="text-rose-400" size={20} />}
+            {isHealthy ? (
+              <CheckCircle className="text-emerald-400" size={20} />
+            ) : (
+              <AlertTriangle className="text-rose-400" size={20} />
+            )}
           </div>
-          <p className="mt-2 text-sm text-slate-400">{health?.status || "Unknown"}</p>
+          <p className="mt-2 text-sm text-slate-400">
+            {health?.status || "Unknown"}
+          </p>
           <div className="mt-4 text-xs text-slate-500">
             Version {system?.application.version || "N/A"}
           </div>
@@ -55,9 +71,18 @@ export function InfrastructureDashboard() {
         <div className="panel p-5">
           <div className="flex items-center justify-between">
             <h3 className="font-semibold text-slate-200">Database</h3>
-            <Database className={system?.database.status === "connected" ? "text-emerald-400" : "text-amber-400"} size={20} />
+            <Database
+              className={
+                system?.database.status === "connected"
+                  ? "text-emerald-400"
+                  : "text-amber-400"
+              }
+              size={20}
+            />
           </div>
-          <p className="mt-2 text-sm text-slate-400">{system?.database.type || "Unknown"}</p>
+          <p className="mt-2 text-sm text-slate-400">
+            {system?.database.type || "Unknown"}
+          </p>
           <div className="mt-4 text-xs text-slate-500">
             Status: {system?.database.status || "Unknown"}
           </div>
@@ -69,7 +94,9 @@ export function InfrastructureDashboard() {
             <h3 className="font-semibold text-slate-200">Environment</h3>
             <Server className="text-blue-400" size={20} />
           </div>
-          <p className="mt-2 text-sm text-slate-400 capitalize">{system?.application.environment || "Development"}</p>
+          <p className="mt-2 text-sm text-slate-400 capitalize">
+            {system?.application.environment || "Development"}
+          </p>
           <div className="mt-4 text-xs text-slate-500">
             {system?.application.name || "CausalCast AI"}
           </div>
@@ -81,7 +108,9 @@ export function InfrastructureDashboard() {
             <h3 className="font-semibold text-slate-200">Observability</h3>
             <Activity className="text-purple-400" size={20} />
           </div>
-          <p className="mt-2 text-sm text-slate-400">Metrics & Traces Enabled</p>
+          <p className="mt-2 text-sm text-slate-400">
+            Metrics & Traces Enabled
+          </p>
           <div className="mt-4 text-xs text-slate-500">
             Prometheus & OpenTelemetry
           </div>

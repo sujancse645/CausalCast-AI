@@ -310,9 +310,46 @@ export function PreparationWorkspace({ datasetId }: { datasetId: string }) {
           {config.target_column || "not selected"} · {config.lag_periods.length}{" "}
           lags · {config.rolling_windows.length} rolling windows
         </p>
+        {quality &&
+          quality.readiness_status !== "quality_ready" &&
+          quality.readiness_status !== "blocked" && (
+            <div className="mt-4 rounded border border-amber-500/20 bg-amber-500/10 p-4 text-sm text-amber-200">
+              <label className="flex cursor-pointer items-start gap-2">
+                <input
+                  type="checkbox"
+                  className="mt-1"
+                  checked={config.quality_override}
+                  onChange={(e) =>
+                    setConfig({ ...config, quality_override: e.target.checked })
+                  }
+                />
+                <span>Override conditional quality warnings.</span>
+              </label>
+              {config.quality_override && (
+                <input
+                  className="mt-2 w-full rounded border border-amber-700 bg-black/50 p-2 text-white"
+                  placeholder="Required: Reason for override"
+                  value={config.quality_override_reason || ""}
+                  onChange={(e) =>
+                    setConfig({
+                      ...config,
+                      quality_override_reason: e.target.value,
+                    })
+                  }
+                />
+              )}
+            </div>
+          )}
         <button
           disabled={
-            blocked || running || !config.target_column || !config.date_column
+            blocked ||
+            running ||
+            !config.target_column ||
+            !config.date_column ||
+            (quality &&
+              quality.readiness_status !== "quality_ready" &&
+              quality.readiness_status !== "blocked" &&
+              (!config.quality_override || !config.quality_override_reason))
           }
           onClick={() => void submit()}
           className="mt-4 rounded bg-blue-600 px-4 py-2 disabled:opacity-40"

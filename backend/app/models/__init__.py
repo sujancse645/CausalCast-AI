@@ -1,4 +1,15 @@
+from app.models.business_intelligence import (
+    BusinessRecommendation,
+    Dashboard,
+    DashboardWidget,
+    KPISnapshot,
+    KPITarget,
+    MetricDefinition,
+    ReportRun,
+    ReportTemplate,
+)
 from app.models.dataset import Dataset, DatasetStatus
+from app.models.explainability import DiagnosticReport, Explanation, Scenario
 from app.models.forecasting import (
     DeepForecastCheckpoint,
     DeepForecastReadinessSnapshot,
@@ -8,7 +19,6 @@ from app.models.forecasting import (
     ForecastPredictionArtifact,
     ForecastTuningTrial,
 )
-from app.models.explainability import DiagnosticReport, Explanation, Scenario
 from app.models.metadata import ApplicationMetadata
 from app.models.preparation import PreparationEvent, PreparedDataset, PreparedFeature
 from app.models.quality import DatasetQualityFinding, DatasetQualityReport
@@ -36,4 +46,12 @@ __all__ = [
     "Explanation",
     "Scenario",
     "DiagnosticReport",
+    "MetricDefinition",
+    "KPISnapshot",
+    "KPITarget",
+    "Dashboard",
+    "DashboardWidget",
+    "BusinessRecommendation",
+    "ReportTemplate",
+    "ReportRun",
 ]

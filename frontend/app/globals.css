@@ -45,6 +45,15 @@ button {
 .muted {
   color: var(--muted);
 }
+.control {
+  min-height: 44px;
+  width: 100%;
+  border: 1px solid #334155;
+  border-radius: 12px;
+  background: #0f172a;
+  padding: 0 12px;
+  color: #f8fafc;
+}
 .grid-auto {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));

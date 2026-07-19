@@ -5,7 +5,7 @@ ExplanationMethodRegistry.register(
     description="Native feature importance derived directly from the model (e.g. split/gain for trees, weights for linear models).",
     requires_background_data=False,
     is_global=True,
-    is_local=False
+    is_local=False,
 )(lambda *args, **kwargs: None)
 
 ExplanationMethodRegistry.register(
@@ -13,7 +13,7 @@ ExplanationMethodRegistry.register(
     description="SHAP summary across all features using TreeExplainer.",
     requires_background_data=True,
     is_global=True,
-    is_local=False
+    is_local=False,
 )(lambda *args, **kwargs: None)
 
 ExplanationMethodRegistry.register(
@@ -21,7 +21,7 @@ ExplanationMethodRegistry.register(
     description="SHAP feature attribution for a single prediction using TreeExplainer.",
     requires_background_data=True,
     is_global=False,
-    is_local=True
+    is_local=True,
 )(lambda *args, **kwargs: None)
 
 ExplanationMethodRegistry.register(
@@ -29,7 +29,7 @@ ExplanationMethodRegistry.register(
     description="Permutation feature importance calculated on a validation set.",
     requires_background_data=True,
     is_global=True,
-    is_local=False
+    is_local=False,
 )(lambda *args, **kwargs: None)
 
 ExplanationMethodRegistry.register(
@@ -37,7 +37,7 @@ ExplanationMethodRegistry.register(
     description="Standardized coefficients of a linear model.",
     requires_background_data=False,
     is_global=True,
-    is_local=False
+    is_local=False,
 )(lambda *args, **kwargs: None)
 
 ExplanationMethodRegistry.register(
@@ -45,7 +45,7 @@ ExplanationMethodRegistry.register(
     description="Partial Dependence Plot.",
     requires_background_data=True,
     is_global=True,
-    is_local=False
+    is_local=False,
 )(lambda *args, **kwargs: None)
 
 ExplanationMethodRegistry.register(
@@ -53,7 +53,7 @@ ExplanationMethodRegistry.register(
     description="Accumulated Local Effects.",
     requires_background_data=True,
     is_global=True,
-    is_local=False
+    is_local=False,
 )(lambda *args, **kwargs: None)
 
 ExplanationMethodRegistry.register(
@@ -61,7 +61,7 @@ ExplanationMethodRegistry.register(
     description="Importance of lag variables estimated via occlusion/perturbation.",
     requires_background_data=True,
     is_global=True,
-    is_local=False
+    is_local=False,
 )(lambda *args, **kwargs: None)
 
 ExplanationMethodRegistry.register(
@@ -69,7 +69,7 @@ ExplanationMethodRegistry.register(
     description="TFT native variable selection weights.",
     requires_background_data=False,
     is_global=True,
-    is_local=False
+    is_local=False,
 )(lambda *args, **kwargs: None)
 
 ExplanationMethodRegistry.register(
@@ -77,5 +77,5 @@ ExplanationMethodRegistry.register(
     description="TFT native temporal attention weights.",
     requires_background_data=False,
     is_global=False,
-    is_local=True
+    is_local=True,
 )(lambda *args, **kwargs: None)

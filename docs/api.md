@@ -1,5 +1,32 @@
 # API Reference
 
+## Authentication
+
+Application routes below `/api/v1` require a bearer token. The local frontend obtains a development token from `POST /api/v1/auth/login/developer`; this route returns 404 in production. Production must use configured identity and must never embed a token in browser-visible environment variables.
+
+## Existing trained-model inference
+
+- `GET /api/v1/production-models` lists allowlisted model/data pairs and selected executed metrics.
+- `GET /api/v1/forecast-datasets` lists availability, targets, frequencies, and default horizons.
+- `GET /api/v1/forecast-datasets/{dataset}/metadata` returns required features, series examples, model checksum, and held-out metric evidence without filesystem paths.
+- `POST /api/v1/forecast` accepts `dataset`, optional `horizon` (1–365), and optional `series`.
+- `GET /api/v1/reports/{dataset}` returns the selected comparison record.
+
+Forecast responses contain timestamps, predictions, available actuals, model type/checksum, target/frequency, rows used, metrics, runtime, and `prediction_kind: held_out_test`. Models are cached after checksum-verified, allowlisted disk loading. The API does not retrain models or claim future guarantees.
+
+```json
+{ "dataset": "tourism", "horizon": 5, "series": "T1" }
+```
+
+## Project RAG
+
+- `POST /api/v1/chat` returns a grounded JSON answer or SSE stream with citations.
+- `POST /api/v1/search` returns filtered semantic hits.
+- `GET /api/v1/documents` returns the current index inventory.
+- `POST /api/v1/reindex` requires administrator or data-scientist role.
+
+When evidence is unavailable, chat returns `I could not find that information in the project.` with an empty source list.
+
 ## Baseline forecasting
 
 - `POST /api/v1/preparations/{id}/forecast-experiments` validates lineage and executes configured baselines.
@@ -30,7 +57,13 @@ Base URL for local development: `http://localhost:8000`. All timestamps use ISO 
 ## `GET /`
 
 ```json
-{"name":"CausalCast AI API","message":"CausalCast AI backend is running","version":"0.1.0","docs":"/docs","health":"/health"}
+{
+  "name": "CausalCast AI API",
+  "message": "CausalCast AI backend is running",
+  "version": "0.1.0",
+  "docs": "/docs",
+  "health": "/health"
+}
 ```
 
 ## `GET /health`
@@ -38,17 +71,34 @@ Base URL for local development: `http://localhost:8000`. All timestamps use ISO 
 Returns HTTP 200 while the database is reachable and HTTP 503 with `status: degraded` otherwise.
 
 ```json
-{"status":"healthy","service":"causalcast-backend","version":"0.1.0","environment":"development","timestamp":"2026-07-15T12:00:00Z"}
+{
+  "status": "healthy",
+  "service": "causalcast-backend",
+  "version": "0.1.0",
+  "environment": "development",
+  "timestamp": "2026-07-15T12:00:00Z"
+}
 ```
 
 ## `GET /api/v1/system/info`
 
 ```json
 {
-  "application":{"name":"CausalCast AI","version":"0.1.0","environment":"development"},
-  "backend":{"framework":"FastAPI","status":"operational"},
-  "database":{"type":"SQLite","status":"connected"},
-  "modules":{"data_intelligence":"planned","forecasting":"planned","causal_intelligence":"planned","simulation":"planned","optimization":"planned","rag_copilot":"planned"}
+  "application": {
+    "name": "CausalCast AI",
+    "version": "0.1.0",
+    "environment": "development"
+  },
+  "backend": { "framework": "FastAPI", "status": "operational" },
+  "database": { "type": "SQLite", "status": "connected" },
+  "modules": {
+    "data_intelligence": "planned",
+    "forecasting": "planned",
+    "causal_intelligence": "planned",
+    "simulation": "planned",
+    "optimization": "planned",
+    "rag_copilot": "planned"
+  }
 }
 ```
 

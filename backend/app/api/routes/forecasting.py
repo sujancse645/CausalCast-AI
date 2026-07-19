@@ -64,6 +64,9 @@ def _safe(call: Callable[[], T]) -> T:
     except ForecastChecksumMismatchError as exc:
         raise HTTPException(409, detail=str(exc)) from exc
     except (PreparedDatasetNotReadyForForecastingError, InsufficientForecastHistoryError) as exc:
+        import logging
+
+        logging.getLogger("app").exception(exc)
         raise HTTPException(409, detail=str(exc)) from exc
     except ForecastConfigurationError as exc:
         raise HTTPException(422, detail=str(exc)) from exc

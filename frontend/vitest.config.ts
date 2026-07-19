@@ -10,5 +10,6 @@ export default defineConfig({
     globals: true,
     pool: "threads",
     maxWorkers: 1,
+    exclude: ["e2e/**", "node_modules/**", ".next/**"],
   },
 });

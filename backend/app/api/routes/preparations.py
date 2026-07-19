@@ -39,6 +39,9 @@ def _safe(call: Callable[[], T]) -> T:
     try:
         return call()
     except PreparationError as exc:
+        import logging
+
+        logging.getLogger("app").exception(exc)
         message = str(exc)
         raise HTTPException(status_code=404 if "not found" in message else 409, detail=message) from exc
 

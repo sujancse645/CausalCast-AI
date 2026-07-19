@@ -12,6 +12,8 @@ import {
   Server,
   ShieldCheck,
   SlidersHorizontal,
+  Briefcase,
+  Layers,
   Lightbulb,
   X,
 } from "lucide-react";
@@ -20,15 +22,18 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 
 const items = [
-  ["Dashboard", "/dashboard", Gauge],
+  ["Executive Analytics", "/analytics/executive", Briefcase],
+  ["Operations", "/analytics/operations", Layers],
   ["Data Intelligence", "/data-intelligence", Database],
   ["Baseline Forecasting", "/forecasting", BarChart3],
+  ["Production Forecasts", "/forecasts", Gauge],
   ["Deep Training", "/deep-training", BrainCircuit],
   ["Explainable AI", "/explainability", Lightbulb],
   ["Causal Intelligence", "/causal-intelligence", Network],
   ["Scenario Lab", "/scenario-lab", Activity],
   ["Budget Optimizer", "/budget-optimizer", SlidersHorizontal],
-  ["AI Growth Copilot", "/copilot", Bot],
+  ["AI Assistant", "/copilot", Bot],
+  ["Model Trust Center", "/trust-center", Gauge],
   ["Infrastructure", "/infrastructure", Server],
   ["Compliance", "/compliance", ShieldCheck],
 ] as const;
@@ -110,7 +115,7 @@ function Brand() {
 function PhaseBadge() {
   return (
     <div className="absolute right-5 bottom-6 left-5 rounded-xl border border-violet-500/25 bg-violet-500/10 p-3 text-xs text-violet-200">
-      Phase 5A · Explainable AI
+      Phase 5B · Business Intelligence
     </div>
   );
 }

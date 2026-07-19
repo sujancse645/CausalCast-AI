@@ -1,7 +1,6 @@
 from abc import ABC, abstractmethod
 from typing import Any
 
-from app.models.explainability import Explanation
 from app.models.forecasting import ForecastModelRun
 
 
@@ -9,6 +8,7 @@ class BaseExplainerAdapter(ABC):
     """
     Base class for model-specific explainers.
     """
+
     def __init__(self, model_run: ForecastModelRun):
         self.model_run = model_run
 

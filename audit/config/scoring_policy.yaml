@@ -1,0 +1,40 @@
+categories:
+  Repository Health:
+    weight: 5
+    critical_checks: ["static_secrets"]
+  Architecture:
+    weight: 10
+  Backend:
+    weight: 15
+    critical_checks: ["backend_lint", "backend_typecheck"]
+  Frontend:
+    weight: 15
+    critical_checks: ["production_build"]
+  Database:
+    weight: 10
+    critical_checks: ["migrations"]
+  Security:
+    weight: 20
+    critical_checks: ["authentication", "tenant_isolation"]
+  Testing:
+    weight: 15
+    critical_checks: ["playwright_e2e"]
+  AI Pipeline:
+    weight: 10
+
+release_gates:
+  READY:
+    min_overall_score: 90
+    required_passed:
+      - production_build
+      - playwright_e2e
+      - migrations
+      - backend_startup
+    no_critical_defects: true
+  CONDITIONALLY_READY:
+    min_overall_score: 75
+    required_passed:
+      - playwright_e2e
+    no_critical_defects: true
+  NOT_READY:
+    min_overall_score: 0

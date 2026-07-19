@@ -21,6 +21,3 @@ resources:
   - monitoring/prometheus.yaml
   - monitoring/grafana.yaml
   - otel/otel-collector.yaml
-  - monitoring/prometheus.yaml
-  - monitoring/grafana.yaml
-  - otel/otel-collector.yaml

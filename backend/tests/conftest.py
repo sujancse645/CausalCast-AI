@@ -21,6 +21,7 @@ import pytest  # noqa: E402
 from fastapi.testclient import TestClient  # noqa: E402
 
 from app.core.database import engine  # noqa: E402
+from app.core.security import create_access_token  # noqa: E402
 from app.main import app  # noqa: E402
 from app.models.base import Base  # noqa: E402
 
@@ -35,6 +36,7 @@ def pytest_sessionfinish() -> None:
 @pytest.fixture
 def client() -> TestClient:
     with TestClient(app) as test_client:
+        test_client.headers["Authorization"] = f"Bearer {create_access_token('test-user')}"
         yield test_client
 
 

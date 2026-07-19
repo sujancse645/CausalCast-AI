@@ -1,71 +1,49 @@
-import { Bot, Check, Clock3, TrendingUp } from "lucide-react";
-import { channels, kpis, phases } from "@/lib/demo-data";
+import { Bot, BarChart3, AlertCircle } from "lucide-react";
 import { ForecastChart } from "./forecast-chart";
 import { SystemReadiness } from "./system-readiness";
 import { DatasetSummary } from "./dataset-summary";
 import { ForecastingSummary } from "./forecasting-summary";
+
 export function Dashboard() {
   return (
     <div className="space-y-6">
       <div className="rounded-xl border border-cyan-500/20 bg-cyan-500/5 px-4 py-3 text-sm text-cyan-100">
-        Demo KPI cards remain illustrative. Forecasting registry statistics
-        below are live API results.
+        Demo placeholders have been removed as per integration audit.
+        Forecasting registry statistics below are live API results.
       </div>
-      <section className="grid-auto">
-        {kpis.map((k, i) => (
-          <article key={k.label} className="panel p-5">
+
+      <section className="grid grid-cols-1 gap-6 md:grid-cols-4">
+        {[1, 2, 3, 4].map((k) => (
+          <article key={k} className="panel p-5 opacity-50">
             <div className="flex justify-between">
-              <p className="muted text-sm">{k.label}</p>
-              <TrendingUp
-                size={17}
-                className={i === 3 ? "text-violet-400" : "text-blue-400"}
-              />
+              <p className="muted flex items-center gap-2 text-sm">
+                <BarChart3 size={14} /> Placeholder Metric
+              </p>
             </div>
-            <p className="mt-4 text-2xl font-semibold">{k.value}</p>
-            <p className="muted mt-1 text-xs">{k.detail}</p>
+            <p className="mt-4 text-2xl font-semibold">-</p>
+            <p className="muted mt-1 text-xs">Awaiting live data integration</p>
           </article>
         ))}
       </section>
+
       <DatasetSummary />
       <ForecastingSummary />
+
       <div className="grid gap-6 xl:grid-cols-[1.7fr_1fr]">
         <ForecastChart />
         <SystemReadiness />
       </div>
+
       <section className="panel overflow-hidden">
-        <div className="border-b border-slate-800 p-5">
-          <h3 className="font-semibold">Channel performance</h3>
-          <p className="muted text-xs">Demo interface values only</p>
+        <div className="flex items-center gap-2 border-b border-slate-800 p-5 text-amber-400">
+          <AlertCircle size={18} />
+          <h3 className="font-semibold text-white">Channel performance</h3>
         </div>
-        <div className="overflow-x-auto">
-          <table className="w-full min-w-[600px] text-left text-sm">
-            <thead className="text-xs text-slate-500">
-              <tr>
-                {["Channel", "Spend", "Revenue", "ROAS", "Status"].map((x) => (
-                  <th key={x} className="px-5 py-3 font-medium">
-                    {x}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {channels.map((c) => (
-                <tr key={c.name} className="border-t border-slate-800">
-                  <td className="px-5 py-4 font-medium">{c.name}</td>
-                  <td className="px-5 text-slate-400">{c.spend}</td>
-                  <td className="px-5">{c.revenue}</td>
-                  <td className="px-5">{c.roas}</td>
-                  <td className="px-5">
-                    <span className="rounded-full bg-blue-500/10 px-2 py-1 text-xs text-blue-300">
-                      {c.status}
-                    </span>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+        <div className="p-8 text-center text-slate-500">
+          No active performance data available. Connect an integration source.
         </div>
       </section>
+
       <div className="grid gap-6 lg:grid-cols-2">
         <section className="panel p-6">
           <Bot className="text-violet-400" />
@@ -77,22 +55,9 @@ export function Dashboard() {
         </section>
         <section className="panel p-6">
           <h3 className="font-semibold">Architecture progress</h3>
-          <div className="mt-4 grid gap-3 sm:grid-cols-2">
-            {phases.map((p, i) => (
-              <div key={p} className="flex items-center gap-3 text-sm">
-                {i === 0 ? (
-                  <Check size={16} className="text-emerald-400" />
-                ) : (
-                  <Clock3 size={16} className="text-slate-600" />
-                )}
-                <span>
-                  <span className="text-slate-500">Phase {i + 1}</span> — {p}
-                  <small className="block text-slate-600">
-                    {i === 0 ? "Complete" : "Pending"}
-                  </small>
-                </span>
-              </div>
-            ))}
+          <div className="mt-4 text-sm text-slate-500">
+            System architecture tracking has been migrated to compliance &
+            governance reporting.
           </div>
         </section>
       </div>

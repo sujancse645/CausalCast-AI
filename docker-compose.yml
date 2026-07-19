@@ -2,10 +2,13 @@ services:
   backend:
     build: ./backend
     environment:
-      APP_ENV: production
-      DEBUG: "false"
+      APP_ENV: ${APP_ENV:-development}
+      DEBUG: ${DEBUG:-false}
       DATABASE_URL: sqlite:////data/causalcast.db
-      CORS_ORIGINS: http://localhost:3000
+      CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost:3000}
+      PROJECT_ROOT: /project-assets
+      RAG_PROJECT_ROOT: /project-assets
+      RAG_STORAGE_ROOT: /data/vector_db
       DATASET_STORAGE_ROOT: /data/raw
       PREPARATION_STORAGE_ROOT: /data/processed
       FORECAST_ARTIFACT_ROOT: /data/artifacts
@@ -13,6 +16,12 @@ services:
       DEEP_FORECASTING_ACCELERATOR: cpu
     volumes:
       - backend-data:/data
+      - ./README.md:/project-assets/README.md:ro
+      - ./docs:/project-assets/docs:ro
+      - ./reports:/project-assets/reports:ro
+      - ./models:/project-assets/models:ro
+      - ./artifacts:/project-assets/artifacts:ro
+      - ./datasets:/project-assets/datasets:ro
     ports:
       - "8000:8000"
     healthcheck:
@@ -24,7 +33,7 @@ services:
     build:
       context: ./frontend
       args:
-        NEXT_PUBLIC_API_BASE_URL: http://localhost:8000
+        NEXT_PUBLIC_API_BASE_URL: ${NEXT_PUBLIC_API_BASE_URL:-http://localhost:8000}
     ports:
       - "3000:3000"
     depends_on:

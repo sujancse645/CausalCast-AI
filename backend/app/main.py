@@ -12,8 +12,8 @@ from app.core.database import database_is_connected, engine
 from app.core.exceptions import register_exception_handlers
 from app.core.logging import configure_logging
 from app.core.middleware import CorrelationIdMiddleware
-from app.core.security_middleware import SecureHeadersMiddleware
 from app.core.observability import setup_observability
+from app.core.security_middleware import SecureHeadersMiddleware
 from app.schemas.common import RootResponse
 
 settings = get_settings()
@@ -25,13 +25,13 @@ logger = logging.getLogger(__name__)
 async def lifespan(_: FastAPI) -> AsyncIterator[None]:
     db_ok = database_is_connected()
     logger.info("Starting %s v%s (database=%s)", settings.app_name, settings.app_version, db_ok)
-    
+
     if not db_ok and settings.app_env == "production":
         logger.error("Startup validation failed: Database connection could not be established in production.")
         raise RuntimeError("Startup validation failed: Database connection could not be established")
-        
+
     yield
-    
+
     logger.info("Stopping %s. Initiating graceful shutdown...", settings.app_name)
     engine.dispose()
     logger.info("Database connections closed.")
@@ -48,8 +48,8 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=settings.cors_origins,
     allow_credentials=True,
-    allow_methods=["GET", "OPTIONS"],
-    allow_headers=["Accept", "Content-Type"],
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 app.add_middleware(CorrelationIdMiddleware)
 app.add_middleware(SecureHeadersMiddleware)

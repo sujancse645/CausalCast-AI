@@ -3,7 +3,6 @@ from typing import Any
 from app.explainability.adapters.base import BaseExplainerAdapter
 from app.explainability.core.engine import ExplainabilityEngine
 from app.explainability.core.registry import ExplanationMethodRegistry
-from app.models.forecasting import ForecastModelRun
 
 
 @ExplainabilityEngine.register_adapter("classical")
@@ -20,7 +19,7 @@ class ClassicalExplainerAdapter(BaseExplainerAdapter):
                 ExplanationMethodRegistry.get_method("linear_coefficients"),
                 ExplanationMethodRegistry.get_method("permutation_importance"),
                 ExplanationMethodRegistry.get_method("pdp"),
-            ]
+            ],
         }
 
     def explain_global(self, method: str, parameters: dict[str, Any]) -> dict[str, Any]:

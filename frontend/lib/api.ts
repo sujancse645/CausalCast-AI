@@ -63,6 +63,19 @@ import type {
   DeepTrainingList,
   NHiTSTrainingRequest,
 } from "@/types/deep-training";
+import type {
+  RagChatRequest,
+  RagDocumentListResponse,
+  RagSearchRequest,
+  RagSearchResponse,
+  RagStreamEvent,
+} from "@/types/rag";
+import type {
+  ProductionDatasetMetadata,
+  ProductionDatasetSummary,
+  ProductionForecastRequest,
+  ProductionForecastResponse,
+} from "@/types/production-forecast";
 
 export class ApiError extends Error {
   constructor(
@@ -74,6 +87,32 @@ export class ApiError extends Error {
   }
 }
 
+let authToken: string | null = null;
+let tokenPromise: Promise<string | null> | null = null;
+
+async function getAuthToken(): Promise<string | null> {
+  if (authToken) return authToken;
+  if (tokenPromise) return tokenPromise;
+
+  tokenPromise = Promise.resolve()
+    .then(() =>
+      fetch(`${API_BASE_URL}/api/v1/auth/login/developer`, {
+        method: "POST",
+      }),
+    )
+    .then(async (res) => {
+      if (res.ok) {
+        const data = await res.json();
+        authToken = data.access_token;
+        return authToken;
+      }
+      return null;
+    })
+    .catch(() => null);
+
+  return tokenPromise;
+}
+
 async function request<T>(
   path: string,
   options: RequestInit = {},
@@ -82,8 +121,15 @@ async function request<T>(
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), timeoutMs);
   try {
+    const headers = new Headers(options.headers);
+    const token = await getAuthToken();
+    if (token) {
+      headers.set("Authorization", `Bearer ${token}`);
+    }
+
     const response = await fetch(`${API_BASE_URL}${path}`, {
       ...options,
+      headers,
       signal: controller.signal,
     });
     if (!response.ok) {
@@ -393,3 +439,108 @@ export const getForecastArtifactDownloadUrl = (
   artifactType: string,
 ) =>
   `${API_BASE_URL}/api/v1/forecast-model-runs/${encodeURIComponent(runId)}/download?artifact_type=${encodeURIComponent(artifactType)}`;
+
+export const listProductionForecastDatasets = () =>
+  request<ProductionDatasetSummary[]>("/api/v1/forecast-datasets");
+
+export const getProductionForecastDataset = (dataset: string) =>
+  request<ProductionDatasetMetadata>(
+    `/api/v1/forecast-datasets/${encodeURIComponent(dataset)}/metadata`,
+  );
+
+export const createProductionForecast = (payload: ProductionForecastRequest) =>
+  request<ProductionForecastResponse>(
+    "/api/v1/forecast",
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    },
+    120000,
+  );
+
+export interface DashboardResponse {
+  id: string;
+  name: string;
+  dashboard_type: string;
+  description?: string;
+  status: string;
+  widgets: DashboardWidgetResponse[];
+}
+export interface DashboardWidgetResponse {
+  id: string;
+  title: string;
+  widget_type: string;
+  metric_id?: string | null;
+  data_source?: string | null;
+  configuration: Record<string, unknown>;
+  filters: Record<string, unknown>;
+  layout: Record<string, unknown>;
+}
+export async function getDashboards(): Promise<DashboardResponse[]> {
+  return request<DashboardResponse[]>("/api/v1/analytics/dashboards");
+}
+
+export interface ExplainabilitySummary {
+  global_explanations_count: number;
+  local_shap_runs: number;
+  detected_anomalies: number;
+  active_scenarios: number;
+}
+export async function getExplainabilitySummary(): Promise<ExplainabilitySummary> {
+  return request<ExplainabilitySummary>("/api/v1/explainability/summary");
+}
+
+export const searchProjectDocuments = (payload: RagSearchRequest) =>
+  request<RagSearchResponse>("/api/v1/search", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload),
+  });
+
+export const listProjectDocuments = () =>
+  request<RagDocumentListResponse>("/api/v1/documents");
+
+export async function streamRagChat(
+  payload: RagChatRequest,
+  onEvent: (event: RagStreamEvent) => void,
+): Promise<void> {
+  const headers = new Headers({
+    Accept: "text/event-stream",
+    "Content-Type": "application/json",
+  });
+  const token = await getAuthToken();
+  if (token) headers.set("Authorization", `Bearer ${token}`);
+
+  const response = await fetch(`${API_BASE_URL}/api/v1/chat`, {
+    method: "POST",
+    headers,
+    body: JSON.stringify({ ...payload, stream: true }),
+  });
+  if (!response.ok) {
+    const body = (await response.json().catch(() => ({
+      detail: `API returned ${response.status}`,
+    }))) as DatasetApiErrorBody;
+    throw new ApiError(body.detail, response.status, body);
+  }
+  if (!response.body) throw new ApiError("The response stream is unavailable");
+
+  const reader = response.body.getReader();
+  const decoder = new TextDecoder();
+  let buffer = "";
+  while (true) {
+    const { done, value } = await reader.read();
+    buffer += decoder.decode(value, { stream: !done });
+    const events = buffer.split("\n\n");
+    buffer = events.pop() ?? "";
+    for (const event of events) {
+      const data = event
+        .split("\n")
+        .find((line) => line.startsWith("data:"))
+        ?.slice(5)
+        .trim();
+      if (data) onEvent(JSON.parse(data) as RagStreamEvent);
+    }
+    if (done) break;
+  }
+}

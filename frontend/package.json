@@ -23,6 +23,7 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "latest",
+    "@playwright/test": "^1.61.1",
     "@testing-library/jest-dom": "latest",
     "@testing-library/react": "latest",
     "@testing-library/user-event": "latest",
