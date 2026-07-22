@@ -23,7 +23,7 @@
       247513.57373046875,
       7146120.427246094
     ],
-    "runtime_ms": 3852,
+    "runtime_ms": 20320,
     "model_loaded_from_disk": true,
     "api_validation_pending": false,
     "metrics": {
@@ -42,7 +42,7 @@
       8996482.612304688,
       10068999.745117188
     ],
-    "api_runtime_ms": 2597
+    "api_runtime_ms": 2946
   },
   {
     "dataset": "electricity",
@@ -68,7 +68,7 @@
       469805.336924699,
       484766.28929625254
     ],
-    "runtime_ms": 3105,
+    "runtime_ms": 4897,
     "model_loaded_from_disk": true,
     "api_validation_pending": false,
     "metrics": {
@@ -86,7 +86,7 @@
       569879.7221697393,
       487847.3448201806
     ],
-    "api_runtime_ms": 1986
+    "api_runtime_ms": 2909
   },
   {
     "dataset": "m4_daily",
@@ -112,7 +112,7 @@
       2051.3514292346827,
       2051.1581141591028
     ],
-    "runtime_ms": 118,
+    "runtime_ms": 1301,
     "model_loaded_from_disk": true,
     "api_validation_pending": false,
     "metrics": {
@@ -133,7 +133,7 @@
       2052.1354643740237,
       2095.244350861339
     ],
-    "api_runtime_ms": 63
+    "api_runtime_ms": 59
   },
   {
     "dataset": "online_retail",
@@ -159,7 +159,7 @@
       34347.5078125,
       39970.1953125
     ],
-    "runtime_ms": 29,
+    "runtime_ms": 124,
     "model_loaded_from_disk": true,
     "api_validation_pending": false,
     "metrics": {
@@ -181,7 +181,7 @@
       40116.94140625,
       32519.0
     ],
-    "api_runtime_ms": 23
+    "api_runtime_ms": 24
   },
   {
     "dataset": "tourism",
@@ -207,7 +207,7 @@
       17382.84375,
       8628.4296875
     ],
-    "runtime_ms": 33,
+    "runtime_ms": 74,
     "model_loaded_from_disk": true,
     "api_validation_pending": false,
     "metrics": {
@@ -229,6 +229,6 @@
       9671.474609375,
       18378.2421875
     ],
-    "api_runtime_ms": 27
+    "api_runtime_ms": 28
   }
 ]

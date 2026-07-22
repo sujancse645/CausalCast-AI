@@ -1,15 +1,15 @@
 {
-  "generated_at": "2026-07-19T12:26:58.002166+00:00",
-  "discovered_document_count": 55,
+  "generated_at": "2026-07-22T14:01:00.316492+00:00",
+  "discovered_document_count": 57,
   "indexed_document_count": 43,
-  "skipped_document_count": 12,
+  "skipped_document_count": 14,
   "chunk_count": 6460,
   "embedding_dimension": 384,
-  "embedded_chunks": 5,
-  "reused_chunks": 6455,
+  "embedded_chunks": 11,
+  "reused_chunks": 6449,
   "index_path": "backend/storage/vector_db/index.faiss",
   "metadata_path": "backend/storage/vector_db/metadata.pkl",
-  "indexing_runtime_ms": 9915,
+  "indexing_runtime_ms": 23463,
   "generation_provider": "deterministic_grounded_fallback",
   "flan_t5_runtime_status": "not_integrated",
   "questions": [
@@ -33,7 +33,7 @@
         0.354338,
         0.35405
       ],
-      "runtime_ms": 137
+      "runtime_ms": 152
     },
     {
       "question": "What are the Electricity forecasting metrics?",
@@ -52,10 +52,10 @@
         0.53392,
         0.521889,
         0.468019,
-        0.440786,
-        0.403987
+        0.440279,
+        0.415158
       ],
-      "runtime_ms": 25
+      "runtime_ms": 20
     },
     {
       "question": "Which datasets are supported?",
@@ -71,13 +71,13 @@
         "reports/integration/real_forecast_validation.json"
       ],
       "similarities": [
-        0.613521,
-        0.612397,
-        0.578617,
+        0.611668,
+        0.611353,
+        0.578098,
         0.576285,
         0.575429
       ],
-      "runtime_ms": 25
+      "runtime_ms": 22
     },
     {
       "question": "How does the forecasting API work?",
@@ -99,7 +99,7 @@
         0.540921,
         0.540894
       ],
-      "runtime_ms": 20
+      "runtime_ms": 21
     },
     {
       "question": "What is the architecture of the RAG system?",
@@ -122,7 +122,7 @@
         0.344603,
         0.32823
       ],
-      "runtime_ms": 18
+      "runtime_ms": 19
     },
     {
       "question": "What is the private launch code for the CausalCast Mars mission?",
@@ -142,7 +142,7 @@
         0.321343,
         0.296322
       ],
-      "runtime_ms": 17
+      "runtime_ms": 23
     }
   ],
   "api_validation": {
